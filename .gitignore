@@ -41,3 +41,4 @@ build/
 /kitchen-service/src/test/
 /order-service/src/test/
 /.idea/
+/notification-service/src/test/
