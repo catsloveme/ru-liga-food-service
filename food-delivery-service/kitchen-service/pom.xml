@@ -10,7 +10,7 @@
         <relativePath>../dependency_bom/pom.xml</relativePath>
     </parent>
 
-    <artifactId>delivery-service</artifactId>
+    <artifactId>kitchen-service</artifactId>
 
     <dependencies>
         <dependency>
@@ -43,4 +43,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

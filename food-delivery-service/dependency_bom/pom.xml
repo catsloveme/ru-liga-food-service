@@ -7,11 +7,14 @@
         <groupId>ru.liga</groupId>
         <artifactId>food-delivery-service</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>dependency_bom</artifactId>
+    <packaging>pom</packaging>
 
     <properties>
+        <spring.version>2.7.15</spring.version>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -32,6 +35,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.yaml</groupId>
@@ -51,6 +55,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>

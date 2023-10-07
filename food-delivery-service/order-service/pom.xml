@@ -10,8 +10,7 @@
         <relativePath>../dependency_bom/pom.xml</relativePath>
     </parent>
 
-    <artifactId>delivery-service</artifactId>
-
+    <artifactId>order-service</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
