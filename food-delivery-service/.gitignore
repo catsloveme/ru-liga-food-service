@@ -37,5 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 /delivery-service/src/test/
-/.idea/
 /kitchen-service/src/test/
+/order-service/src/test/
+/.idea/
