@@ -6,7 +6,7 @@ import lombok.Data;
 public class RestaurantMenuItemDto {
     private Long id;
     private Integer price;
-    private int quantity;
+    private Integer quantity;
     private String description;
     private String imageName;
 
