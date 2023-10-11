@@ -19,7 +19,7 @@ public class OrderController {
     }
     @GetMapping("{id}")
     public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id){
-        //TODO
+        //TODO if (order == null) throw new OrderNotFoundException(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping

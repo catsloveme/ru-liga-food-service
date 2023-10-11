@@ -12,12 +12,14 @@ import java.util.List;
 public class DeliveryController {
     @GetMapping("/deliveries")
     public ResponseEntity<List<DeliveryResponse>> findOrdersByStatus(@RequestParam StatusOrder status) {
+        //TODO
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/delivery/{id}")
     public HttpStatus ChangeOrderStatusById(@PathVariable Long id,
                                             @RequestBody StatusOrder statusOrder){
+        //TODO if (delivery == null) throw new DeliveryNotFoundException(id);
         return HttpStatus.OK;
 
     }
