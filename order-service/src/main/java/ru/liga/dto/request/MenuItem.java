@@ -3,7 +3,7 @@ package ru.liga.dto.request;
 import lombok.Data;
 
 @Data
-public class MenuItems {
+public class MenuItem {
     private Integer quantity;
     private Long restaurantMenuItemId;
 }

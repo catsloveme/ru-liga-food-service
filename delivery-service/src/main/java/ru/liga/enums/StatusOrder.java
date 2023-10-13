@@ -1,15 +1,13 @@
 package ru.liga.enums;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum StatusOrder {
     ACCEPT("active"),
     COMPLETE("complete");
 
     private final String cmd;
-
-    StatusOrder(String cmd) {
-        this.cmd = cmd;
-    }
-
     @Override
     public String toString() {
         return this.cmd;

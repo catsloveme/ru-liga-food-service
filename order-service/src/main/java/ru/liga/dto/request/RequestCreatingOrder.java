@@ -7,6 +7,6 @@ import java.util.List;
 @Data
 public class RequestCreatingOrder {
     private Long restaurantId;
-    private List<MenuItems> menuItemsList;
+    private List<MenuItem> menuItems;
 
 }

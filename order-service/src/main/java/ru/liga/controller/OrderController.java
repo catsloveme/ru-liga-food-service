@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.request.RequestCreatingOrder;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
+import ru.liga.dto.response.PageResponse;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
     @GetMapping
-    public ResponseEntity<List<OrderResponse>> findAllOrders(){
+    public ResponseEntity<PageResponse> findAllOrders(){
         //TODO
         return new ResponseEntity<>(HttpStatus.OK);
     }
