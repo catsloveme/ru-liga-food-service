@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!-- локальный ченджлог  -->
+    <changeSet id="2023-10-18 00:30:00" author="Maria Volkova">
+        <sqlFile path="v03/alter_couriers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/alter_customers.sql" relativeToChangelogFile="true"/>
+
+        <sqlFile path="v03/add_default_couriers_id.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_default_customers_id.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_default_restaurants_id.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_default_orders_id.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_default_restaurant_menu_items_id.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_default_order_items_id.sql" relativeToChangelogFile="true"/>
+
+        <sqlFile path="v03/add_values_in_couriers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_values_in_customers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_values_in_restaurants.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_values_in_orders.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_values_in_restaurant_menu_items.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v03/add_values_in_order_items.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
