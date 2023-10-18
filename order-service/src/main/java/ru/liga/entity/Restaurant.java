@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "restaurants")
 @Data
-public class Restaurants {
+public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "restaurant_id")

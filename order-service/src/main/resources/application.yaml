@@ -14,4 +14,22 @@ springdoc:
   swagger-ui:
     path: /swagger-ui
 
-
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: 'true'
+      org:
+        hibernate:
+          envers:
+            revision_field_name: rev_id
+            revision_type_field_name: rev_type
+    show-sql: 'true'
+    datasource:
+      driver-class-name: org.h2.Driver
+      password: 'password'
+      url: jdbc:postgresql://localhost:49154/postgres
+      username: 'postgres'

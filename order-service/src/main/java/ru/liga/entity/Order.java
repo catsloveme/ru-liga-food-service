@@ -21,14 +21,17 @@ public class Order {
     @Column(name = "timestamp")
     private OffsetDateTime timestamp;
 
-    @Column(name = "customer_id")
-    private Long customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @Column(name = "restaurant_id")
-    private Long restaurant_id;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
-    @Column(name = "courier_id")
-    private Long courier_id;
+    @ManyToOne
+    @JoinColumn(name = "courier_id")
+    private Courier courier;
 
 
 }

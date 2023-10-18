@@ -14,8 +14,9 @@ public class RestaurantMenuItem {
     @Column(name = "restaurant_menu_item_id")
     private Long id;
 
-    @Column(name = "restaurant_id")
-    private Long restaurantId;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     @Column(name = "name")
     private String name;

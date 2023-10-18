@@ -23,11 +23,7 @@ public class Courier {
     @Column(name = "coordinates")
     private String coordinates;
 
-    @Column(name = "restaurant_id")
-    private Long restaurant_id;
 
-    @Column(name = "courier_id")
-    private Long courier_id;
 
 
 }
