@@ -5,7 +5,7 @@ create table if not exists order_items
     order_item_id bigint primary key default nextval('order_item_seq'),
     order_id bigint,
     restaurant_menu_item_id bigint,
-    price money not null,
+    price numeric not null,
     quantity int not null
     );
 

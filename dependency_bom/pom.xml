@@ -23,6 +23,8 @@
         <lombok.version>1.18.30</lombok.version>
         <swagger.version>1.6.11</swagger.version>
         <liquibase-core.version>4.11.0</liquibase-core.version>
+        <hibernate-types.version>2.4.3</hibernate-types.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -92,6 +94,11 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladmihalcea</groupId>
+                <artifactId>hibernate-types-52</artifactId>
+                <version>${hibernate-types.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
