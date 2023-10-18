@@ -12,6 +12,10 @@
         <sqlFile path="v01/create_table_orders.sql" relativeToChangelogFile="true"/>
         <sqlFile path="v01/create_table_restaurant_menu_items.sql" relativeToChangelogFile="true"/>
         <sqlFile path="v01/create_table_restaurants.sql" relativeToChangelogFile="true"/>
+
+        <sqlFile path="v01/add_fk_for_order_items.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v01/add_fk_for_orders.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="v01/add_fk_for_restaurant_menu_items.sql" relativeToChangelogFile="true"/>
         <rollback>
             <sqlFile path="v01/rollback/create_table_couriers_rollback.sql" relativeToChangelogFile="true"/>
             <sqlFile path="v01/rollback/create_table_customers_rollback.sql" relativeToChangelogFile="true"/>
@@ -19,6 +23,10 @@
             <sqlFile path="v01/rollback/create_table_orders_rollback.sql" relativeToChangelogFile="true"/>
             <sqlFile path="v01/rollback/create_table_restaurant_menu_items_rollback.sql" relativeToChangelogFile="true"/>
             <sqlFile path="v01/rollback/create_table_restaurants_rollback.sql" relativeToChangelogFile="true"/>
+
+            <sqlFile path="v01/rollback/add_fk_for_order_items_rollback_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="v01/rollback/add_fk_for_orders_rollback_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="v01/rollback/add_fk_for_restaurant_menu_items_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 

@@ -1,5 +1,7 @@
+create sequence if not exists order_seq;
+
 create table if not exists orders
-(   order_id bigserial primary key,
+(   order_id bigint primary key default nextval('order_seq'),
     status varchar(255) not null,
     courier_id bigint,
     restaurant_id bigint,
