@@ -1,8 +1,7 @@
 package ru.liga.entity;
 
 import lombok.Data;
-import ru.liga.enums.StatusOrder;
-
+import ru.liga.enums.StatusCourier;
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +14,7 @@ public class Courier {
     private Long id;
 
     @Column(name = "status")
-    private StatusOrder status;
+    private StatusCourier status;
 
     @Column(name = "phone")
     private String phone;

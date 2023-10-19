@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum StatusRestaurant {
-    ACCEPT("active"),
-    COMPLETE("complete");
-
+    KITCHEN_ACCEPTED("accepted"),
+    KITCHEN_DENIED("denied"),
+    KITCHEN_PREPARING("preparing"),
+    KITCHEN_REFUNDED("refunded");
     private final String cmd;
 
     @Override
