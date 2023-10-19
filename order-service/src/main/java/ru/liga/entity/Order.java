@@ -5,6 +5,7 @@ import ru.liga.enums.StatusOrder;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Orders")
@@ -32,6 +33,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "courier_id")
     private Courier courier;
+
+    @OneToMany
+    @JoinColumn(name = "restaurant_menu_item_id")
+    private List<RestaurantMenuItem> restaurantMenuItem;
 
 
 }

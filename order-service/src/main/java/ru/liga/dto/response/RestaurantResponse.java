@@ -1,9 +1,11 @@
 package ru.liga.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class RestaurantDto {
+@AllArgsConstructor
+public class RestaurantResponse {
     private Long id;
     private String name;
     private String address;

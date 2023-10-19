@@ -14,6 +14,9 @@ public class Restaurant {
     @Column(name = "restaurant_id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "address")
     private String address;
 
