@@ -14,6 +14,7 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusOrder status;
 
@@ -31,10 +32,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "courier_id")
     private Courier courier;
-
-//    @OneToMany
-//    @JoinColumn(name = "restaurant_menu_item_id")
-//    private List<RestaurantMenuItem> restaurantMenuItem;
 
 
 }

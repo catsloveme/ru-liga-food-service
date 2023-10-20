@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum StatusOrder {
-    CUSTOMER_CREATED("customer created"),
-    CUSTOMER_PAID("customer paid"),
-    CUSTOMER_CANCELLED("customer cancelled"),
+    CUSTOMER_CREATED("created"),
+    CUSTOMER_PAID("paid"),
+    CUSTOMER_CANCELLED("cancelled"),
     KITCHEN_ACCEPTED("kitchen accepted"),
     KITCHEN_DENIED("kitchen denied"),
     KITCHEN_PREPARING("kitchen preparing"),

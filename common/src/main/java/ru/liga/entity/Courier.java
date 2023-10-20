@@ -14,6 +14,7 @@ public class Courier {
     @Column(name = "courier_id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusCourier status;
 

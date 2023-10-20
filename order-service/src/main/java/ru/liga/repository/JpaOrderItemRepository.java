@@ -3,10 +3,11 @@ package ru.liga.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import ru.liga.entity.OrderItem;
 import java.math.BigDecimal;
 import java.util.List;
-
+@Repository
 public interface JpaOrderItemRepository extends JpaRepository<OrderItem,Long> {
     List<OrderItem> findAll();
     List<OrderItem> findByOrderId(Long id);

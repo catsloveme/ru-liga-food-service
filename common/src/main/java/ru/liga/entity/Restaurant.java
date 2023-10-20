@@ -1,7 +1,7 @@
 package ru.liga.entity;
 
 import lombok.Data;
-import ru.liga.enums.StatusCourier;
+import ru.liga.enums.StatusRestaurant;
 import javax.persistence.*;
 @Entity
 @Table(name = "restaurants")
@@ -18,8 +18,9 @@ public class Restaurant {
     @Column(name = "address")
     private String address;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StatusCourier status;
+    private StatusRestaurant status;
 
 
 }

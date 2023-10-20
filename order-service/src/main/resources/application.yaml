@@ -17,7 +17,7 @@ springdoc:
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
@@ -28,8 +28,9 @@ spring:
             revision_field_name: rev_id
             revision_type_field_name: rev_type
     show-sql: 'true'
-    datasource:
-      driver-class-name: org.h2.Driver
-      password: 'password'
-      url: jdbc:postgresql://localhost:49154/postgres
-      username: 'postgres'
+  datasource:
+#    driver-class-name: org.postgresql.Driver
+    driver: org.postgresql.Driver
+    password: 'password'
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: 'postgres'
