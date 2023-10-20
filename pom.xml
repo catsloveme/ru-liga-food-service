@@ -21,6 +21,7 @@
         <module>restaurant-service</module>
         <module>notification-service</module>
         <module>migration</module>
+        <module>common</module>
     </modules>
 
     <properties>

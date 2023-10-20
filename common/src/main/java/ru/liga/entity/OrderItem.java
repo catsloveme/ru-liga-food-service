@@ -16,10 +16,11 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order orderId;
+    private Order order;
 
-    @Column(name = "restaurant_menu_item_id")
-    private Long restaurantMenuItemId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_menu_item_id")
+    private RestaurantMenuItem restaurantMenuItem;
 
     @Column(name = "price")
     private BigDecimal price;

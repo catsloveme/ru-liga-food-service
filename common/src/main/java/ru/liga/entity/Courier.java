@@ -2,6 +2,7 @@ package ru.liga.entity;
 
 import lombok.Data;
 import ru.liga.enums.StatusCourier;
+
 import javax.persistence.*;
 
 @Entity

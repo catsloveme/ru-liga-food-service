@@ -2,8 +2,8 @@ package ru.liga.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
 
+import javax.persistence.*;
 @Entity
 @Table(name = "customers")
 @Data

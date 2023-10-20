@@ -9,9 +9,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class RestaurantMenuItemResponse {
     private Long id;
-    private BigDecimal price;
-//    private Integer quantity;
+    private String name;
     private String description;
     private String imageUrl;
+    private BigDecimal price;
+    private Integer quantity;
+
 
 }

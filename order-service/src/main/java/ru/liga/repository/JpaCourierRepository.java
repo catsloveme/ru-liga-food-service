@@ -6,11 +6,12 @@ import org.springframework.data.repository.query.Param;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
 import java.util.List;
+import java.util.Optional;
 
 public interface JpaCourierRepository extends JpaRepository<Courier,Long> {
-    List<Courier> findAllCouriers();
-    List<Courier> findCouriersByStatus(StatusCourier status);
-    Courier findCourierById(Long id);
-    @Query("update Courier set Courier.status= :status where Courier.id = :id")
+    List<Courier> findAll();
+    List<Courier> findByStatus(StatusCourier status);
+    Optional<Courier> findById(Long id);
+    @Query("update Courier c set c.status= :status where c.id = :id")
     void updateCourierStatus(@Param("id") Long courierId, @Param("status") StatusCourier status);
 }

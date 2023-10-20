@@ -2,10 +2,8 @@ package ru.liga.entity;
 
 import lombok.Data;
 import ru.liga.enums.StatusOrder;
-
-import javax.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Orders")
@@ -34,9 +32,9 @@ public class Order {
     @JoinColumn(name = "courier_id")
     private Courier courier;
 
-    @OneToMany
-    @JoinColumn(name = "restaurant_menu_item_id")
-    private List<RestaurantMenuItem> restaurantMenuItem;
+//    @OneToMany
+//    @JoinColumn(name = "restaurant_menu_item_id")
+//    private List<RestaurantMenuItem> restaurantMenuItem;
 
 
 }

@@ -25,10 +25,16 @@
         <liquibase-core.version>4.11.0</liquibase-core.version>
         <hibernate-types.version>2.4.3</hibernate-types.version>
         <h2database.version>2.2.220</h2database.version>
+        <common.version>1.0-SNAPSHOT</common.version>
 
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ru.liga</groupId>
+                <artifactId>common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>

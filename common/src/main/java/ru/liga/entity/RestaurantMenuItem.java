@@ -1,7 +1,6 @@
 package ru.liga.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -12,11 +11,11 @@ public class RestaurantMenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "restaurant_menu_item_id")
-    private Long id;
+    private Long restaurantMenuItemId;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    private Long restaurantId;
+    private Restaurant restaurant;
 
     @Column(name = "name")
     private String name;
