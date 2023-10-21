@@ -15,7 +15,7 @@ public final class JpaOrderMapper {
     public static OrderResponse map(Order order, List<OrderItem> orderItems) {
         Long orderId = order.getId();
         RestaurantResponse restaurant = JpaRestaurantMapper.map(order.getRestaurant());
-        List<RestaurantMenuItemResponse> items = JpaOrderItemMapper.map(orderItems);
+        List<RestaurantMenuItemResponse> items = JpaOrderItemMapper.mapList(orderItems);
         OffsetDateTime timestamp = order.getTimestamp();
         return new OrderResponse(orderId, restaurant, items, timestamp);
     }

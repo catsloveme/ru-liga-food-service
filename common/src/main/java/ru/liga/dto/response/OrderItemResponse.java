@@ -7,13 +7,10 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
-public class RestaurantMenuItemResponse {
+public class OrderItemResponse {
     private Long id;
-    private String name;
-    private String description;
-    private String imageUrl;
+    private Long orderId;
+    private Long restaurantMenuItemId;
     private BigDecimal price;
-
-
-
+    private Integer quantity;
 }

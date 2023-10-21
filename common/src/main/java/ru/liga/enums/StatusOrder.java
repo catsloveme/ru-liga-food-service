@@ -1,26 +1,20 @@
 package ru.liga.enums;
 
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 public enum StatusOrder {
-    CUSTOMER_CREATED("created"),
-    CUSTOMER_PAID("paid"),
-    CUSTOMER_CANCELLED("cancelled"),
-    KITCHEN_ACCEPTED("kitchen accepted"),
-    KITCHEN_DENIED("kitchen denied"),
-    KITCHEN_PREPARING("kitchen preparing"),
-    KITCHEN_REFUNDED("kitchen refunded"),
-    DELIVERY_PENDING("delivery pending"),
-    DELIVERY_PICKING("delivery picking"),
-    DELIVERY_DENIED("delivery denied"),
-    DELIVERY_DELIVERING("delivery delivering"),
-    DELIVERY_REFUNDED("delivery refunded"),
-    DELIVERY_COMPLETE("delivery complete");
-    private final String cmd;
+    CUSTOMER_CREATED,
+    CUSTOMER_PAID,
+    CUSTOMER_CANCELLED,
+    KITCHEN_ACCEPTED,
+    KITCHEN_DENIED,
+    KITCHEN_PREPARING,
+    KITCHEN_REFUNDED,
+    DELIVERY_PENDING,
+    DELIVERY_PICKING,
+    DELIVERY_DENIED,
+    DELIVERY_DELIVERING,
+    DELIVERY_REFUNDED,
+    DELIVERY_COMPLETE;
 
-    @Override
-    public String toString() {
-        return this.cmd;
-    }
 }

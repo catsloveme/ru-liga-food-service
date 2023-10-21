@@ -1,17 +1,9 @@
 package ru.liga.enums;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public enum StatusRestaurant {
-    KITCHEN_ACCEPTED("accepted"),
-    KITCHEN_DENIED("denied"),
-    KITCHEN_PREPARING("preparing"),
-    KITCHEN_REFUNDED("refunded");
-    private final String cmd;
+    KITCHEN_ACCEPTED,
+    KITCHEN_DENIED,
+    KITCHEN_PREPARING,
+    KITCHEN_REFUNDED
 
-    @Override
-    public String toString() {
-        return this.cmd;
-    }
 }

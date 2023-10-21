@@ -5,10 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.dto.request.RequestCreatingOrder;
+import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.*;
+import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.JpaOrderMapper;
 import ru.liga.repository.*;
 
@@ -32,7 +33,6 @@ public class JpaOrderService {
     private JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
 
     Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-    private Order order;
 
     @Transactional(readOnly = true)
     public List<OrderResponse> findAllOrders() {
@@ -48,15 +48,22 @@ public class JpaOrderService {
         return JpaOrderMapper.map(order, orderItems);
     }
     @Transactional
-    public CreateOrderResponse createNewOrder(RequestCreatingOrder requestCreatingOrder, Long customerId) {
-        order = new Order();
-        order.setCustomer(jpaCustomerRepository.findById(customerId).orElseThrow());
+    public CreateOrderResponse addOrder(CreateOrderRequest requestCreatingOrder, Long customerId) {
+        Order order = new Order();
+        order.setCustomer(jpaCustomerRepository.findById(customerId).orElseThrow(() ->
+                        new DataNotFoundException(String.format("Customer id = %d not found", customerId))));
         order.setStatus(CUSTOMER_CREATED);
         Long restaurantId = requestCreatingOrder.getRestaurantId();
-        order.setRestaurant(jpaRestaurantRepository.findRestaurantById(restaurantId));
+        order.setRestaurant(jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
+                new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId))));
         order.setTimestamp(OffsetDateTime.now());
         jpaOrderRepository.save(order);
         return JpaOrderMapper.mapCreateOrder(order);
     }
+
+//    @Transactional
+//    public void deleteOrderById(Long id){
+//        jpaOrderRepository.deleteById(id);
+//    }
 }
 

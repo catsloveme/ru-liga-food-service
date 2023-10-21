@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RequestCreatingOrder {
+public class CreateOrderRequest {
     private Long restaurantId;
     private List<MenuItem> menuItems;
 

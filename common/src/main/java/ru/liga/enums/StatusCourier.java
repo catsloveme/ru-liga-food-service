@@ -1,20 +1,13 @@
 package ru.liga.enums;
 
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public enum StatusCourier {
-    DELIVERY_PENDING("pending"),
-    DELIVERY_PICKING("picking"),
-    DELIVERY_DENIED("denied"),
-    DELIVERY_DELIVERING("delivering"),
-    DELIVERY_REFUNDED("refunded"),
-    DELIVERY_COMPLETE("complete");
+    DELIVERY_PENDING,
+    DELIVERY_PICKING,
+    DELIVERY_DENIED,
+    DELIVERY_DELIVERING,
+    DELIVERY_REFUNDED,
+    DELIVERY_COMPLETE
 
-    private final String cmd;
 
-    @Override
-    public String toString() {
-        return this.cmd;
-    }
 }
