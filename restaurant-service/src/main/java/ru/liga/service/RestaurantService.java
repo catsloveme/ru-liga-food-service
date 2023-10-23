@@ -8,4 +8,5 @@ import java.util.List;
 public interface RestaurantService {
     List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) ;
     List<RestaurantResponse> findAllRestaurants();
+    RestaurantResponse findRestaurantById(Long id);
 }

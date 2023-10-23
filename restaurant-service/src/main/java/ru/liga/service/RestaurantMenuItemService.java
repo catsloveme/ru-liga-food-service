@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 public interface RestaurantMenuItemService {
     RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) ;
+    RestaurantMenuItemResponse findRestaurantMenuItemById(Long id);
     void deleteRestaurantMenuItemById(Long id);
     void updatePrice(BigDecimal price, Long id);
 

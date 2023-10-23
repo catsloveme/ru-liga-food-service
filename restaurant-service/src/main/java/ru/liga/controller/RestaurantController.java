@@ -20,22 +20,32 @@ import java.util.List;
 
 public class RestaurantController {
     @Autowired
-    JpaRestaurantService restaurantService;
+    JpaRestaurantService jpaRestaurantService;
     @Autowired
     JpaRestaurantMenuItemService jpaRestaurantMenuItemService;
 
+
+    @GetMapping("restaurant/{id}")
+    public ResponseEntity<RestaurantResponse> findRestaurantById(@PathVariable Long id) {
+        RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/restaurants")
     public ResponseEntity<List<RestaurantResponse>> findAllRestaurants() {
-        List<RestaurantResponse> response = restaurantService.findAllRestaurants();
+        List<RestaurantResponse> response = jpaRestaurantService.findAllRestaurants();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/orders")
     public ResponseEntity<List<RestaurantByStatusResponse>> findRestaurantsByStatus(@RequestParam StatusRestaurant status) {
-        List<RestaurantByStatusResponse> response = restaurantService.findRestaurantsByStatus(status);
+        List<RestaurantByStatusResponse> response = jpaRestaurantService.findRestaurantsByStatus(status);
         return ResponseEntity.ok(response);
     }
-
+    @GetMapping("menuItem/{id}")
+    public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(@PathVariable Long id) {
+        RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
+        return ResponseEntity.ok(response);
+    }
     @PostMapping("/menuItem")
     public ResponseEntity<RestaurantMenuItemResponse> addRestaurantMenuItem(@RequestBody RestaurantMenuItemRequest request) {
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.addRestaurantMenuItem(request);

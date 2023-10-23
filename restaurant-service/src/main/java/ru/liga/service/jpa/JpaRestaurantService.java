@@ -9,13 +9,13 @@ import ru.liga.entity.Order;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusRestaurant;
+import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.JpaRestaurantMapper;
 import ru.liga.mapper.JpaRestaurantOrderMapper;
 import ru.liga.repository.JpaOrderItemRepository;
 import ru.liga.repository.JpaOrderRepository;
 import ru.liga.repository.JpaRestaurantRepository;
 import ru.liga.service.RestaurantService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,12 @@ public class JpaRestaurantService implements RestaurantService {
     @Autowired
     JpaOrderItemRepository jpaOrderItemRepository;
 
+    @Transactional
+    public RestaurantResponse findRestaurantById(Long id) {
+        Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
+                new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
+        return JpaRestaurantMapper.map(restaurant);
+    }
     @Transactional(readOnly = true)
     public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
         List<Restaurant> restaurants = jpaRestaurantRepository.findByStatus(status);

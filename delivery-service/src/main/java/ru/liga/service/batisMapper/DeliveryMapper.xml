@@ -19,7 +19,6 @@
         </if>
     </select>
 
-
     <update id="changeOrderStatusById">
         update order
         <set>

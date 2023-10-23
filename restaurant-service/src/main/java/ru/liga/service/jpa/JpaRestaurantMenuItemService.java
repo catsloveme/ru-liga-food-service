@@ -24,6 +24,13 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
     private JpaRestaurantRepository jpaRestaurantRepository;
 
     @Transactional
+    public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {
+        RestaurantMenuItem restaurantMenuItem = jpaRestaurantMenuItemRepository.findById(id).orElseThrow(() ->
+                new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
+        return JpaRestaurantMenuItemMapper.map(restaurantMenuItem);
+    }
+
+    @Transactional
     public RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) {
         RestaurantMenuItem restaurantMenuItem;
         Long restaurantId =  request.getRestaurantId();
