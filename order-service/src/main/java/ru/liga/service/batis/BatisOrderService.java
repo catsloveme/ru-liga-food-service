@@ -2,7 +2,7 @@ package ru.liga.service.batis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.OrderMapper;
+import ru.liga.batisMapper.order.OrderMapper;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;

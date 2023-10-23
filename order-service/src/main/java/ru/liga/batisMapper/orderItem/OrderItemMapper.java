@@ -1,4 +1,4 @@
-package ru.liga.batisMapper;
+package ru.liga.batisMapper.orderItem;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
