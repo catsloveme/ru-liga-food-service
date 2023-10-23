@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,14 @@ import ru.liga.mapper.JpaRestaurantOrderMapper;
 import ru.liga.repository.JpaOrderItemRepository;
 import ru.liga.repository.JpaOrderRepository;
 import ru.liga.repository.JpaRestaurantRepository;
+import ru.liga.service.RestaurantService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class JpaRestaurantService {
+public class JpaRestaurantService implements RestaurantService {
     @Autowired
     JpaRestaurantRepository jpaRestaurantRepository;
     @Autowired

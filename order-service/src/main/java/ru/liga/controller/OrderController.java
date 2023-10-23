@@ -4,13 +4,14 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.liga.service.batisMapper.OrderMapper;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.service.JpaOrderItemService;
-import ru.liga.service.JpaOrderService;
+import ru.liga.service.OrderItemService;
+import ru.liga.service.OrderService;
 
 import java.util.List;
 
@@ -19,10 +20,11 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    private JpaOrderService orderService;
+    private OrderService orderService;
 
+    private OrderMapper orderMapper;
     @Autowired
-    private JpaOrderItemService orderItemService;
+    private OrderItemService orderItemService;
 
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAllOrders() {
@@ -31,16 +33,28 @@ public class OrderController {
         return ResponseEntity.ok(ordersResponse);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
         OrderResponse orderResponse = orderService.findOrderById(id);
         return ResponseEntity.ok(orderResponse);
     }
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
+//        OrderResponse orderResponse = orderMapper.findOrderById(id);
+//        return ResponseEntity.ok(orderResponse);
+//    }
+
     @GetMapping("/orderItems")
     public ResponseEntity<List<OrderItemResponse>> findAllOrderItems() {
         List<OrderItemResponse> ordersResponse = orderItemService.findAllOrderItems();
         return ResponseEntity.ok(ordersResponse);
+    }
+    @GetMapping("/orderItems/{id}")
+    public ResponseEntity<OrderItemResponse> findOrderItemById(@PathVariable Long id) {
+        OrderItemResponse orderItemResponse = orderItemService.findOrderItemById(id);
+        return ResponseEntity.ok(orderItemResponse);
     }
 
     @PostMapping

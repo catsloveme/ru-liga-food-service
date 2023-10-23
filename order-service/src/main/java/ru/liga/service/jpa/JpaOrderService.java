@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +12,7 @@ import ru.liga.entity.*;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.JpaOrderMapper;
 import ru.liga.repository.*;
+import ru.liga.service.OrderService;
 
 
 import java.time.OffsetDateTime;
@@ -20,7 +21,7 @@ import java.util.List;
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 
 @Service
-public class JpaOrderService {
+public class JpaOrderService implements OrderService {
     @Autowired
     private JpaOrderRepository jpaOrderRepository;
     @Autowired
@@ -48,12 +49,12 @@ public class JpaOrderService {
         return JpaOrderMapper.map(order, orderItems);
     }
     @Transactional
-    public CreateOrderResponse addOrder(CreateOrderRequest requestCreatingOrder, Long customerId) {
+    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest, Long customerId) {
         Order order = new Order();
         order.setCustomer(jpaCustomerRepository.findById(customerId).orElseThrow(() ->
                         new DataNotFoundException(String.format("Customer id = %d not found", customerId))));
         order.setStatus(CUSTOMER_CREATED);
-        Long restaurantId = requestCreatingOrder.getRestaurantId();
+        Long restaurantId = createOrderRequest.getRestaurantId();
         order.setRestaurant(jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
                 new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId))));
         order.setTimestamp(OffsetDateTime.now());

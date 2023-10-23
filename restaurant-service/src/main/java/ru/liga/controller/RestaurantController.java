@@ -9,8 +9,8 @@ import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.service.JpaRestaurantMenuItemService;
-import ru.liga.service.JpaRestaurantService;
+import ru.liga.service.jpa.JpaRestaurantMenuItemService;
+import ru.liga.service.jpa.JpaRestaurantService;
 
 import java.math.BigDecimal;
 import java.util.List;

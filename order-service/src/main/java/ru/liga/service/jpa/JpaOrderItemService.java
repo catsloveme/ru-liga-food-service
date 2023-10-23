@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,11 +12,12 @@ import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.JpaOrderItemMapper;
 import ru.liga.repository.*;
+import ru.liga.service.OrderItemService;
 
 import java.util.List;
 
 @Service
-public class JpaOrderItemService {
+public class JpaOrderItemService implements OrderItemService {
     @Autowired
     private JpaOrderItemRepository jpaOrderItemRepository;
     @Autowired

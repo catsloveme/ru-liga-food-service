@@ -1,30 +1,11 @@
 package ru.liga.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.CourierResponse;
-import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
-import ru.liga.mapper.JpaCourierMapper;
-import ru.liga.repository.JpaCourierRepository;
-
 import java.util.List;
 
-@Service
-public class CourierService {
-    @Autowired
-    JpaCourierRepository jpaCourierRepository;
+public interface CourierService {
+    List<CourierResponse> findByStatus(StatusCourier status) ;
 
-    @Transactional(readOnly = true)
-    public List<CourierResponse> findByStatus(StatusCourier status) {
-        List<Courier> courier = jpaCourierRepository.findByStatus(status);
-        return JpaCourierMapper.mapList(courier);
-    }
-    @Transactional
-    public void changeOrderStatusById( Long courierId, StatusCourier status) {
-        jpaCourierRepository.updateCourierStatus(courierId,status);
-        jpaCourierRepository.flush();
-    }
-
+    void changeOrderStatusById( Long courierId, StatusCourier status);
 }

@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EnableConfigurationProperties
 @SpringBootApplication
-public class OrderService {
+public class Order {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderService.class, args);
+        SpringApplication.run(Order.class, args);
     }
 }
 

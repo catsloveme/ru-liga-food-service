@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.liga.batisMapper.DeliveryMapper">
+    <resultMap id="courier" type="ru.liga.dto.response.CourierResponse">
+        <id property="id" column="courier_id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select
+            id="findByStatus"
+            parameterType="ru.liga.enums.StatusCourier"
+            resultMap="courier">  <!--выбираем resultMap, чтоб опреелить как мапить поля результата на сущность MyBatis-->
+        select * from couriers
+        where (1=1)
+        <if test="status != null" >
+            and status = #{status}
+        </if>
+    </select>
+
+
+    <update id="changeOrderStatusById">
+        update order
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where courier_id = #{courierId}
+    </update>
+
+</mapper>

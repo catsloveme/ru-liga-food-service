@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.service.CourierService;
+import ru.liga.service.jpa.JpaCourierService;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class DeliveryController {
     @Autowired
-    CourierService courierService;
+    JpaCourierService courierService;
 
     @GetMapping("/deliveries")
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(@RequestParam StatusCourier status) {

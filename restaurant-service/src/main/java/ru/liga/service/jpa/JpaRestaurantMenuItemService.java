@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,13 @@ import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.JpaRestaurantMenuItemMapper;
 import ru.liga.repository.JpaRestaurantMenuItemRepository;
 import ru.liga.repository.JpaRestaurantRepository;
+import ru.liga.service.RestaurantMenuItemService;
+
 import java.math.BigDecimal;
 
 
 @Service
-public class JpaRestaurantMenuItemService {
+public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
     @Autowired
     private JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
     @Autowired
