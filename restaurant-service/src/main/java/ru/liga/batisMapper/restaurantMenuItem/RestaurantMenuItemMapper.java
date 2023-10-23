@@ -1,4 +1,4 @@
-package ru.liga.service.batisMapper;
+package ru.liga.batisMapper.restaurantMenuItem;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

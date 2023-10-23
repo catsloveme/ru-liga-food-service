@@ -20,7 +20,7 @@
         </environment>
     </environments>
     <mappers><!--в данном блоке необходимо описать маперы, которые используются в проекте-->
-        <mapper resource="ru/liga/service/batisMapper/RestaurantMapper.xml"/>
-        <mapper resource="ru/liga/service/batisMapper/RestaurantMenuItemMapper.xml"/>
+        <mapper class="ru.liga.batisMapper.restaurant.RestaurantMapper"/>
+        <mapper class="ru.liga.batisMapper.restaurantMenuItem.RestaurantMenuItemMapper"/>
     </mappers>
 </configuration>

@@ -1,4 +1,4 @@
-package ru.liga.service.batisMapper;
+package ru.liga.batisMapper.restaurant;
 
 import org.apache.ibatis.annotations.Mapper;
 import ru.liga.dto.response.RestaurantByStatusResponse;
