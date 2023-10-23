@@ -1,4 +1,4 @@
-package ru.liga.service.batisMapper;
+package ru.liga.batisMapper;
 
 import org.apache.ibatis.annotations.*;
 import ru.liga.dto.request.CreateOrderRequest;

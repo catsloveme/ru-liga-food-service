@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.service.batisMapper.OrderMapper;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.OrderItemResponse;
@@ -22,7 +21,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    private OrderMapper orderMapper;
     @Autowired
     private OrderItemService orderItemService;
 
@@ -33,18 +31,11 @@ public class OrderController {
         return ResponseEntity.ok(ordersResponse);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
         OrderResponse orderResponse = orderService.findOrderById(id);
         return ResponseEntity.ok(orderResponse);
     }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
-//        OrderResponse orderResponse = orderMapper.findOrderById(id);
-//        return ResponseEntity.ok(orderResponse);
-//    }
 
     @GetMapping("/orderItems")
     public ResponseEntity<List<OrderItemResponse>> findAllOrderItems() {

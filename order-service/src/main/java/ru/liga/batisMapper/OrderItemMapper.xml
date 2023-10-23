@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ru.liga.service.batisMapper.OrderItemMapper">
+<mapper namespace="ru.liga.batisMapper.OrderItemMapper">
     <resultMap id="orderItem" type="ru.liga.dto.response.OrderItemResponse">
         <id property="id" column="order_item_id"/>
     </resultMap>
