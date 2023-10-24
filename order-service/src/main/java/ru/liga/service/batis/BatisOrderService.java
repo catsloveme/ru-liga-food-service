@@ -1,19 +1,17 @@
 package ru.liga.service.batis;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.order.OrderMapper;
+import ru.liga.mapper.OrderMapper;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.service.OrderService;
+import ru.liga.api.OrderService;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 public class BatisOrderService implements OrderService {
-    @Autowired
-    OrderMapper orderMapper;
-
+    private final OrderMapper orderMapper;
     @Transactional(readOnly = true)
     public List<OrderResponse> findAllOrders() {
         return orderMapper.findAllOrders();

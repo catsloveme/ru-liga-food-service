@@ -9,8 +9,8 @@ import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.service.OrderItemService;
-import ru.liga.service.OrderService;
+import ru.liga.api.OrderItemService;
+import ru.liga.api.OrderService;
 
 import java.util.List;
 

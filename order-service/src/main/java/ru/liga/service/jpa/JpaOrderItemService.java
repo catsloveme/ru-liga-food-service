@@ -1,28 +1,26 @@
 package ru.liga.service.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapper.JpaOrderItemMapper;
+import ru.liga.mapping.JpaOrderItemMapper;
 import ru.liga.repository.*;
-import ru.liga.service.OrderItemService;
+import ru.liga.api.OrderItemService;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 public class JpaOrderItemService implements OrderItemService {
-    @Autowired
-    private JpaOrderItemRepository jpaOrderItemRepository;
-    @Autowired
-    private JpaOrderRepository jpaOrderRepository;
-    @Autowired
-    private JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
+
+    private final JpaOrderItemRepository jpaOrderItemRepository;
+
+    private final JpaOrderRepository jpaOrderRepository;
+
+    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+   // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
     @Transactional(readOnly = true)
     public List<OrderItemResponse> findAllOrderItems() {

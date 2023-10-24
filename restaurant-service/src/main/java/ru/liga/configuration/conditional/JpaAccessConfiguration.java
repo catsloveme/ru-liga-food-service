@@ -3,8 +3,8 @@ package ru.liga.configuration.conditional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.liga.service.RestaurantMenuItemService;
-import ru.liga.service.RestaurantService;
+import ru.liga.api.RestaurantMenuItemService;
+import ru.liga.api.RestaurantService;
 import ru.liga.service.jpa.JpaRestaurantMenuItemService;
 import ru.liga.service.jpa.JpaRestaurantService;
 

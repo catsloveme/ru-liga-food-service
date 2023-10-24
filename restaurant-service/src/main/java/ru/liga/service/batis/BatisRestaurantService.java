@@ -3,11 +3,11 @@ package ru.liga.service.batis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.restaurant.RestaurantMapper;
+import ru.liga.mapper.restaurant.RestaurantMapper;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.service.RestaurantService;
+import ru.liga.api.RestaurantService;
 
 import java.util.List;
 

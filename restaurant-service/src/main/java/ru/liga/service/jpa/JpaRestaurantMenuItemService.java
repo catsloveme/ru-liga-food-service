@@ -8,10 +8,10 @@ import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.entity.Restaurant;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapper.JpaRestaurantMenuItemMapper;
+import ru.liga.mapping.JpaRestaurantMenuItemMapper;
 import ru.liga.repository.JpaRestaurantMenuItemRepository;
 import ru.liga.repository.JpaRestaurantRepository;
-import ru.liga.service.RestaurantMenuItemService;
+import ru.liga.api.RestaurantMenuItemService;
 
 import java.math.BigDecimal;
 

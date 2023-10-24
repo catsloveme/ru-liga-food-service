@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.api;
 
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;

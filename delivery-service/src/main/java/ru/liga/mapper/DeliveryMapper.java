@@ -1,10 +1,10 @@
-package ru.liga.batisMapper;
+package ru.liga.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.service.CourierService;
+import ru.liga.api.CourierService;
 import java.util.List;
 
 @Mapper

@@ -1,10 +1,10 @@
-package ru.liga.batisMapper.order;
+package ru.liga.mapper;
 
 import org.apache.ibatis.annotations.*;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.service.OrderService;
+import ru.liga.api.OrderService;
 
 import java.util.List;
 @Mapper

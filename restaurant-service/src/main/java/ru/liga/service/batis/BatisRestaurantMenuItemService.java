@@ -3,10 +3,10 @@ package ru.liga.service.batis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.restaurantMenuItem.RestaurantMenuItemMapper;
+import ru.liga.mapper.restaurantMenuItem.RestaurantMenuItemMapper;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
-import ru.liga.service.RestaurantMenuItemService;
+import ru.liga.api.RestaurantMenuItemService;
 
 import java.math.BigDecimal;
 

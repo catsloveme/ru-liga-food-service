@@ -20,6 +20,6 @@
         </environment>
     </environments>
     <mappers><!--в данном блоке необходимо описать маперы, которые используются в проекте-->
-        <mapper class="ru.liga.batisMapper.DeliveryMapper"/>
+        <mapper class="ru.liga.mapper.DeliveryMapper"/>
     </mappers>
 </configuration>

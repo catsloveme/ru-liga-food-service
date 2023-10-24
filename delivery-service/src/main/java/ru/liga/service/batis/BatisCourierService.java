@@ -3,10 +3,10 @@ package ru.liga.service.batis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.DeliveryMapper;
+import ru.liga.mapper.DeliveryMapper;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.service.CourierService;
+import ru.liga.api.CourierService;
 
 import java.util.List;
 

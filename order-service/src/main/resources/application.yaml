@@ -1,5 +1,5 @@
 app:
-  database-access-type: my_batis
+  database-access-type: jpa
 
 management:
   endpoints:
@@ -37,3 +37,6 @@ spring:
     password: 'password'
     url: jdbc:postgresql://localhost:5432/postgres
     username: 'postgres'
+
+mybatis:
+  mapper-locations: classpath*:ru/liga/batisMapper/*/*.xml

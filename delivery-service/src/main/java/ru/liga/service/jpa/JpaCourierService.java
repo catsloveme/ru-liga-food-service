@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
-import ru.liga.mapper.JpaCourierMapper;
+import ru.liga.mapping.JpaCourierMapper;
 import ru.liga.repository.JpaCourierRepository;
-import ru.liga.service.CourierService;
+import ru.liga.api.CourierService;
 
 import java.util.List;
 

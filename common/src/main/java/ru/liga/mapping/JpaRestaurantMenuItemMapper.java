@@ -1,4 +1,4 @@
-package ru.liga.mapper;
+package ru.liga.mapping;
 
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.entity.RestaurantMenuItem;

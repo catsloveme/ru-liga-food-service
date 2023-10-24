@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.api;
 
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;

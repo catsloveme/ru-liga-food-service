@@ -3,7 +3,7 @@ package ru.liga.configuration.conditional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.liga.service.CourierService;
+import ru.liga.api.CourierService;
 import ru.liga.service.jpa.JpaCourierService;
 
 @Configuration

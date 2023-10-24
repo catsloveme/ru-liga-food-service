@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ru.liga.batisMapper.restaurant.RestaurantMapper">
+<mapper namespace="ru.liga.mapper.restaurant.RestaurantMapper">
     <resultMap id="restaurantByStatus" type="ru.liga.dto.response.RestaurantByStatusResponse">
         <id property="id" column="restaurant_id"/>
         <result property="status" column="status"/>

@@ -1,10 +1,10 @@
-package ru.liga.batisMapper.restaurantMenuItem;
+package ru.liga.mapper.restaurantMenuItem;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
-import ru.liga.service.RestaurantMenuItemService;
+import ru.liga.api.RestaurantMenuItemService;
 import java.math.BigDecimal;
 
 

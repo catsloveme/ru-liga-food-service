@@ -1,17 +1,15 @@
 package ru.liga.service.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.*;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapper.JpaOrderMapper;
+import ru.liga.mapping.JpaOrderMapper;
 import ru.liga.repository.*;
-import ru.liga.service.OrderService;
+import ru.liga.api.OrderService;
 
 
 import java.time.OffsetDateTime;
@@ -19,20 +17,19 @@ import java.util.List;
 
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 
-
+@AllArgsConstructor
 public class JpaOrderService implements OrderService {
-    @Autowired
-    private JpaOrderRepository jpaOrderRepository;
-    @Autowired
-    private JpaOrderItemRepository jpaOrderItemRepository;
-    @Autowired
-    private JpaCustomerRepository jpaCustomerRepository;
-    @Autowired
-    private JpaRestaurantRepository jpaRestaurantRepository;
-    @Autowired
-    private JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
 
-    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
+    private final JpaOrderRepository jpaOrderRepository;
+
+    private final JpaOrderItemRepository jpaOrderItemRepository;
+
+    private final JpaCustomerRepository jpaCustomerRepository;
+
+    private final JpaRestaurantRepository jpaRestaurantRepository;
+
+
+//    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
     @Transactional(readOnly = true)
     public List<OrderResponse> findAllOrders() {

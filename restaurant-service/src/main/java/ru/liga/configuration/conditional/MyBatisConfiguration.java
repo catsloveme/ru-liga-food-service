@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import ru.liga.service.RestaurantMenuItemService;
-import ru.liga.service.RestaurantService;
+import ru.liga.api.RestaurantMenuItemService;
+import ru.liga.api.RestaurantService;
 import ru.liga.service.batis.BatisRestaurantMenuItemService;
 import ru.liga.service.batis.BatisRestaurantService;
 

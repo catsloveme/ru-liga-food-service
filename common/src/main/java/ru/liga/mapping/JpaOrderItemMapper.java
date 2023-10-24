@@ -1,4 +1,4 @@
-package ru.liga.mapper;
+package ru.liga.mapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.liga.dto.response.OrderItemResponse;

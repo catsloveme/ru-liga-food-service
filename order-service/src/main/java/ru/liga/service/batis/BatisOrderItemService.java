@@ -1,22 +1,19 @@
 package ru.liga.service.batis;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.batisMapper.orderItem.OrderItemMapper;
+import ru.liga.mapper.OrderItemMapper;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
-import ru.liga.service.OrderItemService;
+import ru.liga.api.OrderItemService;
 
 import java.util.List;
 
-
+@RequiredArgsConstructor
 public class BatisOrderItemService implements OrderItemService {
+    private final OrderItemMapper orderItemMapper;
 
-    @Autowired
-    private OrderItemMapper orderItemMapper;
-    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
+   // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
     @Transactional(readOnly = true)
     public List<OrderItemResponse> findAllOrderItems() {
