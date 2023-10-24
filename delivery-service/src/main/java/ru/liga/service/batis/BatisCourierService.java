@@ -1,7 +1,6 @@
 package ru.liga.service.batis;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.mapper.DeliveryMapper;
 import ru.liga.dto.response.CourierResponse;
@@ -9,11 +8,10 @@ import ru.liga.enums.StatusCourier;
 import ru.liga.api.CourierService;
 
 import java.util.List;
-
-@Service
+@RequiredArgsConstructor
 public class BatisCourierService implements CourierService {
-    @Autowired
-    DeliveryMapper deliveryMapper;
+
+    private final DeliveryMapper deliveryMapper;
 
     @Transactional(readOnly = true)
     public List<CourierResponse> findByStatus(StatusCourier status) {

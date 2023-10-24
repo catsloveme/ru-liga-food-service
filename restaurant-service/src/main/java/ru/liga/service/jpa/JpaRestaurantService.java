@@ -1,7 +1,6 @@
 package ru.liga.service.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantResponse;
@@ -20,14 +19,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class JpaRestaurantService implements RestaurantService {
-    @Autowired
-    JpaRestaurantRepository jpaRestaurantRepository;
-    @Autowired
-    JpaOrderRepository jpaOrderRepository;
-    @Autowired
-    JpaOrderItemRepository jpaOrderItemRepository;
+
+    private final JpaRestaurantRepository jpaRestaurantRepository;
+
+    private final JpaOrderRepository jpaOrderRepository;
+
+    private final JpaOrderItemRepository jpaOrderItemRepository;
 
     @Transactional
     public RestaurantResponse findRestaurantById(Long id) {

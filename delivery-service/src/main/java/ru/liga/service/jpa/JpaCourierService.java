@@ -1,7 +1,6 @@
 package ru.liga.service.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
@@ -12,10 +11,10 @@ import ru.liga.api.CourierService;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class JpaCourierService implements CourierService {
-    @Autowired
-    JpaCourierRepository jpaCourierRepository;
+
+    private final JpaCourierRepository jpaCourierRepository;
 
     @Transactional(readOnly = true)
     public List<CourierResponse> findByStatus(StatusCourier status) {

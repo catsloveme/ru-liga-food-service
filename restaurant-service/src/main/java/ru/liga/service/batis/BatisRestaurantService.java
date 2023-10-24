@@ -1,7 +1,6 @@
 package ru.liga.service.batis;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.mapper.restaurant.RestaurantMapper;
 import ru.liga.dto.response.RestaurantByStatusResponse;
@@ -11,10 +10,10 @@ import ru.liga.api.RestaurantService;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class BatisRestaurantService implements RestaurantService {
-    @Autowired
-    RestaurantMapper restaurantMapper;
+
+    private final RestaurantMapper restaurantMapper;
 
     @Transactional
     public RestaurantResponse findRestaurantById(Long id) {

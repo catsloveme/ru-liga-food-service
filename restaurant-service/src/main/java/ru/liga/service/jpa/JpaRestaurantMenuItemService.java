@@ -1,7 +1,6 @@
 package ru.liga.service.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
@@ -16,12 +15,12 @@ import ru.liga.api.RestaurantMenuItemService;
 import java.math.BigDecimal;
 
 
-@Service
+@RequiredArgsConstructor
 public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
-    @Autowired
-    private JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-    @Autowired
-    private JpaRestaurantRepository jpaRestaurantRepository;
+
+    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+
+    private final JpaRestaurantRepository jpaRestaurantRepository;
 
     @Transactional
     public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {

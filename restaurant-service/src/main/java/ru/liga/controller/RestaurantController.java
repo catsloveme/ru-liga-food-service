@@ -1,7 +1,7 @@
 package ru.liga.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
@@ -17,12 +17,12 @@ import java.util.List;
 
 
 @RestController
-
+@RequiredArgsConstructor
 public class RestaurantController {
-    @Autowired
-    JpaRestaurantService jpaRestaurantService;
-    @Autowired
-    JpaRestaurantMenuItemService jpaRestaurantMenuItemService;
+
+    private final JpaRestaurantService jpaRestaurantService;
+
+    private final JpaRestaurantMenuItemService jpaRestaurantMenuItemService;
 
 
     @GetMapping("restaurant/{id}")
