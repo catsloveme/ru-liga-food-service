@@ -18,6 +18,6 @@ public interface JpaRestaurantRepository extends JpaRepository<Restaurant,Long> 
     List<Restaurant> findByStatus(StatusRestaurant status);
     Optional<Restaurant> findById(Long id);
     @Modifying
-    @Query("update Restaurant res set res.status= :status where res.id = :id")
-    void updateRestaurantStatus( @Param("status") StatusRestaurant status, @Param("id") Long id);
+    @Query("update Restaurant res set res.status=:status where res.id =:id")
+    void updateRestaurantStatus(StatusRestaurant status, Long id);
 }

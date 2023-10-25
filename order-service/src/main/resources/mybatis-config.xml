@@ -20,7 +20,7 @@
         </environment>
     </environments>
     <mappers><!--в данном блоке необходимо описать маперы, которые используются в проекте-->
-        <mapper class="ru.liga.mapper.OrderMapper"/>
+        <mapper class="ru.liga.mapper.CustomerMapper"/>
         <mapper class="ru.liga.mapper.OrderItemMapper"/>
     </mappers>
 </configuration>

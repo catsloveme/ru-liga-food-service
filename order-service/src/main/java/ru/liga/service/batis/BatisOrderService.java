@@ -12,16 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BatisOrderService implements OrderService {
     private final OrderMapper orderMapper;
-    @Transactional(readOnly = true)
+
     public List<OrderResponse> findAllOrders() {
         return orderMapper.findAllOrders();
     }
 
-    @Transactional(readOnly = true)
     public OrderResponse findOrderById(Long orderId) {
         return orderMapper.findOrderById(orderId);
     }
-    @Transactional
-    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest, Long customerId) {
-        return orderMapper.addOrder(createOrderRequest, customerId);
+
+    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
+        return orderMapper.addOrder(createOrderRequest);
 }}

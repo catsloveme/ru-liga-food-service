@@ -1,6 +1,7 @@
 package ru.liga.service.jpa;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Order;
@@ -14,6 +15,7 @@ import ru.liga.repository.JpaOrderItemRepository;
 import ru.liga.repository.JpaOrderRepository;
 import ru.liga.repository.JpaRestaurantRepository;
 import ru.liga.api.RestaurantService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,11 @@ public class JpaRestaurantService implements RestaurantService {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return JpaRestaurantMapper.map(restaurant);
+    }
+
+    @Transactional
+    public void changeOrderStatusById(StatusRestaurant status, Long restaurantId) {
+        jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
     }
 
     public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {

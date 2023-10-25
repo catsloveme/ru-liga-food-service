@@ -45,8 +45,9 @@ public class JpaOrderService implements OrderService {
         return JpaOrderMapper.map(order, orderItems);
     }
     @Transactional
-    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest, Long customerId) {
+    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         Order order = new Order();
+        Long customerId = createOrderRequest.getCustomerId();
         order.setCustomer(jpaCustomerRepository.findById(customerId).orElseThrow(() ->
                         new DataNotFoundException(String.format("Customer id = %d not found", customerId))));
         order.setStatus(CUSTOMER_CREATED);

@@ -22,11 +22,9 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.0-801.jdbc4</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <version>42.6.0</version>
         </dependency>
 
     </dependencies>

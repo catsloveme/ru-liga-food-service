@@ -15,18 +15,22 @@ public class BatisRestaurantService implements RestaurantService {
 
     private final RestaurantMapper restaurantMapper;
 
-    @Transactional
+
     public RestaurantResponse findRestaurantById(Long id) {
         return restaurantMapper.findRestaurantById(id);
     }
 
-    @Transactional(readOnly = true)
+
+    public void changeOrderStatusById( StatusRestaurant status,Long restaurantId) {
+        restaurantMapper.changeOrderStatusById(status,restaurantId);
+    }
+
+
     public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
         return restaurantMapper.findRestaurantsByStatus(status);
 
     }
 
-    @Transactional(readOnly = true)
     public List<RestaurantResponse> findAllRestaurants() {
         return restaurantMapper.findAllRestaurants();
     }
