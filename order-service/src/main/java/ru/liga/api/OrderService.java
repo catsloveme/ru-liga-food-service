@@ -10,4 +10,5 @@ public interface OrderService {
     List<OrderResponse> findAllOrders() ;
     OrderResponse findOrderById(Long orderId) ;
     CreateOrderResponse addOrder(CreateOrderRequest requestCreatingOrder) ;
+    void updateCourierId(Long orderId, Long courierId);
 }

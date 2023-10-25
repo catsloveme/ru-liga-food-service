@@ -13,8 +13,6 @@ import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
-import ru.liga.enums.StatusRestaurant;
-
 import java.util.List;
 
 @Log4j2
@@ -79,10 +77,10 @@ public class OrderController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
-//    @PatchMapping("/restaurant/{id}")
-//    ResponseEntity<Void> updateStatus(@PathVariable Long id, @RequestParam StatusRestaurant status){
-//        restaurantFeign.updateStatus(id, status);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @PatchMapping("/courier/{courierId}/order/{orderId}")
+    ResponseEntity<Void> updateCourierId( @PathVariable Long courierId,@PathVariable Long orderId){
+        orderService.updateCourierId(orderId, courierId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 

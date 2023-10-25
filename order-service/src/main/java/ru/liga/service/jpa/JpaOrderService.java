@@ -59,6 +59,11 @@ public class JpaOrderService implements OrderService {
         return JpaOrderMapper.mapCreateOrder(order);
     }
 
+    @Transactional
+    public void updateCourierId(Long courierId, Long orderId) {
+        jpaOrderRepository.updateCourierId(orderId,courierId);
+    }
+
 //    @Transactional
 //    public void deleteOrderById(Long id){
 //        jpaOrderRepository.deleteById(id);

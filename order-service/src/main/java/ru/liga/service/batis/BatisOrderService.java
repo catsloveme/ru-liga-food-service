@@ -1,7 +1,6 @@
 package ru.liga.service.batis;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import ru.liga.mapper.OrderMapper;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
@@ -23,4 +22,10 @@ public class BatisOrderService implements OrderService {
 
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         return orderMapper.addOrder(createOrderRequest);
-}}
+}
+
+    @Override
+    public void updateCourierId(Long orderId, Long courierId) {
+
+    }
+}

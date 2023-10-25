@@ -75,7 +75,7 @@ public class RestaurantController {
     @PatchMapping("/restaurant/{id}")
     public ResponseEntity<Void> updateStatus(@PathVariable Long id, @RequestParam StatusRestaurant status){
         jpaRestaurantService.changeOrderStatusById(status,id);
-        courierService.sendStatusAccept(status);
+//        courierService.sendStatusAccept(status);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping("/deliveries")
@@ -102,7 +102,7 @@ public class RestaurantController {
 
     @PatchMapping("/order/finish/{id}")
     public ResponseEntity<Void> finishOrder(@PathVariable Long id){
-
+        courierService.sendCourierSearch(id);
         return orderFeign.updateStatus(id, StatusOrder.KITCHEN_FINISHED);
     }
 

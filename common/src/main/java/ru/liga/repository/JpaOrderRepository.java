@@ -20,4 +20,8 @@ public interface JpaOrderRepository extends JpaRepository<Order,Long> {
     @Modifying
     @Query("update Order ord set ord.status= :status where ord.id = :id")
     void updateOrderStatus( StatusOrder status, Long id);
+
+    @Modifying
+    @Query("update Order ord set ord.courier.id= :courierId where ord.id = :orderId")
+    void updateCourierId(Long courierId, Long orderId);
 }
