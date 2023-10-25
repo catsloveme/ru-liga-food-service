@@ -9,8 +9,8 @@ import ru.liga.configuration.ApplicationConfig;
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)
 @SpringBootApplication
-public class RestaurantService {
+public class Delivery {
     public static void main(String[] args) {
-        SpringApplication.run(RestaurantService.class, args);
+        SpringApplication.run(Delivery.class, args);
     }
-    }
+}

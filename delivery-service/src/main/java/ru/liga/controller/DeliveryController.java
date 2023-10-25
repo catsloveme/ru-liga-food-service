@@ -5,9 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.service.jpa.JpaCourierService;
+
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeliveryController {
 
-    private final JpaCourierService courierService;
+    private final CourierService courierService;
 
     @GetMapping("/deliveries")
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(@RequestParam StatusCourier status) {

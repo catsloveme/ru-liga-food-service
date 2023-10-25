@@ -4,14 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import ru.liga.api.RestaurantMenuItemService;
+import ru.liga.api.RestaurantService;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.service.jpa.JpaRestaurantMenuItemService;
-import ru.liga.service.jpa.JpaRestaurantService;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,9 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-    private final JpaRestaurantService jpaRestaurantService;
+    private final RestaurantService jpaRestaurantService;
 
-    private final JpaRestaurantMenuItemService jpaRestaurantMenuItemService;
+    private final RestaurantMenuItemService jpaRestaurantMenuItemService;
 
 
     @GetMapping("restaurant/{id}")

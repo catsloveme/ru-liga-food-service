@@ -1,6 +1,6 @@
 package ru.liga.service.jpa;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JpaOrderService implements OrderService {
 
     private final JpaOrderRepository jpaOrderRepository;

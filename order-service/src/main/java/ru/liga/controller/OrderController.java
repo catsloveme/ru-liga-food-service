@@ -2,7 +2,6 @@ package ru.liga.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.request.CreateOrderItemRequest;
@@ -21,10 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
 
+
     private final OrderService orderService;
 
-    @Autowired
-    private OrderItemService orderItemService;
+    private final OrderItemService orderItemService;
 
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAllOrders() {
