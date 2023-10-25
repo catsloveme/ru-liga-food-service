@@ -14,14 +14,9 @@ public class RoutingMQConfig {
     @Bean
     public Declarables myQueue() {
         Queue queueDirectCreateOrder = new Queue("createOrderQueue", false);
-        Queue queueDirectPaidOrder = new Queue("paidOrderQueue", false);
-        Queue queueDirectCancelOrder = new Queue("cancelOrderQueue", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(queueDirectCreateOrder,queueDirectPaidOrder,queueDirectCancelOrder, directExchange,
-                BindingBuilder.bind(queueDirectCreateOrder).to(directExchange).with("create_order"),
-                BindingBuilder.bind(queueDirectPaidOrder).to(directExchange).with("paid_order"),
-                BindingBuilder.bind(queueDirectCancelOrder).to(directExchange).with("cancel_order"));
+        return new Declarables(queueDirectCreateOrder, directExchange,
+                BindingBuilder.bind(queueDirectCreateOrder).to(directExchange).with("create_order"));
     }
-
 }

@@ -1,9 +1,9 @@
 package ru.liga.api;
 
-import ru.liga.enums.StatusOrder;
+import ru.liga.dto.request.CreateOrderRequest;
 
 public interface RabbitMQProducerService {
 
-    void sendStatus(StatusOrder status, String routingKey);
+    void sendCreateRequest(CreateOrderRequest request, String routingKey);
 
 }
