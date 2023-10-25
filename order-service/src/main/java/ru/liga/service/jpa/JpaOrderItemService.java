@@ -22,13 +22,13 @@ public class JpaOrderItemService implements OrderItemService {
     private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
-    @Transactional(readOnly = true)
+
     public List<OrderItemResponse> findAllOrderItems() {
         List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
         return JpaOrderItemMapper.mapToOrderItemList(orderItems);
     }
 
-    @Transactional(readOnly = true)
+
     public OrderItemResponse findOrderItemById(Long id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Order Item id = %d not found", id)));
@@ -52,7 +52,7 @@ public class JpaOrderItemService implements OrderItemService {
         jpaOrderItemRepository.save(orderItem);
         return JpaOrderItemMapper.mapToOrderItem(orderItem);
     }
-//    @Transactional
+
 //    public void deleteOrderItemById(Long id){
 //        jpaOrderItemRepository.deleteById(id);
 //    }

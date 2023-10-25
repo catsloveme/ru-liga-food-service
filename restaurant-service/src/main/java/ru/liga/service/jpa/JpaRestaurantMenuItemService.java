@@ -22,7 +22,6 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
 
     private final JpaRestaurantRepository jpaRestaurantRepository;
 
-    @Transactional
     public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {
         RestaurantMenuItem restaurantMenuItem = jpaRestaurantMenuItemRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
@@ -44,11 +43,11 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
         jpaRestaurantMenuItemRepository.save(restaurantMenuItem);
         return JpaRestaurantMenuItemMapper.map(restaurantMenuItem);
 }
-    @Transactional
+
     public void deleteRestaurantMenuItemById(Long id){
         jpaRestaurantMenuItemRepository.deleteById(id);
     }
-    @Transactional
+
     public void updatePrice(BigDecimal price, Long id){
         jpaRestaurantMenuItemRepository.updatePrice(price,id);
     }

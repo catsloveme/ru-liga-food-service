@@ -15,7 +15,7 @@ public class MyBatisConfiguration {
     private final DeliveryMapper deliveryMapper;
 
     @Bean("myBatisOrderService")
-    public CourierService orderService() {
+    public CourierService courierService() {
         return new BatisCourierService(deliveryMapper);
     }
 

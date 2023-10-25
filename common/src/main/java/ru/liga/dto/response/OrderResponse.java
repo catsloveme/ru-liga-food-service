@@ -1,13 +1,9 @@
 package ru.liga.dto.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.OffsetDateTime;
-import java.util.List;
-
 
 @Data
 @NoArgsConstructor
@@ -15,7 +11,7 @@ import java.util.List;
 public class OrderResponse {
 
     private Long id;
-    private RestaurantResponse restaurant;
-    private List<RestaurantMenuItemResponse> items;
+   // private RestaurantResponse restaurant;
+   // private List<RestaurantMenuItemResponse> items;
     private OffsetDateTime timestamp;
 }

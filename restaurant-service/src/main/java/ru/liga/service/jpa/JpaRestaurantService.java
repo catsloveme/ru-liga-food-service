@@ -1,7 +1,6 @@
 package ru.liga.service.jpa;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Order;
@@ -28,13 +27,13 @@ public class JpaRestaurantService implements RestaurantService {
 
     private final JpaOrderItemRepository jpaOrderItemRepository;
 
-    @Transactional
+
     public RestaurantResponse findRestaurantById(Long id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return JpaRestaurantMapper.map(restaurant);
     }
-    @Transactional(readOnly = true)
+
     public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
         List<Restaurant> restaurants = jpaRestaurantRepository.findByStatus(status);
 
@@ -53,7 +52,7 @@ public class JpaRestaurantService implements RestaurantService {
         return JpaRestaurantOrderMapper.map(orderItemsMapOrder);
 
     }
-    @Transactional(readOnly = true)
+
     public List<RestaurantResponse> findAllRestaurants() {
         List<Restaurant> restaurants = jpaRestaurantRepository.findAll();//firstPageWithTenElements);
 
