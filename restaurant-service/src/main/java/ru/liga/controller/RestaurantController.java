@@ -9,7 +9,6 @@ import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.clients.OrderFeign;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
-import ru.liga.dto.response.OrderResponse;
 import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
@@ -105,19 +104,6 @@ public class RestaurantController {
         courierService.sendCourierSearch(id);
         log.info("The search for couriers has begun");
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
-        //return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    //    @PatchMapping("/restaurant/{id}")
-//    ResponseEntity<Void> updateStatus(@PathVariable Long id, @RequestParam StatusRestaurant status);
-//}KITCHEN_ACCEPTED,
-//    KITCHEN_DENIED,
-//    KITCHEN_PREPARING,
-//    KITCHEN_REFUNDED
-//     restaurantFeign.updateStatus(requestCreatingOrder.getRestaurantId(), StatusRestaurant.KITCHEN_ACCEPTED);
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
-        return orderFeign.findOrderById(id);
-    }
 }
