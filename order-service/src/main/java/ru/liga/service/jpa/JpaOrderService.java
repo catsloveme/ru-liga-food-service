@@ -32,20 +32,20 @@ public class JpaOrderService implements OrderService {
 
 //    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
-    @Transactional(readOnly = true)
+
     public List<OrderResponse> findAllOrders() {
         List<Order> orders = jpaOrderRepository.findAll();//firstPageWithTenElements);
         List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
         return JpaOrderMapper.mapList(orders, orderItems);
     }
 
-    @Transactional(readOnly = true)
+
     public OrderResponse findOrderById(Long orderId) {
         Order order = jpaOrderRepository.findOrderById(orderId);//, firstPageWithTenElements);
         List<OrderItem> orderItems = jpaOrderItemRepository.findByOrderId(orderId);
         return JpaOrderMapper.map(order, orderItems);
     }
-    @Transactional
+
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         Order order = new Order();
         Long customerId = createOrderRequest.getCustomerId();

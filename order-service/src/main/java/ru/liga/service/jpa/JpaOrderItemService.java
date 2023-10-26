@@ -1,7 +1,6 @@
 package ru.liga.service.jpa;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.entity.OrderItem;
@@ -35,7 +34,7 @@ public class JpaOrderItemService implements OrderItemService {
         return JpaOrderItemMapper.mapToOrderItem(orderItem);
     }
 
-    @Transactional
+
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         OrderItem orderItem = new OrderItem();
         Long orderId = creatingOrderItemRequest.getOrderId();

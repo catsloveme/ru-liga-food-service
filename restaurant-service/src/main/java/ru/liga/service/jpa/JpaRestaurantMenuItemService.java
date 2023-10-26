@@ -28,7 +28,6 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
         return JpaRestaurantMenuItemMapper.map(restaurantMenuItem);
     }
 
-    @Transactional
     public RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) {
         RestaurantMenuItem restaurantMenuItem;
         Long restaurantId =  request.getRestaurantId();
@@ -43,11 +42,11 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
         jpaRestaurantMenuItemRepository.save(restaurantMenuItem);
         return JpaRestaurantMenuItemMapper.map(restaurantMenuItem);
 }
-
+    @Transactional
     public void deleteRestaurantMenuItemById(Long id){
         jpaRestaurantMenuItemRepository.deleteById(id);
     }
-
+    @Transactional
     public void updatePrice(BigDecimal price, Long id){
         jpaRestaurantMenuItemRepository.updatePrice(price,id);
     }
