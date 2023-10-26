@@ -1,6 +1,7 @@
 package ru.liga.service.jpa;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
@@ -21,8 +22,9 @@ public class JpaCourierService implements CourierService {
         return JpaCourierMapper.mapList(courier);
     }
 
-    public void changeOrderStatusById( Long courierId, StatusCourier status) {
-        jpaCourierRepository.updateCourierStatus(courierId,status);
+    @Transactional
+    public void changeOrderStatusById(Long courierId, StatusCourier status) {
+        jpaCourierRepository.updateCourierStatus(courierId, status);
         jpaCourierRepository.flush();
     }
 

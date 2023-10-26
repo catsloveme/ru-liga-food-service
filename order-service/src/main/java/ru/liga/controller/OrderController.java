@@ -5,7 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.clients.RestaurantFeign;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.OrderItemResponse;
@@ -13,6 +12,8 @@ import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
+import ru.liga.enums.StatusOrder;
+
 import java.util.List;
 
 @Log4j2
@@ -25,7 +26,6 @@ public class OrderController {
     private final OrderService orderService;
 
     private final OrderItemService orderItemService;
-    private final RestaurantFeign restaurantFeign;
 
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAllOrders() {
@@ -79,8 +79,12 @@ public class OrderController {
 
     @PatchMapping("/courier/{courierId}/order/{orderId}")
     ResponseEntity<Void> updateCourierId( @PathVariable Long courierId,@PathVariable Long orderId){
-        orderService.updateCourierId(orderId, courierId);
+        orderService.updateCourierId(courierId, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PatchMapping("/{orderId}")
+    ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status){
+        orderService.updateOrderStatus(status,orderId);
+        return new ResponseEntity<>(HttpStatus.OK);}
 }
 

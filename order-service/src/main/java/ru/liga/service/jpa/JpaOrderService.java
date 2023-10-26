@@ -6,6 +6,7 @@ import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.*;
+import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapping.JpaOrderMapper;
 import ru.liga.repository.*;
@@ -61,7 +62,11 @@ public class JpaOrderService implements OrderService {
 
     @Transactional
     public void updateCourierId(Long courierId, Long orderId) {
-        jpaOrderRepository.updateCourierId(orderId,courierId);
+        jpaOrderRepository.updateCourierId(courierId,orderId);
+    }
+    @Transactional
+    public void updateOrderStatus(StatusOrder status, Long orderId) {
+        jpaOrderRepository.updateOrderStatus(status,orderId);
     }
 
 //    @Transactional
