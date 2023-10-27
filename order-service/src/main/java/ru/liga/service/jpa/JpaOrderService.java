@@ -3,17 +3,17 @@ package ru.liga.service.jpa;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.request.CreateOrderRequest;
-import ru.liga.dto.response.CreateOrderResponse;
-import ru.liga.dto.response.OrderResponse;
+import ru.liga.dto.response.*;
 import ru.liga.entity.*;
 import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.JpaOrderMapper;
+import ru.liga.mapping.abstraction.AbstractMapper;
 import ru.liga.repository.*;
 import ru.liga.api.OrderService;
 
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
@@ -28,36 +28,55 @@ public class JpaOrderService implements OrderService {
     private final JpaCustomerRepository jpaCustomerRepository;
 
     private final JpaRestaurantRepository jpaRestaurantRepository;
-
-
+    private final AbstractMapper<OrderItem, RestaurantMenuItemResponse> mapperOrderItem;
+    private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
+    private final AbstractMapper<Order, CreateOrderResponse> mapperCreateOrder;
 //    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-
 
     public List<OrderResponse> findAllOrders() {
         List<Order> orders = jpaOrderRepository.findAll();//firstPageWithTenElements);
-        List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
-        return JpaOrderMapper.mapList(orders, orderItems);
+        List<OrderResponse> responses = new ArrayList<>();
+       for(Order order: orders){
+           responses.add(this.findOrderById(order.getId()));
+       }
+        return responses;
     }
-
 
     public OrderResponse findOrderById(Long orderId) {
         Order order = jpaOrderRepository.findOrderById(orderId);//, firstPageWithTenElements);
+        OffsetDateTime time = order.getTimestamp();
+        RestaurantResponse restaurantResponse = mapperRestaurant.toDto(order.getRestaurant());
         List<OrderItem> orderItems = jpaOrderItemRepository.findByOrderId(orderId);
-        return JpaOrderMapper.map(order, orderItems);
+        List<RestaurantMenuItemResponse> menuItems = mapperOrderItem.toDto(orderItems);
+
+        return OrderResponse.builder()
+                .id(orderId)
+                .restaurant(restaurantResponse)
+                .items(menuItems)
+                .timestamp(time)
+                .build();
     }
 
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         Order order = new Order();
+
         Long customerId = createOrderRequest.getCustomerId();
-        order.setCustomer(jpaCustomerRepository.findById(customerId).orElseThrow(() ->
-                        new DataNotFoundException(String.format("Customer id = %d not found", customerId))));
+
+        Customer customer = jpaCustomerRepository.findById(customerId).orElseThrow(() ->
+                new DataNotFoundException(String.format("Customer id = %d not found", customerId)));
+
+        order.setCustomer(customer);
         order.setStatus(CUSTOMER_CREATED);
+
         Long restaurantId = createOrderRequest.getRestaurantId();
-        order.setRestaurant(jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
-                new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId))));
+
+        Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
+                new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
+
+        order.setRestaurant(restaurant);
         order.setTimestamp(OffsetDateTime.now());
-        jpaOrderRepository.save(order);
-        return JpaOrderMapper.mapCreateOrder(order);
+        jpaOrderRepository.saveAndFlush(order);
+        return mapperCreateOrder.toDto(order);
     }
 
     @Transactional
@@ -69,9 +88,5 @@ public class JpaOrderService implements OrderService {
         jpaOrderRepository.updateOrderStatus(status,orderId);
     }
 
-//    @Transactional
-//    public void deleteOrderById(Long id){
-//        jpaOrderRepository.deleteById(id);
-//    }
 }
 

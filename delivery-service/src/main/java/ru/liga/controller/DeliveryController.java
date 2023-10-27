@@ -27,7 +27,7 @@ public class DeliveryController {
 
     @PostMapping("/delivery/{id}")
     public ResponseEntity<Void> changeCourierStatusById(@PathVariable Long id,
-                                                      @RequestBody StatusCourier status) {
+                                                        @RequestParam StatusCourier status) {
         log.info("change couriers by status: {}",status);
         courierService.changeOrderStatusById(id, status);
         return new ResponseEntity<>(HttpStatus.OK);

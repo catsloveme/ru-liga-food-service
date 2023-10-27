@@ -9,7 +9,6 @@ import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.clients.OrderFeign;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
-import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
@@ -43,11 +42,6 @@ public class RestaurantController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/orders")
-    public ResponseEntity<List<RestaurantByStatusResponse>> findRestaurantsByStatus(@RequestParam StatusRestaurant status) {
-        List<RestaurantByStatusResponse> response = jpaRestaurantService.findRestaurantsByStatus(status);
-        return ResponseEntity.ok(response);
-    }
 
     @GetMapping("menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(@PathVariable Long id) {

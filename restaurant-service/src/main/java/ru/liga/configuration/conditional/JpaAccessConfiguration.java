@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
-import ru.liga.repository.JpaOrderItemRepository;
-import ru.liga.repository.JpaOrderRepository;
+import ru.liga.dto.response.RestaurantMenuItemResponse;
+import ru.liga.dto.response.RestaurantResponse;
+import ru.liga.entity.Restaurant;
+import ru.liga.entity.RestaurantMenuItem;
+import ru.liga.mapping.abstraction.AbstractMapper;
 import ru.liga.repository.JpaRestaurantMenuItemRepository;
 import ru.liga.repository.JpaRestaurantRepository;
 import ru.liga.service.jpa.JpaRestaurantMenuItemService;
@@ -19,21 +22,18 @@ import ru.liga.service.jpa.JpaRestaurantService;
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public class JpaAccessConfiguration {
     private final JpaRestaurantRepository jpaRestaurantRepository;
-
-    private final JpaOrderRepository jpaOrderRepository;
-
-    private final JpaOrderItemRepository jpaOrderItemRepository;
     private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-
+    private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
+    private final AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> mapperRestaurantMenuItem;
     @Primary
     @Bean("jpaRestaurantService")
     public RestaurantService RestaurantService() {
-        return new JpaRestaurantService(jpaRestaurantRepository,jpaOrderRepository,jpaOrderItemRepository);
+        return new JpaRestaurantService(jpaRestaurantRepository, mapperRestaurant);
     }
     @Primary
     @Bean("jpaRestaurantMenuItemService")
     public RestaurantMenuItemService restaurantMenuItemService() {
-        return new JpaRestaurantMenuItemService(jpaRestaurantMenuItemRepository,jpaRestaurantRepository);
+        return new JpaRestaurantMenuItemService(jpaRestaurantMenuItemRepository,jpaRestaurantRepository,mapperRestaurantMenuItem);
     }
 
 }

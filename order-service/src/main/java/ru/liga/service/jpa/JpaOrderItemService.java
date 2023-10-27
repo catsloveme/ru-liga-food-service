@@ -6,7 +6,7 @@ import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.JpaOrderItemMapper;
+import ru.liga.mapping.abstraction.AbstractMapper;
 import ru.liga.repository.*;
 import ru.liga.api.OrderItemService;
 
@@ -20,18 +20,18 @@ public class JpaOrderItemService implements OrderItemService {
 
     private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-
+   private final AbstractMapper<OrderItem,OrderItemResponse> mapper;
 
     public List<OrderItemResponse> findAllOrderItems() {
         List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
-        return JpaOrderItemMapper.mapToOrderItemList(orderItems);
+        return mapper.toDto(orderItems);
     }
 
 
     public OrderItemResponse findOrderItemById(Long id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Order Item id = %d not found", id)));
-        return JpaOrderItemMapper.mapToOrderItem(orderItem);
+        return mapper.toDto(orderItem);
     }
 
 
@@ -49,7 +49,7 @@ public class JpaOrderItemService implements OrderItemService {
         orderItem.setQuantity(creatingOrderItemRequest.getQuantity());
 
         jpaOrderItemRepository.save(orderItem);
-        return JpaOrderItemMapper.mapToOrderItem(orderItem);
+        return mapper.toDto(orderItem);
     }
 
 //    public void deleteOrderItemById(Long id){

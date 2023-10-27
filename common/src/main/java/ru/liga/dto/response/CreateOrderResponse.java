@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateOrderResponse {
-    private Long OrderId;
+    private Long id;
     private String secretPaymentUrl;
     private OffsetDateTime estimatedTimeOfArrival;
 }

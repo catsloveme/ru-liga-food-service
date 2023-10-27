@@ -2,38 +2,26 @@ package ru.liga.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.dto.response.RestaurantByStatusResponse;
 import ru.liga.dto.response.RestaurantResponse;
-import ru.liga.entity.Order;
-import ru.liga.entity.OrderItem;
 import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusRestaurant;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.JpaRestaurantMapper;
-import ru.liga.mapping.JpaRestaurantOrderMapper;
-import ru.liga.repository.JpaOrderItemRepository;
-import ru.liga.repository.JpaOrderRepository;
+import ru.liga.mapping.abstraction.AbstractMapper;
 import ru.liga.repository.JpaRestaurantRepository;
 import ru.liga.api.RestaurantService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
 public class JpaRestaurantService implements RestaurantService {
 
     private final JpaRestaurantRepository jpaRestaurantRepository;
-
-    private final JpaOrderRepository jpaOrderRepository;
-
-    private final JpaOrderItemRepository jpaOrderItemRepository;
-
+    private final AbstractMapper<Restaurant, RestaurantResponse> mapper;
 
     public RestaurantResponse findRestaurantById(Long id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
-        return JpaRestaurantMapper.map(restaurant);
+        return mapper.toDto(restaurant);
     }
 
     @Transactional
@@ -41,28 +29,10 @@ public class JpaRestaurantService implements RestaurantService {
         jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
     }
 
-    public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
-        List<Restaurant> restaurants = jpaRestaurantRepository.findByStatus(status);
-
-
-        List<Order> orders = new ArrayList<>();
-        for (Restaurant rest : restaurants) {
-            Order order = jpaOrderRepository.findByRestaurantId(rest.getId());
-            orders.add(order);
-        }
-
-        HashMap<Order, List<OrderItem>> orderItemsMapOrder = new HashMap<>();
-        for (Order ord : orders) {
-            List<OrderItem> items = jpaOrderItemRepository.findByOrderId(ord.getId());
-            orderItemsMapOrder.put(ord, items);
-        }
-        return JpaRestaurantOrderMapper.map(orderItemsMapOrder);
-
-    }
 
     public List<RestaurantResponse> findAllRestaurants() {
         List<Restaurant> restaurants = jpaRestaurantRepository.findAll();//firstPageWithTenElements);
 
-        return JpaRestaurantMapper.mapList(restaurants);
+        return mapper.toDto(restaurants);
     }
 }

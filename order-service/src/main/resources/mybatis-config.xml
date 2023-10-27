@@ -21,6 +21,6 @@
     </environments>
     <mappers><!--в данном блоке необходимо описать маперы, которые используются в проекте-->
         <mapper class="ru.liga.mapper.CustomerMapper"/>
-        <mapper class="ru.liga.mapper.OrderItemMapper"/>
+        <mapper class="ru.liga.mapper.OrderItemMapperBatis"/>
     </mappers>
 </configuration>

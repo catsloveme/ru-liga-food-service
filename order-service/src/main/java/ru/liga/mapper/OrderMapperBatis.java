@@ -9,7 +9,7 @@ import ru.liga.api.OrderService;
 import java.util.List;
 @Mapper
 
-public interface OrderMapper extends OrderService{
+public interface OrderMapperBatis extends OrderService{
 
     List<OrderResponse> findAllOrders();
     @Select("SELECT order_id, timestamp FROM orders WHERE order_id=#{id};")

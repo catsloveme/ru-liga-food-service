@@ -9,7 +9,7 @@ import ru.liga.api.OrderItemService;
 import java.util.List;
 
 @Mapper
-public interface OrderItemMapper extends OrderItemService {
+public interface OrderItemMapperBatis extends OrderItemService {
 
     List<OrderItemResponse> findAllOrderItems() ;
     OrderItemResponse findOrderItemById(Long id) ;
