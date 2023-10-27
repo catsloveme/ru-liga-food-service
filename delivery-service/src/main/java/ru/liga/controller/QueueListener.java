@@ -13,7 +13,7 @@ import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
 import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.repository.JpaCourierRepository;
+import ru.liga.repository.CourierRepository;
 import ru.liga.service.jpa.JpaCourierService;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,7 @@ import static java.lang.Math.sqrt;
 @Service
 @RequiredArgsConstructor
 public class QueueListener {
-    private final JpaCourierRepository jpaCourierRepository;
+    private final CourierRepository jpaCourierRepository;
     private final JpaCourierService jpaCourierService;
     private final OrderFeign orderFeign;
 

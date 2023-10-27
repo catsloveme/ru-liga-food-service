@@ -8,8 +8,8 @@ import ru.liga.entity.Restaurant;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapping.abstraction.AbstractMapper;
-import ru.liga.repository.JpaRestaurantMenuItemRepository;
-import ru.liga.repository.JpaRestaurantRepository;
+import ru.liga.repository.RestaurantMenuItemRepository;
+import ru.liga.repository.RestaurantRepository;
 import ru.liga.api.RestaurantMenuItemService;
 
 import java.math.BigDecimal;
@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
 
-    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+    private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
 
-    private final JpaRestaurantRepository jpaRestaurantRepository;
+    private final RestaurantRepository jpaRestaurantRepository;
     private final AbstractMapper<RestaurantMenuItem,RestaurantMenuItemResponse> mapper;
 
     public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {

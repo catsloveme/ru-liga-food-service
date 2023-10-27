@@ -15,7 +15,7 @@ import ru.liga.service.jpa.JpaCustomerService;
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public class JpaAccessConfiguration {
 
-    private final JpaCustomerRepository jpaCustomerRepository;
+    private final CustomerRepository jpaCustomerRepository;
     private final CustomerMapper customerMapperMapStruct;
 
     @Primary

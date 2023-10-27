@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JpaCourierRepository extends JpaRepository<Courier,Long> {
+public interface CourierRepository extends JpaRepository<Courier,Long> {
     List<Courier> findAll();
     List<Courier> findByStatus(StatusCourier status);
     Optional<Courier> findById(Long id);

@@ -10,11 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface JpaRestaurantMenuItemRepository extends JpaRepository<RestaurantMenuItem,Long> {
+public interface RestaurantMenuItemRepository extends JpaRepository<RestaurantMenuItem,Long> {
 
-    List<RestaurantMenuItem> findByRestaurantId(Long restaurantId);
     Optional<RestaurantMenuItem> findById(Long id);
-    List<RestaurantMenuItem> findByName(String name);
     void deleteById(Long id);
     @Modifying
     @Query("update RestaurantMenuItem it set it.price= :price where it.id = :id")

@@ -21,13 +21,13 @@ import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 @RequiredArgsConstructor
 public class JpaOrderService implements OrderService {
 
-    private final JpaOrderRepository jpaOrderRepository;
+    private final OrderRepository jpaOrderRepository;
 
-    private final JpaOrderItemRepository jpaOrderItemRepository;
+    private final OrderItemRepository jpaOrderItemRepository;
 
-    private final JpaCustomerRepository jpaCustomerRepository;
+    private final CustomerRepository jpaCustomerRepository;
 
-    private final JpaRestaurantRepository jpaRestaurantRepository;
+    private final RestaurantRepository jpaRestaurantRepository;
     private final AbstractMapper<OrderItem, RestaurantMenuItemResponse> mapperOrderItem;
     private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
     private final AbstractMapper<Order, CreateOrderResponse> mapperCreateOrder;

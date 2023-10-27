@@ -24,11 +24,11 @@ import ru.liga.service.jpa.JpaOrderService;
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public class JpaAccessConfiguration {
 
-    private final JpaOrderRepository jpaOrderRepository;
-    private final JpaOrderItemRepository jpaOrderItemRepository;
-    private final JpaCustomerRepository jpaCustomerRepository;
-    private final JpaRestaurantRepository jpaRestaurantRepository;
-    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+    private final OrderRepository jpaOrderRepository;
+    private final OrderItemRepository jpaOrderItemRepository;
+    private final CustomerRepository jpaCustomerRepository;
+    private final RestaurantRepository jpaRestaurantRepository;
+    private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
     private final AbstractMapper<OrderItem, OrderItemResponse> mapper;
     private final AbstractMapper<OrderItem, RestaurantMenuItemResponse> mapperOrderItem;
     private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;

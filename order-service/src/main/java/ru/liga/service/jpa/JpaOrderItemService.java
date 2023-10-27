@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JpaOrderItemService implements OrderItemService {
 
-    private final JpaOrderItemRepository jpaOrderItemRepository;
+    private final OrderItemRepository jpaOrderItemRepository;
 
-    private final JpaOrderRepository jpaOrderRepository;
+    private final OrderRepository jpaOrderRepository;
 
-    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+    private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
    private final AbstractMapper<OrderItem,OrderItemResponse> mapper;
 

@@ -8,14 +8,14 @@ import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
 import ru.liga.mapping.abstraction.AbstractMapper;
-import ru.liga.repository.JpaCourierRepository;
+import ru.liga.repository.CourierRepository;
 import ru.liga.service.jpa.JpaCourierService;
 
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public class JpaAccessConfiguration {
-    private final JpaCourierRepository jpaCourierRepository;
+    private final CourierRepository jpaCourierRepository;
     private final AbstractMapper<Courier, CourierResponse> mapper;
     @Bean("jpaCourierService")
     public CourierService courierService() {

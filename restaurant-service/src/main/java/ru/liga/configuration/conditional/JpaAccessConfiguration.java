@@ -12,8 +12,8 @@ import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Restaurant;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.mapping.abstraction.AbstractMapper;
-import ru.liga.repository.JpaRestaurantMenuItemRepository;
-import ru.liga.repository.JpaRestaurantRepository;
+import ru.liga.repository.RestaurantMenuItemRepository;
+import ru.liga.repository.RestaurantRepository;
 import ru.liga.service.jpa.JpaRestaurantMenuItemService;
 import ru.liga.service.jpa.JpaRestaurantService;
 
@@ -21,8 +21,8 @@ import ru.liga.service.jpa.JpaRestaurantService;
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public class JpaAccessConfiguration {
-    private final JpaRestaurantRepository jpaRestaurantRepository;
-    private final JpaRestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
+    private final RestaurantRepository jpaRestaurantRepository;
+    private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
     private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
     private final AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> mapperRestaurantMenuItem;
     @Primary
