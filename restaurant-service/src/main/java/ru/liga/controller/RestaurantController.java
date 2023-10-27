@@ -13,7 +13,7 @@ import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.service.rabbitMQ.CourierService;
+import ru.liga.service.rabbitMQ.NotificationService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,7 +26,7 @@ public class RestaurantController {
     private final RestaurantService jpaRestaurantService;
 
     private final RestaurantMenuItemService jpaRestaurantMenuItemService;
-    private final CourierService courierService;
+    private final NotificationService courierService;
     private final OrderFeign orderFeign;
 
 

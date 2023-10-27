@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
+import ru.liga.enums.StatusOrder;
 import ru.liga.repository.JpaCourierRepository;
 import ru.liga.service.jpa.JpaCourierService;
 
@@ -35,6 +36,7 @@ public class QueueListener {
             Long courierIdForDelivery = courierForDelivery.getId();
             log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
             orderFeign.updateCourierId(courierIdForDelivery, idOrder);
+            orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
             jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
         }
     }

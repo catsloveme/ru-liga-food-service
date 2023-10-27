@@ -13,7 +13,7 @@ public class RoutingMQConfig {
     //Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи)
     @Bean
     public Declarables myQueue() {
-        Queue queueDirectCouriers = new Queue("courierSearchQueue", false);
+        Queue queueDirectCouriers = new Queue("courierSearchQueueToNotification", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
         return new Declarables(queueDirectCouriers, directExchange,
