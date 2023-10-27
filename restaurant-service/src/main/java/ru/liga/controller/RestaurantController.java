@@ -26,7 +26,7 @@ public class RestaurantController {
     private final RestaurantService jpaRestaurantService;
 
     private final RestaurantMenuItemService jpaRestaurantMenuItemService;
-    private final NotificationService courierService;
+    private final NotificationService notificationService;
     private final OrderFeign orderFeign;
 
 
@@ -91,7 +91,7 @@ public class RestaurantController {
 
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(@PathVariable Long id) {
-        courierService.sendCourierSearch(id);
+        notificationService.sendCourierSearch(id);
         log.info("The search for couriers has begun");
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
     }

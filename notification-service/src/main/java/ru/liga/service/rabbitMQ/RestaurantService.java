@@ -10,7 +10,7 @@ public class RestaurantService {
 
 
     public void sendMessageCreate(Long orderId) {
-        rabbitMQProducerService.sendMessageCreate(orderId, "courier_search");
+        rabbitMQProducerService.sendMessageCreate(orderId, "new_order");
     }
 
 }

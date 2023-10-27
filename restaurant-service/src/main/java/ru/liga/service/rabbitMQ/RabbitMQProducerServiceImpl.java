@@ -13,6 +13,6 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
 
     public void sendMessageSearch(Long orderId, String routingKey) {
         rabbitTemplate.convertAndSend("directExchange", routingKey, orderId.toString());
-        log.info("Message has been sanded");
+        log.info("Message about search a courier has been sanded");
     }
 }
