@@ -1,0 +1,16 @@
+package ru.liga.service.rabbitMQ;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class RestaurantService {
+    private final RabbitMQProducerServiceImpl rabbitMQProducerService;
+
+
+    public void sendMessageCreate(Long orderId) {
+        rabbitMQProducerService.sendMessageCreate(orderId, "courier_search");
+    }
+
+}

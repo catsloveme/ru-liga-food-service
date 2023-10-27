@@ -73,10 +73,6 @@ public class RestaurantController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/order/{id}/accepted")
-    public ResponseEntity<Void> acceptOrder(@PathVariable Long id) {
-        return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_ACCEPTED);
-    }
 
     @PatchMapping("/order/{id}/denied")
     public ResponseEntity<Void> denyOrder(@PathVariable Long id) {

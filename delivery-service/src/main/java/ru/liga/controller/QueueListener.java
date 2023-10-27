@@ -28,15 +28,14 @@ public class QueueListener {
         log.info("The message is received");
         ObjectMapper objectMapper = new ObjectMapper();
         Long idOrder = objectMapper.readValue(message, Long.class);
-        List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.ACTIVE);
+        List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.DELIVERY_PENDING);
         Random randomizer = new Random();
         Courier courierForDelivery = activeCouriers.get(randomizer.nextInt(activeCouriers.size()));
         if (courierForDelivery != null) {
             Long courierIdForDelivery = courierForDelivery.getId();
             log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
             orderFeign.updateCourierId(courierIdForDelivery, idOrder);
-            jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.OFFLINE);
+            jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
         }
-//TODO идея: использовать scheduler, который с определенной периодичностью проверяет появились ли активные клиенты
     }
 }

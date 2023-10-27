@@ -2,8 +2,13 @@ package ru.liga.enums;
 
 
 public enum StatusCourier {
-   ACTIVE,
-    OFFLINE
+    DELIVERY_PENDING,
+    DELIVERY_PICKING,
+    DELIVERY_DENIED,
+    DELIVERY_DELIVERING,
+    DELIVERY_REFUNDED,
+    DELIVERY_COMPLETE
+
 
 
 }
