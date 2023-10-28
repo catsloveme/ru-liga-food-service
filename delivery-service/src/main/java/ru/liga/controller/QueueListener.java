@@ -1,6 +1,7 @@
 package ru.liga.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.support.RetryTemplate;
 import ru.liga.clients.OrderFeign;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,30 +29,51 @@ public class QueueListener {
     private final CourierRepository jpaCourierRepository;
     private final JpaCourierService jpaCourierService;
     private final OrderFeign orderFeign;
+    private final RetryTemplate retryTemplate;
 
     @RabbitListener(queues = "courierSearchQueueToCourier")
-    public void searchCouriers(String message) throws JsonProcessingException {
+    public void getSearchingMessage(String message) throws JsonProcessingException {
         log.info("The message about searching courier is received");
         ObjectMapper objectMapper = new ObjectMapper();
         Long idOrder = objectMapper.readValue(message, Long.class);
+
+        searchNearestCouriers(idOrder);
+
+    }
+    public void searchNearestCouriers (Long idOrder){
+
+        List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.DELIVERY_PENDING);
+        String restaurantAddress = searchRestaurantAddress(idOrder);
+
+        if(!activeCouriers.isEmpty()) {
+            searchNearestCouriersAndChangeOrderStatus(activeCouriers,restaurantAddress,idOrder);
+        }
+        else {
+            log.info("The courier search will be re-attempted in 10 minutes");
+            retryTemplate.execute(arg0 -> {
+                searchNearestCouriers (idOrder);
+                return null;
+            });
+        }
+    }
+
+    public void searchNearestCouriersAndChangeOrderStatus(List<Courier> activeCouriers,String restaurantAddress, Long idOrder ){
+        Long courierIdForDelivery = choseNearestCourierId(activeCouriers,restaurantAddress );
+        log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
+        orderFeign.updateCourierId(courierIdForDelivery, idOrder);
+        orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
+        jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
+    }
+    public String searchRestaurantAddress(Long idOrder){
         ResponseEntity<OrderResponse> orderResponseEntity = orderFeign.findOrderById(idOrder);
         OrderResponse orderResponse = orderResponseEntity.getBody();
-
         String restaurantAddress = Optional
                 .ofNullable(orderResponse)
                 .map(it->it.getRestaurant().getAddress())
                 .orElseThrow(() -> new DataNotFoundException(String.format("order response by id = %d not found", idOrder)));
-        List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.DELIVERY_PENDING);
-
-        if(!activeCouriers.isEmpty()) {
-            Long courierIdForDelivery = findNearestCourierId(activeCouriers,restaurantAddress );
-            log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
-            orderFeign.updateCourierId(courierIdForDelivery, idOrder);
-            orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
-            jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
-        }
+        return restaurantAddress;
     }
-    public Long findNearestCourierId (List<Courier> activeCouriers, String restaurantAddress ){
+    public Long choseNearestCourierId (List<Courier> activeCouriers, String restaurantAddress ){
         Long nearestCourierId = null;
         Double minimumDistance = Double.MAX_VALUE;
         Double currentDistance;
