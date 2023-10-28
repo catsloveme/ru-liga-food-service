@@ -92,7 +92,6 @@ public class RestaurantController {
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(@PathVariable Long id) {
         notificationService.sendCourierSearch(id);
-        log.info("The search for couriers has begun");
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
     }
 

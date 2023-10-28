@@ -31,7 +31,7 @@ public class QueueListener {
 
     @RabbitListener(queues = "courierSearchQueueToCourier")
     public void searchCouriers(String message) throws JsonProcessingException {
-        log.info("The message is received");
+        log.info("The message about searching courier is received");
         ObjectMapper objectMapper = new ObjectMapper();
         Long idOrder = objectMapper.readValue(message, Long.class);
         ResponseEntity<OrderResponse> orderResponseEntity = orderFeign.findOrderById(idOrder);

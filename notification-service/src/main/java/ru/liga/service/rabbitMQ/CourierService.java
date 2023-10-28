@@ -10,7 +10,7 @@ public class CourierService {
 
 
     public void sendMessageSearch(Long orderId) {
-        rabbitMQProducerService.sendCourierSearch(orderId, "courier_search");
+        rabbitMQProducerService.sendCourierSearch(orderId, "courier_search_to_courier");
     }
 
 }

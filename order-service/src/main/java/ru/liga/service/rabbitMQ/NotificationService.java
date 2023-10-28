@@ -9,8 +9,8 @@ public class NotificationService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
 
-    public void sendCourierSearch(Long orderId) {
-        rabbitMQProducerService.sendMessageCreate(orderId, "courier_search");
+    public void sendCreateOrder(Long orderId) {
+        rabbitMQProducerService.sendMessageCreate(orderId, "new_order_to_notification");
     }
 
 }

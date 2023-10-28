@@ -10,6 +10,6 @@ public class OrderService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
     public void createOrder(CreateOrderRequest request) {
-        rabbitMQProducerService.sendCreateRequest(request, "create_order");
+        rabbitMQProducerService.sendCreateRequest(request, "create_order_to_order");
     }
 }
