@@ -9,7 +9,6 @@ import ru.liga.mapping.CustomerMapper;
 import ru.liga.repository.*;
 import ru.liga.service.jpa.JpaCustomerService;
 
-
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")

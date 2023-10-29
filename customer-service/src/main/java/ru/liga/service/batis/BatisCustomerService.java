@@ -11,6 +11,7 @@ import java.util.List;
 public class BatisCustomerService implements CustomerService {
 
     private final CustomerMapper customerMapper;
+
     public List<CustomerResponse> findAllCustomers() {
         return customerMapper.findAllCustomers();
     }

@@ -32,8 +32,9 @@ public class CustomerController {
         CustomerResponse customerResponse = customerService.findCustomerById(id);
         return ResponseEntity.ok(customerResponse);
     }
+
     @PostMapping("/order/create")
-    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request){
+    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request) {
         orderService.createOrder(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }

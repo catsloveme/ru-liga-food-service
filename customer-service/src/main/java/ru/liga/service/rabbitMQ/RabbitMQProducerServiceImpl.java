@@ -24,7 +24,7 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        rabbitTemplate.convertAndSend("directExchange", routingKey,  jsonRequest);
+        rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
         log.info("Request has been sent to order");
     }
 }
