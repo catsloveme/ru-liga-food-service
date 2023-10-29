@@ -3,7 +3,17 @@ package ru.liga.entity;
 import lombok.Data;
 import ru.liga.enums.StatusOrder;
 import java.time.OffsetDateTime;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Orders")

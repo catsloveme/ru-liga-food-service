@@ -7,16 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.liga.entity.RestaurantMenuItem;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
+
 @Repository
-public interface RestaurantMenuItemRepository extends JpaRepository<RestaurantMenuItem,Long> {
+public interface RestaurantMenuItemRepository extends JpaRepository<RestaurantMenuItem, Long> {
 
     Optional<RestaurantMenuItem> findById(Long id);
+
     void deleteById(Long id);
+
     @Modifying
     @Query("update RestaurantMenuItem it set it.price= :price where it.id = :id")
     void updatePrice(@Param("price") BigDecimal price, @Param("id") Long id);
-
 
 }

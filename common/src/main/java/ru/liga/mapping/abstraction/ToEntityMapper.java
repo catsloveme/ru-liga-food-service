@@ -1,9 +1,9 @@
 package ru.liga.mapping.abstraction;
 
-public interface ToEntityMapper<E,D> {
+public interface ToEntityMapper<E, D> {
     /**
-     *  Преобразование dto в entity
-     * @param dto
+     * Преобразование dto в entity
+     *
      * @return entity
      */
     E toEntity(D dto);

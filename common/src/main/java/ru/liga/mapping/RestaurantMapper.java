@@ -6,6 +6,7 @@ import ru.liga.entity.Restaurant;
 import ru.liga.mapping.abstraction.AbstractMapper;
 
 @Mapper(componentModel = "spring")
-public interface RestaurantMapper extends AbstractMapper<Restaurant, RestaurantResponse> {
+public interface RestaurantMapper
+    extends AbstractMapper<Restaurant, RestaurantResponse> {
 
 }

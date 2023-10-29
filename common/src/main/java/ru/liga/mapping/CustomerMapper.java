@@ -6,6 +6,7 @@ import ru.liga.entity.Customer;
 import ru.liga.mapping.abstraction.AbstractMapper;
 
 @Mapper(componentModel = "spring")
-public interface CustomerMapper extends AbstractMapper<Customer,CustomerResponse> {
+public interface CustomerMapper
+    extends AbstractMapper<Customer, CustomerResponse> {
 
 }

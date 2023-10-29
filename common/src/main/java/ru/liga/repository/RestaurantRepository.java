@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<Restaurant> findAll();
+
     Optional<Restaurant> findById(Long id);
+
     @Modifying
     @Query("update Restaurant res set res.status=:status where res.id =:id")
     void updateRestaurantStatus(StatusRestaurant status, Long id);

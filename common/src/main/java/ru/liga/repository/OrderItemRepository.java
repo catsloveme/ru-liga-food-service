@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderItemRepository extends JpaRepository<OrderItem,Long> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     List<OrderItem> findAll();
+
     List<OrderItem> findByOrderId(Long id);
+
     Optional<OrderItem> findById(Long id);
 
     void deleteById(Long id);

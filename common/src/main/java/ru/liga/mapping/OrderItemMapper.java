@@ -9,8 +9,10 @@ import ru.liga.mapping.abstraction.AbstractMapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface OrderItemMapper extends AbstractMapper<OrderItem, OrderItemResponse> {
-    //так как в некоторых полях сущности OrderItem лежат другие сущности(order, restaurantMenuItem) , обращение идет через .
+public interface OrderItemMapper
+    extends AbstractMapper<OrderItem, OrderItemResponse> {
+    //так как в некоторых полях сущности OrderItem лежат другие
+    // сущности(order, restaurantMenuItem) , обращение идет через .
     @Mapping(source = "order.id", target = "orderId")
     @Mapping(source = "restaurantMenuItem.id", target = "restaurantMenuItemId")
     OrderItemResponse toDto(OrderItem orderItem);

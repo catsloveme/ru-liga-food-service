@@ -7,7 +7,7 @@ import ru.liga.entity.Customer;
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findAll();//Pageable pageable);
 
     Customer findCustomerById(Long id);//, Pageable pageable);

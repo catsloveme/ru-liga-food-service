@@ -6,7 +6,7 @@ import ru.liga.entity.Order;
 import ru.liga.mapping.abstraction.AbstractMapper;
 
 @Mapper(componentModel = "spring")
-public interface CreateOrderMapper extends AbstractMapper<Order, CreateOrderResponse> {
-
+public interface CreateOrderMapper
+    extends AbstractMapper<Order, CreateOrderResponse> {
 
 }

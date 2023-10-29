@@ -18,7 +18,8 @@ public class RabbitConfiguration {
     //Бин создания соединения с сервером рэбит
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory cachingConnectionFactory =
+            new CachingConnectionFactory("localhost");
         cachingConnectionFactory.setUsername("guest");
         cachingConnectionFactory.setPassword("guest");
         return cachingConnectionFactory;
@@ -30,7 +31,8 @@ public class RabbitConfiguration {
         return new RabbitAdmin(connectionFactory());
     }
 
-    //RabbitTemplate основной класс для отправки сообщения, так же имеет гибкие настройки, такие как
+    //RabbitTemplate основной класс для отправки сообщения,
+    // так же имеет гибкие настройки, такие как
     //явное указание типа конвертации.
     @Bean
     public RabbitTemplate rabbitTemplate() {

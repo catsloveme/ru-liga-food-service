@@ -9,7 +9,8 @@ import ru.liga.mapping.abstraction.AbstractMapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface RestaurantMenuItemMapper extends AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> {
+public interface RestaurantMenuItemMapper
+    extends AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> {
     @Mapping(source = "image", target = "imageUrl")
     RestaurantMenuItemResponse toDto(RestaurantMenuItem restaurantMenuItem);
 

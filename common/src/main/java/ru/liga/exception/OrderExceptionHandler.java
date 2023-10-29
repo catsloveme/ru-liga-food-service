@@ -1,12 +1,11 @@
 package ru.liga.exception;
 
-
-
 //@RestControllerAdvice
 public class OrderExceptionHandler {//extends ResponseEntityExceptionHandler {
 
 //    @ExceptionHandler(OrderNotFoundException.class)
-//    public ResponseEntity<ErrorResponse> handleNotFoundException(OrderNotFoundException exception) {
+//    public ResponseEntity<ErrorResponse>
+//    handleNotFoundException(OrderNotFoundException exception) {
 //        return ResponseEntity.badRequest()
 //                .body(new ErrorResponse(
 //                        "No such Order",
@@ -21,7 +20,8 @@ public class OrderExceptionHandler {//extends ResponseEntityExceptionHandler {
 //        return ResponseEntity.badRequest()
 //                .body(new ErrorResponse(
 //                        "Server error",
-//                        String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()),
+//                        String.valueOf(HttpStatus
+//                        .INTERNAL_SERVER_ERROR.value()),
 //                        INTERNAL_SERVER_ERROR.name(),
 //                        INTERNAL_SERVER_ERROR.getReasonPhrase()
 //                ));
