@@ -7,12 +7,13 @@ import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.api.RestaurantMenuItemService;
 import java.math.BigDecimal;
 
-
 @Mapper
 public interface RestaurantMenuItemMapper extends RestaurantMenuItemService {
 
-    void updatePrice(@Param("price") BigDecimal price, @Param("id")Long id);
-    RestaurantMenuItemResponse addRestaurantMenuItem(@Param("request")RestaurantMenuItemRequest request) ;
+    void updatePrice(@Param("price") BigDecimal price, @Param("id") Long id);
+
+    RestaurantMenuItemResponse addRestaurantMenuItem(@Param("request") RestaurantMenuItemRequest request);
+
     void deleteRestaurantMenuItemById(Long id);
 
 }

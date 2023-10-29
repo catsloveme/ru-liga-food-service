@@ -29,7 +29,6 @@ public class RestaurantController {
     private final NotificationService notificationService;
     private final OrderFeign orderFeign;
 
-
     @GetMapping("restaurant/{id}")
     public ResponseEntity<RestaurantResponse> findRestaurantById(@PathVariable Long id) {
         RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
@@ -42,7 +41,6 @@ public class RestaurantController {
         return ResponseEntity.ok(response);
     }
 
-
     @GetMapping("menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(@PathVariable Long id) {
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
@@ -50,7 +48,9 @@ public class RestaurantController {
     }
 
     @PostMapping("/menuItem")
-    public ResponseEntity<RestaurantMenuItemResponse> addRestaurantMenuItem(@RequestBody RestaurantMenuItemRequest request) {
+    public ResponseEntity<RestaurantMenuItemResponse> addRestaurantMenuItem(
+        @RequestBody RestaurantMenuItemRequest request
+    ) {
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.addRestaurantMenuItem(request);
         return ResponseEntity.ok(response);
     }
@@ -72,7 +72,6 @@ public class RestaurantController {
         jpaRestaurantService.changeOrderStatusById(status, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @PatchMapping("/order/{id}/denied")
     public ResponseEntity<Void> denyOrder(@PathVariable Long id) {

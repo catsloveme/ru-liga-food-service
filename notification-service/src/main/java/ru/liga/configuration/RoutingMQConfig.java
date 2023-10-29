@@ -17,10 +17,10 @@ public class RoutingMQConfig {
         Queue queueDirectCouriers = new Queue("courierSearchQueueToCourier", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-
-        return new Declarables(queueDirectRestaurant,queueDirectCouriers, directExchange,
-                BindingBuilder.bind(queueDirectRestaurant).to(directExchange).with("new_order_to_restaurant"),
-                BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier"));
+        return new Declarables(queueDirectRestaurant, queueDirectCouriers, directExchange,
+            BindingBuilder.bind(queueDirectRestaurant).to(directExchange).with("new_order_to_restaurant"),
+            BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier")
+        );
     }
 
 }

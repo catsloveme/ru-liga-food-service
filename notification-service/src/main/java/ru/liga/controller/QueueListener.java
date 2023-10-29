@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import ru.liga.service.rabbitMQ.CourierService;
 import ru.liga.service.rabbitMQ.RestaurantService;
 
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -24,6 +23,7 @@ public class QueueListener {
         restaurantService.sendMessageCreate(createOrderRequest);
 
     }
+
     @RabbitListener(queues = "courierSearchQueueToNotification")
     public void searchCouriers(String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

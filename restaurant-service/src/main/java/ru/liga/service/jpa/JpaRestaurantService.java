@@ -20,7 +20,7 @@ public class JpaRestaurantService implements RestaurantService {
 
     public RestaurantResponse findRestaurantById(Long id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
-                new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
+            new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return mapper.toDto(restaurant);
     }
 
@@ -28,7 +28,6 @@ public class JpaRestaurantService implements RestaurantService {
     public void changeOrderStatusById(StatusRestaurant status, Long restaurantId) {
         jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
     }
-
 
     public List<RestaurantResponse> findAllRestaurants() {
         List<Restaurant> restaurants = jpaRestaurantRepository.findAll();//firstPageWithTenElements);

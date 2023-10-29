@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class RestaurantService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-
     public void sendMessageCreate(Long orderId) {
         rabbitMQProducerService.sendMessageCreate(orderId, "new_order_to_restaurant");
     }

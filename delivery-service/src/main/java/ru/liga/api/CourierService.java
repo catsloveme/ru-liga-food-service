@@ -5,7 +5,7 @@ import ru.liga.enums.StatusCourier;
 import java.util.List;
 
 public interface CourierService {
-    List<CourierResponse> findByStatus(StatusCourier status) ;
+    List<CourierResponse> findByStatus(StatusCourier status);
 
-    void changeOrderStatusById( Long courierId, StatusCourier status);
+    void changeOrderStatusById(Long courierId, StatusCourier status);
 }

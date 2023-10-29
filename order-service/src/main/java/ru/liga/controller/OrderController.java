@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
 
-
     private final OrderService orderService;
 
     private final OrderItemService orderItemService;
@@ -45,6 +44,7 @@ public class OrderController {
         List<OrderItemResponse> ordersResponse = orderItemService.findAllOrderItems();
         return ResponseEntity.ok(ordersResponse);
     }
+
     @GetMapping("/orderItems/{id}")
     public ResponseEntity<OrderItemResponse> findOrderItemById(@PathVariable Long id) {
         OrderItemResponse orderItemResponse = orderItemService.findOrderItemById(id);
@@ -78,13 +78,15 @@ public class OrderController {
 //    }
 
     @PatchMapping("/courier/{courierId}/order/{orderId}")
-    ResponseEntity<Void> updateCourierId( @PathVariable Long courierId,@PathVariable Long orderId){
+    ResponseEntity<Void> updateCourierId(@PathVariable Long courierId, @PathVariable Long orderId) {
         orderService.updateCourierId(courierId, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PatchMapping("/{orderId}")
-    ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status){
-        orderService.updateOrderStatus(status,orderId);
-        return new ResponseEntity<>(HttpStatus.OK);}
+    ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status) {
+        orderService.updateOrderStatus(status, orderId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 

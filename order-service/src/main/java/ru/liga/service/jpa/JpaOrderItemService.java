@@ -11,6 +11,7 @@ import ru.liga.repository.*;
 import ru.liga.api.OrderItemService;
 
 import java.util.List;
+
 @RequiredArgsConstructor
 public class JpaOrderItemService implements OrderItemService {
 
@@ -19,21 +20,19 @@ public class JpaOrderItemService implements OrderItemService {
     private final OrderRepository jpaOrderRepository;
 
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-   // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-   private final AbstractMapper<OrderItem,OrderItemResponse> mapper;
+    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
+    private final AbstractMapper<OrderItem, OrderItemResponse> mapper;
 
     public List<OrderItemResponse> findAllOrderItems() {
         List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
         return mapper.toDto(orderItems);
     }
 
-
     public OrderItemResponse findOrderItemById(Long id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
-                new DataNotFoundException(String.format("Order Item id = %d not found", id)));
+            new DataNotFoundException(String.format("Order Item id = %d not found", id)));
         return mapper.toDto(orderItem);
     }
-
 
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         OrderItem orderItem = new OrderItem();
@@ -42,7 +41,7 @@ public class JpaOrderItemService implements OrderItemService {
 
         Long menuItemId = creatingOrderItemRequest.getRestaurantMenuItemId();
         RestaurantMenuItem menuItem = jpaRestaurantMenuItemRepository.findById(menuItemId).orElseThrow(() ->
-                new DataNotFoundException(String.format("Restaurant Menu Item id = %d not found", menuItemId)));
+            new DataNotFoundException(String.format("Restaurant Menu Item id = %d not found", menuItemId)));
         orderItem.setRestaurantMenuItem(menuItem);
 
         orderItem.setPrice(creatingOrderItemRequest.getPrice());

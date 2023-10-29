@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-
     public void sendCourierSearch(Long orderId) {
         rabbitMQProducerService.sendMessageSearch(orderId, "courier_search_to_notification");
     }

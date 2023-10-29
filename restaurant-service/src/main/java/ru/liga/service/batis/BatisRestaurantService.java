@@ -15,16 +15,13 @@ public class BatisRestaurantService implements RestaurantService {
 
     private final RestaurantMapper restaurantMapper;
 
-
     public RestaurantResponse findRestaurantById(Long id) {
         return restaurantMapper.findRestaurantById(id);
     }
 
-
-    public void changeOrderStatusById( StatusRestaurant status,Long restaurantId) {
-        restaurantMapper.changeOrderStatusById(status,restaurantId);
+    public void changeOrderStatusById(StatusRestaurant status, Long restaurantId) {
+        restaurantMapper.changeOrderStatusById(status, restaurantId);
     }
-
 
     public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
         return restaurantMapper.findRestaurantsByStatus(status);

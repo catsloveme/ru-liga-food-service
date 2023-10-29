@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface RestaurantMapper extends RestaurantService {
 
-    List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) ;
+    List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status);
+
     List<RestaurantResponse> findAllRestaurants();
 }

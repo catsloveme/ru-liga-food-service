@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.liga.configuration.ApplicationConfig;
+
 @EnableFeignClients(clients = OrderFeign.class)
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)

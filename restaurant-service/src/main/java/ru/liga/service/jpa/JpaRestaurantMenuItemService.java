@@ -14,26 +14,25 @@ import ru.liga.api.RestaurantMenuItemService;
 
 import java.math.BigDecimal;
 
-
 @RequiredArgsConstructor
 public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
 
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
 
     private final RestaurantRepository jpaRestaurantRepository;
-    private final AbstractMapper<RestaurantMenuItem,RestaurantMenuItemResponse> mapper;
+    private final AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> mapper;
 
     public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {
         RestaurantMenuItem restaurantMenuItem = jpaRestaurantMenuItemRepository.findById(id).orElseThrow(() ->
-                new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
+            new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return mapper.toDto(restaurantMenuItem);
     }
 
     public RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) {
         RestaurantMenuItem restaurantMenuItem;
-        Long restaurantId =  request.getRestaurantId();
-        Restaurant restaurant =jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
-                new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
+        Long restaurantId = request.getRestaurantId();
+        Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
+            new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
         restaurantMenuItem = new RestaurantMenuItem();
         restaurantMenuItem.setRestaurant(restaurant);
         restaurantMenuItem.setName(request.getName());
@@ -42,13 +41,15 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
         restaurantMenuItem.setDescription(request.getDescription());
         jpaRestaurantMenuItemRepository.save(restaurantMenuItem);
         return mapper.toDto(restaurantMenuItem);
-}
+    }
+
     @Transactional
-    public void deleteRestaurantMenuItemById(Long id){
+    public void deleteRestaurantMenuItemById(Long id) {
         jpaRestaurantMenuItemRepository.deleteById(id);
     }
+
     @Transactional
-    public void updatePrice(BigDecimal price, Long id){
-        jpaRestaurantMenuItemRepository.updatePrice(price,id);
+    public void updatePrice(BigDecimal price, Long id) {
+        jpaRestaurantMenuItemRepository.updatePrice(price, id);
     }
 }

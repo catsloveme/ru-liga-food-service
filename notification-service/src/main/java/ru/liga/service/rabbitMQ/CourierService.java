@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class CourierService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-
     public void sendMessageSearch(Long orderId) {
         rabbitMQProducerService.sendCourierSearch(orderId, "courier_search_to_courier");
     }

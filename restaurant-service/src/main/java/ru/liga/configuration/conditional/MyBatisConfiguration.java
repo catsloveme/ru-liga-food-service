@@ -11,6 +11,7 @@ import ru.liga.mapper.restaurant.RestaurantMapper;
 import ru.liga.mapper.restaurantMenuItem.RestaurantMenuItemMapper;
 import ru.liga.service.batis.BatisRestaurantMenuItemService;
 import ru.liga.service.batis.BatisRestaurantService;
+
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "my_batis")
@@ -24,6 +25,7 @@ public class MyBatisConfiguration {
 
         return new BatisRestaurantService(restaurantMapper);
     }
+
     @Primary
     @Bean("myBatisRestaurantMenuItemService")
     public RestaurantMenuItemService restaurantMenuItemService() {

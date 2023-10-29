@@ -17,7 +17,8 @@ public class RoutingMQConfig {
         DirectExchange directExchange = new DirectExchange("directExchange");
 
         return new Declarables(queueCreateOrder, directExchange,
-                BindingBuilder.bind(queueCreateOrder).to(directExchange).with("new_order_to_notification"));
+            BindingBuilder.bind(queueCreateOrder).to(directExchange).with("new_order_to_notification")
+        );
     }
 
 }

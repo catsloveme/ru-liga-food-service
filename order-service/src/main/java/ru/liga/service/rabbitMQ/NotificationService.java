@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-
     public void sendCreateOrder(Long orderId) {
         rabbitMQProducerService.sendMessageCreate(orderId, "new_order_to_notification");
     }

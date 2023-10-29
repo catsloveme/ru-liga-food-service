@@ -17,7 +17,6 @@ public class JpaCourierService implements CourierService {
     private final CourierRepository jpaCourierRepository;
     private final AbstractMapper<Courier, CourierResponse> mapper;
 
-
     public List<CourierResponse> findByStatus(StatusCourier status) {
         List<Courier> courier = jpaCourierRepository.findByStatus(status);
         return mapper.toDto(courier);

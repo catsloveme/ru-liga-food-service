@@ -17,10 +17,10 @@ import ru.liga.service.jpa.JpaCourierService;
 public class JpaAccessConfiguration {
     private final CourierRepository jpaCourierRepository;
     private final AbstractMapper<Courier, CourierResponse> mapper;
+
     @Bean("jpaCourierService")
     public CourierService courierService() {
         return new JpaCourierService(jpaCourierRepository, mapper);
     }
-
 
 }

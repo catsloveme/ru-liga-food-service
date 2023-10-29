@@ -25,15 +25,19 @@ public class JpaAccessConfiguration {
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
     private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
     private final AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> mapperRestaurantMenuItem;
+
     @Primary
     @Bean("jpaRestaurantService")
     public RestaurantService RestaurantService() {
         return new JpaRestaurantService(jpaRestaurantRepository, mapperRestaurant);
     }
+
     @Primary
     @Bean("jpaRestaurantMenuItemService")
     public RestaurantMenuItemService restaurantMenuItemService() {
-        return new JpaRestaurantMenuItemService(jpaRestaurantMenuItemRepository,jpaRestaurantRepository,mapperRestaurantMenuItem);
+        return new JpaRestaurantMenuItemService(jpaRestaurantMenuItemRepository,
+            jpaRestaurantRepository,
+            mapperRestaurantMenuItem);
     }
 
 }

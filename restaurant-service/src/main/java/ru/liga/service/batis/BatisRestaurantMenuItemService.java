@@ -9,7 +9,6 @@ import ru.liga.api.RestaurantMenuItemService;
 
 import java.math.BigDecimal;
 
-
 @RequiredArgsConstructor
 public class BatisRestaurantMenuItemService implements RestaurantMenuItemService {
 

@@ -8,6 +8,7 @@ import ru.liga.enums.StatusCourier;
 import ru.liga.api.CourierService;
 
 import java.util.List;
+
 @RequiredArgsConstructor
 public class BatisCourierService implements CourierService {
 
@@ -18,9 +19,10 @@ public class BatisCourierService implements CourierService {
         return deliveryMapper.findByStatus(status);
 
     }
+
     @Transactional
-    public void changeOrderStatusById( Long courierId, StatusCourier status) {
-        deliveryMapper.changeOrderStatusById(courierId,status);
+    public void changeOrderStatusById(Long courierId, StatusCourier status) {
+        deliveryMapper.changeOrderStatusById(courierId, status);
     }
 
 }

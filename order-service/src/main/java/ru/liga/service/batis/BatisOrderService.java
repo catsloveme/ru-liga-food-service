@@ -9,6 +9,7 @@ import ru.liga.dto.response.OrderResponse;
 import ru.liga.api.OrderService;
 
 import java.util.List;
+
 @RequiredArgsConstructor
 public class BatisOrderService implements OrderService {
     private final OrderMapperBatis orderMapper;
@@ -23,7 +24,7 @@ public class BatisOrderService implements OrderService {
 
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         return orderMapper.addOrder(createOrderRequest);
-}
+    }
 
     @Override
     public void updateCourierId(Long orderId, Long courierId) {

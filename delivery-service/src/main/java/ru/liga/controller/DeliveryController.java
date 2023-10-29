@@ -9,7 +9,6 @@ import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
 
-
 import java.util.List;
 
 @Log4j2
@@ -26,13 +25,14 @@ public class DeliveryController {
     }
 
     @PostMapping("/delivery/{id}")
-    public ResponseEntity<Void> changeCourierStatusById(@PathVariable Long id,
-                                                        @RequestParam StatusCourier status) {
-        log.info("change couriers by status: {}",status);
+    public ResponseEntity<Void> changeCourierStatusById(
+        @PathVariable Long id,
+        @RequestParam StatusCourier status
+    ) {
+        log.info("change couriers by status: {}", status);
         courierService.changeOrderStatusById(id, status);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-
 
 }

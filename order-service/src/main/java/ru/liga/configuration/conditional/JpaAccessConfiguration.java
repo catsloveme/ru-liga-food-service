@@ -37,14 +37,26 @@ public class JpaAccessConfiguration {
     @Primary
     @Bean("jpaOrderService")
     public OrderService orderService() {
-        return new JpaOrderService(jpaOrderRepository, jpaOrderItemRepository, jpaCustomerRepository, jpaRestaurantRepository, mapperOrderItem, mapperRestaurant, mapperCreateOrder);
+        return new JpaOrderService(
+            jpaOrderRepository,
+            jpaOrderItemRepository,
+            jpaCustomerRepository,
+            jpaRestaurantRepository,
+            mapperOrderItem,
+            mapperRestaurant,
+            mapperCreateOrder
+        );
     }
-
 
     @Primary
     @Bean("jpaOrderItemService")
     public OrderItemService orderItemService() {
-        return new JpaOrderItemService(jpaOrderItemRepository, jpaOrderRepository, jpaRestaurantMenuItemRepository, mapper);
+        return new JpaOrderItemService(
+            jpaOrderItemRepository,
+            jpaOrderRepository,
+            jpaRestaurantMenuItemRepository,
+            mapper
+        );
     }
 
 }

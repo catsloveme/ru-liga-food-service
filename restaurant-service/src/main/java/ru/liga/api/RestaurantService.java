@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface RestaurantService {
     List<RestaurantResponse> findAllRestaurants();
+
     RestaurantResponse findRestaurantById(Long id);
-    void changeOrderStatusById( StatusRestaurant status,Long restaurantId );
+
+    void changeOrderStatusById(StatusRestaurant status, Long restaurantId);
 }

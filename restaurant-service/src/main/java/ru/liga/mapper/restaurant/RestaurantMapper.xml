@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.liga.mapper.restaurant.RestaurantMapper">
     <resultMap id="restaurantByStatus" type="ru.liga.dto.response.RestaurantByStatusResponse">
         <id property="id" column="restaurant_id"/>
@@ -14,19 +14,19 @@
     </resultMap>
 
     <select
-            id="findRestaurantsByStatus"
-            parameterType="ru.liga.enums.StatusRestaurant"
-            resultMap="restaurantByStatus">  <!--выбираем resultMap, чтоб опреелить как мапить поля результата на сущность MyBatis-->
+        id="findRestaurantsByStatus"
+        parameterType="ru.liga.enums.StatusRestaurant"
+        resultMap="restaurantByStatus">  <!--выбираем resultMap, чтоб опреелить как мапить поля результата на сущность MyBatis-->
         select * from restaurants
         where (1=1)
-        <if test="status != null" >
+        <if test="status != null">
             and status = #{status}
         </if>
     </select>
 
     <select
-            id="findAllRestaurants"
-            resultMap="restaurants">  <!--выбираем resultMap, чтоб опреелить как мапить поля результата на сущность MyBatis-->
+        id="findAllRestaurants"
+        resultMap="restaurants">  <!--выбираем resultMap, чтоб опреелить как мапить поля результата на сущность MyBatis-->
         select * from restaurants
     </select>
 

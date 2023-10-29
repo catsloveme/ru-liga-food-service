@@ -12,6 +12,7 @@ import ru.liga.configuration.conditional.AccessType;
 @Data
 public class ApplicationConfig {
     private AccessType databaseAccessType;
+
     @Bean
     public RetryTemplate retryTemplate() {
         RetryTemplate retryTemplate = new RetryTemplate();

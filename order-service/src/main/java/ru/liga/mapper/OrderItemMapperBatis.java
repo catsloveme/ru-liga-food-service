@@ -11,7 +11,9 @@ import java.util.List;
 @Mapper
 public interface OrderItemMapperBatis extends OrderItemService {
 
-    List<OrderItemResponse> findAllOrderItems() ;
-    OrderItemResponse findOrderItemById(Long id) ;
-    OrderItemResponse addOrderItem(@Param("createOrderItemRequest")CreateOrderItemRequest creatingOrderItemRequest);
+    List<OrderItemResponse> findAllOrderItems();
+
+    OrderItemResponse findOrderItemById(Long id);
+
+    OrderItemResponse addOrderItem(@Param("createOrderItemRequest") CreateOrderItemRequest creatingOrderItemRequest);
 }
