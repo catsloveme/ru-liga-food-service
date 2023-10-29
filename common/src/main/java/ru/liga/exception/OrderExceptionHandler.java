@@ -1,7 +1,7 @@
 package ru.liga.exception;
 
 //@RestControllerAdvice
-public class OrderExceptionHandler {//extends ResponseEntityExceptionHandler {
+public class OrderExceptionHandler { //extends ResponseEntityExceptionHandler {
 
 //    @ExceptionHandler(OrderNotFoundException.class)
 //    public ResponseEntity<ErrorResponse>

@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    List<Customer> findAll();//Pageable pageable);
+    List<Customer> findAll(); //Pageable pageable);
 
-    Customer findCustomerById(Long id);//, Pageable pageable);
+    Customer findCustomerById(Long id); //, Pageable pageable);
 
 }

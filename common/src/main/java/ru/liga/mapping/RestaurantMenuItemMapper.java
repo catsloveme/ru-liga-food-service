@@ -15,5 +15,6 @@ public interface RestaurantMenuItemMapper
     RestaurantMenuItemResponse toDto(RestaurantMenuItem restaurantMenuItem);
 
     @Mapping(source = "image", target = "imageUrl")
-    List<RestaurantMenuItemResponse> toDto(List<RestaurantMenuItem> restaurantMenuItem);
+    List<RestaurantMenuItemResponse> toDto(
+        List<RestaurantMenuItem> restaurantMenuItem);
 }
