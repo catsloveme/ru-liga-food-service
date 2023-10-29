@@ -4,7 +4,7 @@ on:
     paths:
       - 'customer-service/**'
     branches:
-      - 'main',
+      - 'main'
       - 'hometask-*'
 
 jobs:
