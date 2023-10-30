@@ -9,6 +9,9 @@ import ru.liga.mapping.CustomerMapper;
 import ru.liga.repository.CustomerRepository;
 import ru.liga.service.jpa.JpaCustomerService;
 
+/**
+ * Конфирурация для быстрого выбора jpa реализации работы с базой данных.
+ */
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")

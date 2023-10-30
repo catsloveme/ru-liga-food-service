@@ -7,11 +7,14 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Конфигурационный класс для использования брокера сообщений.
+ */
 @Configuration
 public class RoutingMQConfig {
 
     /**
-     * Создание очереди сообщений для notification-service о создании нового заказа.
+     * Создание очереди сообщений для notification-service, получающей сообщение о создании нового заказа.
      * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи)
      */
 

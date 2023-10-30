@@ -10,6 +10,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.liga.configuration.ApplicationConfig;
 
+/**
+ * Класс запускающий сервис Customer.
+ */
 @SuppressWarnings("uncommentedmain")
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)

@@ -16,6 +16,9 @@ import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CustomerResponse;
 import ru.liga.service.rabbitMQ.OrderService;
 
+/**
+ * Контроллер заказчика.
+ */
 @Log4j2
 @RestController
 @RequestMapping("/customers")

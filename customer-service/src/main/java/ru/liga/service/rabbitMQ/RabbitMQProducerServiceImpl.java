@@ -9,12 +9,20 @@ import org.springframework.stereotype.Service;
 import ru.liga.api.RabbitMQProducerService;
 import ru.liga.dto.request.CreateOrderRequest;
 
+/**
+ * Класс по созданию сообщения, используя RabbitTemplate.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
     private final RabbitTemplate rabbitTemplate;
 
+    /**
+     * Отправка сообщения через RabbitTemplate.
+     * @param request запрос создания заказа
+     * @param routingKey ключ для определения очереди
+     */
     public void sendCreateRequest(CreateOrderRequest request, String routingKey) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonRequest;
