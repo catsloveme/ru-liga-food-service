@@ -17,6 +17,10 @@ public class JpaAccessConfiguration {
     private final CustomerRepository jpaCustomerRepository;
     private final CustomerMapper customerMapperMapStruct;
 
+    /**
+     * Создание бина реализации jpa для сервиса order.
+     * @return
+     */
     @Primary
     @Bean("jpaCustomerService")
     public JpaCustomerService orderService() {

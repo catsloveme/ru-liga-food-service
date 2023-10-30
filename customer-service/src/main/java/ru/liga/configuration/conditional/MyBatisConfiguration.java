@@ -15,6 +15,10 @@ import ru.liga.service.batis.BatisCustomerService;
 public class MyBatisConfiguration {
     private final CustomerMapper customerMapper;
 
+    /**
+     * Создание бина реализации MyBatis для сервиса order.
+     * @return
+     */
     @Primary
     @Bean("myBatisCustomerService")
     public CustomerService orderService() {

@@ -25,6 +25,10 @@ public class CustomerController {
     private final CustomerService customerService;
     private final OrderService orderService;
 
+    /**
+     * Поиск всех заказов.
+     * @return список ответов для заказа
+     */
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> findAllOrders() {
         List<CustomerResponse> customerResponses = customerService.findAllCustomers();
@@ -32,12 +36,22 @@ public class CustomerController {
         return ResponseEntity.ok(customerResponses);
     }
 
+    /**
+     * Поиск заказа по id.
+     * @param id идентификатор заказа
+     * @return ответ для заказа
+     */
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> findOrderById(@PathVariable Long id) {
         CustomerResponse customerResponse = customerService.findCustomerById(id);
         return ResponseEntity.ok(customerResponse);
     }
 
+    /**
+     * Создание заказа.
+     * @param request запрос заказа
+     * @return ответ для заказа
+     */
     @PostMapping("/order/create")
     public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request) {
         orderService.createOrder(request);

@@ -7,11 +7,19 @@ import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.mapping.abstraction.AbstractMapper;
 
+/**
+ * Интервейс для преобразования сущности OrderItem в dto RestaurantMenuItemResponse.
+ */
 @Mapper(componentModel = "spring")
 public interface OrderItemToMenuMapper
     extends AbstractMapper<OrderItem, RestaurantMenuItemResponse> {
-    //так как в некоторых полях сущности OrderItem лежат другие
-    // сущности(order, restaurantMenuItem) , обращение идет через .
+    /**
+     * Преобразование сущности OrderItem в dto RestaurantMenuItemResponse.
+     * так как в некоторых полях сущности OrderItem лежат другие
+     * сущности(order, restaurantMenuItem) , обращение идет через .
+     * @param orderItem сущность
+     * @return dto
+     */
     @Mapping(source = "restaurantMenuItem.id", target = "id")
     @Mapping(source = "restaurantMenuItem.name", target = "name")
     @Mapping(source = "restaurantMenuItem.description", target = "description")
@@ -19,6 +27,11 @@ public interface OrderItemToMenuMapper
     @Mapping(source = "restaurantMenuItem.price", target = "price")
     RestaurantMenuItemResponse toDto(OrderItem orderItem);
 
+    /**
+     * Преобразование списка сущностей OrderItem в список dto RestaurantMenuItemResponse.
+     * @param orderItem сущность
+     * @return
+     */
     @Mapping(source = "restaurantMenuItem.id", target = "id")
     @Mapping(source = "restaurantMenuItem.name", target = "name")
     @Mapping(source = "restaurantMenuItem.description", target = "description")
