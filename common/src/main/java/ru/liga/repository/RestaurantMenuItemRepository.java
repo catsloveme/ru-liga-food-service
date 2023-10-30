@@ -18,8 +18,7 @@ public interface RestaurantMenuItemRepository
     void deleteById(Long id);
 
     @Modifying
-    @Query("update RestaurantMenuItem it set " +
-        "it.price= :price where it.id = :id")
+    @Query("update RestaurantMenuItem it set it.price= :price where it.id = :id")
     void updatePrice(@Param("price") BigDecimal price, @Param("id") Long id);
 
 }

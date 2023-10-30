@@ -32,7 +32,8 @@ public class RabbitConfiguration {
         return cachingConnectionFactory;
     }
 
-    /**AmqpAdmin занимается обслуживанием очередей, обменника, сообщений.
+    /**
+     * AmqpAdmin занимается обслуживанием очередей, обменника, сообщений.
      * @return AmqpAdmin
      */
     @Bean
