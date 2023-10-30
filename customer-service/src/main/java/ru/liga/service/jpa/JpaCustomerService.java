@@ -1,13 +1,12 @@
 package ru.liga.service.jpa;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import ru.liga.api.CustomerService;
 import ru.liga.dto.response.CustomerResponse;
 import ru.liga.entity.Customer;
 import ru.liga.mapping.abstraction.AbstractMapper;
 import ru.liga.repository.CustomerRepository;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class JpaCustomerService implements CustomerService {

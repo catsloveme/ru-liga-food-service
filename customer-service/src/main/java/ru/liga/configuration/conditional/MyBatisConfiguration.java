@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import ru.liga.api.CustomerService;
-
 import ru.liga.mapper.CustomerMapper;
 import ru.liga.service.batis.BatisCustomerService;
 

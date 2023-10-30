@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import ru.liga.mapping.CustomerMapper;
-import ru.liga.repository.*;
+import ru.liga.repository.CustomerRepository;
 import ru.liga.service.jpa.JpaCustomerService;
 
 @RequiredArgsConstructor

@@ -1,11 +1,10 @@
 package ru.liga.service.batis;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import ru.liga.api.CustomerService;
 import ru.liga.dto.response.CustomerResponse;
 import ru.liga.mapper.CustomerMapper;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class BatisCustomerService implements CustomerService {

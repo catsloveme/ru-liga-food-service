@@ -1,11 +1,10 @@
 package ru.liga.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import ru.liga.api.CustomerService;
 import ru.liga.dto.response.CustomerResponse;
-
-import java.util.List;
 
 @Mapper
 
