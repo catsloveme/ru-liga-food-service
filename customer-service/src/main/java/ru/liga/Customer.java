@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.liga.configuration.ApplicationConfig;
+
 @SuppressWarnings("uncommentedmain")
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)
