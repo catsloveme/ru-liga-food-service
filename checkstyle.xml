@@ -286,7 +286,7 @@
         <!-- <module name="MissingCtor"/> -->
         <module name="MissingSwitchDefault"/>
         <module name="ModifiedControlVariable"/>
-<!--        <module name="MultipleStringLiterals">-->
+        <module name="MultipleStringLiterals">
             <!-- Allow zero-length and 1-character strings -->
             <property name="ignoreStringsRegexp" value='^(("")|(".")|("..")|("..>"))$'/>
         </module>
@@ -411,4 +411,4 @@
 
     </module>
 
-
+</module>
