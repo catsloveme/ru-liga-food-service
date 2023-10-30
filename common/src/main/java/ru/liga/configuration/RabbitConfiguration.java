@@ -15,7 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
 
-    //Бин создания соединения с сервером рэбит
+    /**
+     * Бин создания соединения с сервером рэбит.
+     * @return Spring устанавливает соединение R2DBC с базой данных через ConnectionFactory
+     */
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory =
@@ -25,15 +28,19 @@ public class RabbitConfiguration {
         return cachingConnectionFactory;
     }
 
-    //AmqpAdmin занимается обслуживанием очередей, обменника, сообщений
+    /**
+     * @return AmqpAdmin занимается обслуживанием очередей, обменника, сообщений
+     */
     @Bean
     public AmqpAdmin amqpAdmin() {
         return new RabbitAdmin(connectionFactory());
     }
 
-    //RabbitTemplate основной класс для отправки сообщения,
-    // так же имеет гибкие настройки, такие как
-    //явное указание типа конвертации.
+    /**
+     * RabbitTemplate имеет гибкие настройки, такие как
+     * явное указание типа конвертации.
+     * @return RabbitTemplate основной класс для отправки сообщения
+     */
     @Bean
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
