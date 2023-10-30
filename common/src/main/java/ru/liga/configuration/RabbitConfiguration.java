@@ -16,8 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfiguration {
 
     /**
-     * Бин создания соединения с сервером рэбит.
-     * @return Spring устанавливает соединение R2DBC с базой данных через ConnectionFactory
+     * @return Бин создания соединения с сервером рэбит
      */
     @Bean
     public ConnectionFactory connectionFactory() {
