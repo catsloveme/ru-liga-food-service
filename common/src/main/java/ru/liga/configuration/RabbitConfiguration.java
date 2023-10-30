@@ -14,26 +14,37 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 @Configuration
 public class RabbitConfiguration {
+    private static final String USER_NAME_AND_PASSWORD = "guest";
+    private static final String LOCALHOST = "localhost";
 
-    //Бин создания соединения с сервером рэбит
+    /**
+     * Бин создания соединения с сервером рэбит.
+     *
+     * @return ConnectionFactory
+     */
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory =
-            new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("guest");
-        cachingConnectionFactory.setPassword("guest");
+            new CachingConnectionFactory(LOCALHOST);
+        cachingConnectionFactory.setUsername(USER_NAME_AND_PASSWORD);
+        cachingConnectionFactory.setPassword(USER_NAME_AND_PASSWORD);
         return cachingConnectionFactory;
     }
 
-    //AmqpAdmin занимается обслуживанием очередей, обменника, сообщений
+    /**
+     * AmqpAdmin занимается обслуживанием очередей, обменника, сообщений.
+     * @return AmqpAdmin
+     */
     @Bean
     public AmqpAdmin amqpAdmin() {
         return new RabbitAdmin(connectionFactory());
     }
 
-    //RabbitTemplate основной класс для отправки сообщения,
-    // так же имеет гибкие настройки, такие как
-    //явное указание типа конвертации.
+    /**
+     * RabbitTemplate имеет гибкие настройки, такие как
+     * явное указание типа конвертации.
+     * @return RabbitTemplate основной класс для отправки сообщения
+     */
     @Bean
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());

@@ -1,6 +1,5 @@
 package ru.liga.enums;
 
-
 public enum StatusCourier {
     DELIVERY_PENDING,
     DELIVERY_PICKING,
@@ -8,7 +7,5 @@ public enum StatusCourier {
     DELIVERY_DELIVERING,
     DELIVERY_REFUNDED,
     DELIVERY_COMPLETE
-
-
 
 }
