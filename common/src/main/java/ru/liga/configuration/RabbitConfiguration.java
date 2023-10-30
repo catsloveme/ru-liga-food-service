@@ -14,8 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 @Configuration
 public class RabbitConfiguration {
-    private static final String USER_NAME = "guest";
-    private static final String PASSWORD = "guest";
+    private static final String USER_NAME_AND_PASSWORD = "guest";
     private static final String LOCALHOST = "localhost";
 
     /**
@@ -27,8 +26,8 @@ public class RabbitConfiguration {
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory =
             new CachingConnectionFactory(LOCALHOST);
-        cachingConnectionFactory.setUsername(USER_NAME);
-        cachingConnectionFactory.setPassword(PASSWORD);
+        cachingConnectionFactory.setUsername(USER_NAME_AND_PASSWORD);
+        cachingConnectionFactory.setPassword(USER_NAME_AND_PASSWORD);
         return cachingConnectionFactory;
     }
 
