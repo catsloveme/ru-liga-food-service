@@ -18,8 +18,5 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-          cache: maven
       - name: Check style
-        with:
-          checkstyle_config: ..checkstyle.xml
         run: mvn -pl common -am checkstyle:check
