@@ -14,11 +14,13 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 @Configuration
 public class RabbitConfiguration {
-    String USER_NAME ="guest";
-    String PASSWORD ="guest";
-    String LOCALHOST = "localhost";
+    private static final String USER_NAME = "guest";
+    private static final String PASSWORD = "guest";
+    private static final String LOCALHOST = "localhost";
 
-    /**Бин создания соединения с сервером рэбит.
+    /**
+     * Бин создания соединения с сервером рэбит.
+     *
      * @return ConnectionFactory
      */
     @Bean

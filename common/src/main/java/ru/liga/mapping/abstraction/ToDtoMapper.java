@@ -4,7 +4,7 @@ public interface ToDtoMapper<E, D> {
 
     /**
      * Преобразование entity в dto.
-     * @param entity сущность
+     * @param entity
      * @return dto
      */
     D toDto(E entity);
