@@ -1,7 +1,5 @@
 package ru.liga.enums;
 
-
-
 public enum StatusOrder {
     CUSTOMER_CREATED,
     CUSTOMER_PAID,

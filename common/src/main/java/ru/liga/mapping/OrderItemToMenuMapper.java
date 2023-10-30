@@ -1,12 +1,11 @@
 package ru.liga.mapping;
 
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.mapping.abstraction.AbstractMapper;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderItemToMenuMapper

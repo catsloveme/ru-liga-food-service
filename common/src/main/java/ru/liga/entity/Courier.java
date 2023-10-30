@@ -1,7 +1,5 @@
 package ru.liga.entity;
 
-import lombok.Data;
-import ru.liga.enums.StatusCourier;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
+import ru.liga.enums.StatusCourier;
 
 @Entity
 @Table(name = "couriers")
@@ -29,8 +29,5 @@ public class Courier {
 
     @Column(name = "coordinates")
     private String coordinates;
-
-
-
 
 }

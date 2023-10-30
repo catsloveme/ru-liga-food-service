@@ -1,6 +1,6 @@
 package ru.liga.entity;
 
-import lombok.Data;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
+import lombok.Data;
 
 @Entity
 @Table(name = "restaurant_menu_items")

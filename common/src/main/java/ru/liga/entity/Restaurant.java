@@ -1,7 +1,5 @@
 package ru.liga.entity;
 
-import lombok.Data;
-import ru.liga.enums.StatusRestaurant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
+import ru.liga.enums.StatusRestaurant;
+
 @Entity
 @Table(name = "restaurants")
 @Data
@@ -28,6 +29,5 @@ public class Restaurant {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusRestaurant status;
-
 
 }

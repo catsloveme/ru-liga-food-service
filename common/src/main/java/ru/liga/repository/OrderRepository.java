@@ -1,14 +1,12 @@
 package ru.liga.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
 import org.springframework.stereotype.Repository;
 import ru.liga.entity.Order;
 import ru.liga.enums.StatusOrder;
-
-import java.util.List;
 
 
 @Repository

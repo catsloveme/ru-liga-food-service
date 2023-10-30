@@ -14,21 +14,24 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 @Configuration
 public class RabbitConfiguration {
+    String USER_NAME ="guest";
+    String PASSWORD ="guest";
+    String LOCALHOST = "localhost";
 
-    /**
-     * @return Бин создания соединения с сервером рэбит
+    /**Бин создания соединения с сервером рэбит.
+     * @return ConnectionFactory
      */
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory =
-            new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("guest");
-        cachingConnectionFactory.setPassword("guest");
+            new CachingConnectionFactory(LOCALHOST);
+        cachingConnectionFactory.setUsername(USER_NAME);
+        cachingConnectionFactory.setPassword(PASSWORD);
         return cachingConnectionFactory;
     }
 
-    /**
-     * @return AmqpAdmin занимается обслуживанием очередей, обменника, сообщений
+    /**AmqpAdmin занимается обслуживанием очередей, обменника, сообщений.
+     * @return AmqpAdmin
      */
     @Bean
     public AmqpAdmin amqpAdmin() {

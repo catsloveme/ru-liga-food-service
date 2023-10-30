@@ -1,7 +1,5 @@
 package ru.liga.entity;
 
-import lombok.Data;
-import ru.liga.enums.StatusOrder;
 import java.time.OffsetDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import lombok.Data;
+import ru.liga.enums.StatusOrder;
 
 @Entity
 @Table(name = "Orders")
@@ -42,6 +41,5 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "courier_id")
     private Courier courier;
-
 
 }
