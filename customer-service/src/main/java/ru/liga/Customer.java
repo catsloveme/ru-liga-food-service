@@ -14,6 +14,10 @@ import ru.liga.configuration.ApplicationConfig;
 @EnableConfigurationProperties(ApplicationConfig.class)
 @SpringBootApplication
 public class Customer {
+    /**
+     * Запуск сервиса customer
+     * @param args массив строковых аргументов
+     */
     public static void main(String[] args) {
         SpringApplication.run(Customer.class, args);
     }

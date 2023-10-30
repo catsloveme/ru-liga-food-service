@@ -21,7 +21,7 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
         try {
             jsonRequest = mapper.writeValueAsString(request);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.info("JsonProcessingException");
             throw new RuntimeException(e);
         }
         rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
