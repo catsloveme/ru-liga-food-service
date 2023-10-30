@@ -2,7 +2,7 @@ name: Java CI for customer with Maven
 on:
   push:
     paths:
-      - 'customer-service/**'
+      - 'courier-service/**'
     branches:
       - 'main'
       - 'hometask-*'
@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn package -pl customer-service -am
+        run: mvn package -pl courier-service -am
 
 #  checkstyle:
 #    runs-on: windows-latest
@@ -33,4 +33,4 @@ jobs:
 #          distribution: 'temurin'
 #          cache: maven
 #      - name: Check style
-#        run: mvn -pl customer-service -am checkstyle:check
+#        run: mvn -pl courier-service -am checkstyle:check
