@@ -5,8 +5,27 @@ import ru.liga.dto.response.OrderItemResponse;
 
 import java.util.List;
 
+/**
+ * Интерфейс описания api сервиса OrderItem.
+ */
 public interface OrderItemService {
+    /**
+     * Поиск всех частей заказа.
+     * @return список ответов частей заказа
+     */
     List<OrderItemResponse> findAllOrderItems() ;
+
+    /**
+     * Поиск части заказа по его id.
+     * @param id идентификатор части заказа
+     * @return ответ части заказа
+     */
     OrderItemResponse findOrderItemById(Long id) ;
+
+    /**
+     * Добавление части заказа.
+     * @param creatingOrderItemRequest данные для запроса создания части заказа
+     * @return ответ части заказа
+     */
     OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest);
 }

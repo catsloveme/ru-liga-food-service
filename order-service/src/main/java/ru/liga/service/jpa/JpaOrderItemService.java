@@ -12,28 +12,42 @@ import ru.liga.api.OrderItemService;
 
 import java.util.List;
 
+/**
+ * Сервис для работы с репозиторием jpa.
+ */
 @RequiredArgsConstructor
 public class JpaOrderItemService implements OrderItemService {
 
     private final OrderItemRepository jpaOrderItemRepository;
-
     private final OrderRepository jpaOrderRepository;
-
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
     private final OrderItemMapper mapper;
 
+    /**
+     * Поиск всех частей заказов.
+     * @return список ответов частей заказов.
+     */
     public List<OrderItemResponse> findAllOrderItems() {
         List<OrderItem> orderItems = jpaOrderItemRepository.findAll();
         return mapper.toDto(orderItems);
     }
 
+    /**
+     * Поиск части заказа по его id.
+     * @param id идентификатор части заказа
+     * @return ответ части заказа
+     */
     public OrderItemResponse findOrderItemById(Long id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
             new DataNotFoundException(String.format("Order Item id = %d not found", id)));
         return mapper.toDto(orderItem);
     }
 
+    /**
+     * Создание части заказа.
+     * @param creatingOrderItemRequest данные для запроса создания части заказа
+     * @return ответ части заказа
+     */
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         OrderItem orderItem = new OrderItem();
         Long orderId = creatingOrderItemRequest.getOrderId();

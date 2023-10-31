@@ -21,7 +21,7 @@ public class JpaAccessConfiguration {
     private final CustomerMapper customerMapperMapStruct;
 
     /**
-     * Создание бина реализации jpa для сервиса customer.
+     * Создание бина реализации jpa для сервиса Customer.
      * @return
      */
     @Primary

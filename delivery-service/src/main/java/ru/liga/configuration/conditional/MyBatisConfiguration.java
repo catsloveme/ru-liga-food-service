@@ -18,7 +18,7 @@ public class MyBatisConfiguration {
     private final DeliveryMapper deliveryMapper;
 
     /**
-     * Создание бина реализации MyBatis для сервиса courier.
+     * Создание бина реализации MyBatis для сервиса Courier.
      * @return
      */
     @Bean("myBatisOrderService")

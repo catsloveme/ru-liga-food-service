@@ -20,7 +20,7 @@ public class JpaAccessConfiguration {
     private final CourierMapper mapper;
 
     /**
-     * Создание бина реализации jpa для сервиса courier.
+     * Создание бина реализации jpa для сервиса Courier.
      * @return
      */
     @Bean("jpaCourierService")

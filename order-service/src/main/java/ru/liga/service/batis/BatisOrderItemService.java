@@ -1,37 +1,44 @@
 package ru.liga.service.batis;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import ru.liga.mapper.OrderItemMapperBatis;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.api.OrderItemService;
-
 import java.util.List;
 
+/**
+ * Сервис для работы с маппером MyBatis.
+ */
 @RequiredArgsConstructor
 public class BatisOrderItemService implements OrderItemService {
     private final OrderItemMapperBatis orderItemMapper;
 
-    // Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-
-    @Transactional(readOnly = true)
+    /**
+     * Поиск всех частей заказов.
+     * @return  список ответов частей заказов
+     */
     public List<OrderItemResponse> findAllOrderItems() {
         return orderItemMapper.findAllOrderItems();
     }
 
-    @Transactional(readOnly = true)
+    /**
+     * Поиск части заказа по его id.
+     * @param id идентификатор части заказа
+     * @return ответ части заказа
+     */
     public OrderItemResponse findOrderItemById(Long id) {
         return orderItemMapper.findOrderItemById(id);
     }
 
-    @Transactional
+    /**
+     * Созадание части заказа
+     * @param creatingOrderItemRequest данные для запроса создания части заказа
+     * @return ответ части заказа
+     */
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         return orderItemMapper.addOrderItem(creatingOrderItemRequest);
     }
-//    @Transactional
-//    public void deleteOrderItemById(Long id){
-//        jpaOrderItemRepository.deleteById(id);
-//    }
+
 }
 

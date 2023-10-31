@@ -1,5 +1,6 @@
 package ru.liga.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,9 @@ import ru.liga.service.rabbitMQ.NotificationService;
 
 import java.io.IOException;
 
+/**
+ * Класс получателя сообщений.
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -20,6 +24,12 @@ public class QueueListener {
     private final NotificationService notificationService;
     private final ObjectMapper objectMapper;
 
+    /**
+     * Метод, отвечающий за получение сообщения из очереди createOrderQueueToOrder о новом заказе и
+     * отправку сообщения notification-service о новом заказе.
+     * @param request данные ответа о создании нового заказа
+     * @throws JsonProcessingException
+     */
     @RabbitListener(queues = "createOrderQueueToOrder")
     public void processQueueCreateOrder(String request) throws IOException {
         CreateOrderRequest createOrderRequest = objectMapper.readValue(request, CreateOrderRequest.class);

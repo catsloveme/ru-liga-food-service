@@ -12,28 +12,29 @@ import ru.liga.mapping.OrderItemToMenuMapper;
 import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.*;
 import ru.liga.api.OrderService;
-
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 
+/**
+ * Сервис для работы с репозиторием jpa.
+ */
 @RequiredArgsConstructor
 public class JpaOrderService implements OrderService {
 
     private final OrderRepository jpaOrderRepository;
-
     private final OrderItemRepository jpaOrderItemRepository;
-
     private final CustomerRepository jpaCustomerRepository;
-
     private final RestaurantRepository jpaRestaurantRepository;
     private final OrderItemToMenuMapper mapperOrderItem;
     private final RestaurantMapper mapperRestaurant;
     private final CreateOrderMapper mapperCreateOrder;
-//    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
+    /**
+     * Поиск всех заказов.
+     * @return список ответов заказов
+     */
     public List<OrderResponse> findAllOrders() {
         List<Order> orders = jpaOrderRepository.findAll();//firstPageWithTenElements);
         List<OrderResponse> responses = new ArrayList<>();
@@ -43,6 +44,11 @@ public class JpaOrderService implements OrderService {
         return responses;
     }
 
+    /**
+     * Поиск заказа по его id.
+     * @param orderId идентификатор заказа
+     * @return ответ заказа
+     */
     public OrderResponse findOrderById(Long orderId) {
         Order order = jpaOrderRepository.findOrderById(orderId);//, firstPageWithTenElements);
         OffsetDateTime time = order.getTimestamp();
@@ -58,6 +64,11 @@ public class JpaOrderService implements OrderService {
             .build();
     }
 
+    /**
+     * Создание заказа.
+     * @param createOrderRequest данные для запроса на создание заказа
+     * @return ответ создания заказа
+     */
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         Order order = new Order();
 
@@ -80,11 +91,21 @@ public class JpaOrderService implements OrderService {
         return mapperCreateOrder.toDto(order);
     }
 
+    /**
+     * Обновление id курьера у заказа, найденного по его id.
+     * @param courierId идентификатор курьера
+     * @param orderId   идентификатор заказа
+     */
     @Transactional
     public void updateCourierId(Long courierId, Long orderId) {
         jpaOrderRepository.updateCourierId(courierId, orderId);
     }
 
+    /**
+     * Обновление статуса закза по его id.
+     * @param status  статус заказа
+     * @param orderId идентификатор заказа
+     */
     @Transactional
     public void updateOrderStatus(StatusOrder status, Long orderId) {
         jpaOrderRepository.updateOrderStatus(status, orderId);

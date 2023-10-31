@@ -19,7 +19,7 @@ public class MyBatisConfiguration {
     private final CustomerMapper customerMapper;
 
     /**
-     * Создание бина реализации MyBatis для сервиса customer.
+     * Создание бина реализации MyBatis для сервиса Customer.
      * @return
      */
     @Primary

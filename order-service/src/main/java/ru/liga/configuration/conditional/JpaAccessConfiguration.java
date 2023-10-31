@@ -7,18 +7,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
-import ru.liga.dto.response.CreateOrderResponse;
-import ru.liga.dto.response.OrderItemResponse;
-import ru.liga.dto.response.RestaurantMenuItemResponse;
-import ru.liga.dto.response.RestaurantResponse;
-import ru.liga.entity.Order;
-import ru.liga.entity.OrderItem;
-import ru.liga.entity.Restaurant;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.CreateOrderMapper;
+import ru.liga.mapping.OrderItemMapper;
+import ru.liga.mapping.OrderItemToMenuMapper;
 import ru.liga.repository.*;
 import ru.liga.service.jpa.JpaOrderItemService;
 import ru.liga.service.jpa.JpaOrderService;
 
+/**
+ * Конфирурация для быстрого выбора jpa реализации работы с базой данных.
+ */
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
@@ -29,11 +27,15 @@ public class JpaAccessConfiguration {
     private final CustomerRepository jpaCustomerRepository;
     private final RestaurantRepository jpaRestaurantRepository;
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
-    private final AbstractMapper<OrderItem, OrderItemResponse> mapper;
-    private final AbstractMapper<OrderItem, RestaurantMenuItemResponse> mapperOrderItem;
-    private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
-    private final AbstractMapper<Order, CreateOrderResponse> mapperCreateOrder;
+    private final OrderItemMapper mapper;
+    private final OrderItemToMenuMapper mapperOrderItem;
+    private final RestaurantMapper mapperRestaurant;
+    private final CreateOrderMapper mapperCreateOrder;
 
+    /**
+     * Создание бина реализации jpa для сервиса Order.
+     * @return
+     */
     @Primary
     @Bean("jpaOrderService")
     public OrderService orderService() {
@@ -48,6 +50,10 @@ public class JpaAccessConfiguration {
         );
     }
 
+    /**
+     * Создание бина реализации jpa для сервиса OrderItem.
+     * @return
+     */
     @Primary
     @Bean("jpaOrderItemService")
     public OrderItemService orderItemService() {
