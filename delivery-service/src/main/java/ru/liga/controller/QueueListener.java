@@ -1,14 +1,16 @@
 package ru.liga.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.retry.support.RetryTemplate;
-import ru.liga.clients.OrderFeign;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.http.ResponseEntity;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
+import ru.liga.clients.OrderFeign;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
@@ -16,9 +18,6 @@ import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.repository.CourierRepository;
 import ru.liga.service.jpa.JpaCourierService;
-import java.util.List;
-import java.util.Optional;
-
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 

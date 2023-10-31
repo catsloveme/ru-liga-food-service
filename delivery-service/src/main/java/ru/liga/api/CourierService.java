@@ -1,8 +1,8 @@
 package ru.liga.api;
 
+import java.util.List;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import java.util.List;
 
 /**
  * Интерфейс описания api сервиса Courier.

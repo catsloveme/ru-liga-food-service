@@ -1,11 +1,11 @@
 package ru.liga;
 
-import ru.liga.clients.OrderFeign;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ru.liga.clients.OrderFeign;
 import ru.liga.configuration.ApplicationConfig;
 
 /**
@@ -15,6 +15,7 @@ import ru.liga.configuration.ApplicationConfig;
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)
 @SpringBootApplication
+@SuppressWarnings("uncommentedmain")
 public class Delivery {
     /**
      * Запуск сервиса Delivery

@@ -1,11 +1,11 @@
 package ru.liga.service.batis;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import ru.liga.mapper.DeliveryMapper;
+import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.api.CourierService;
-import java.util.List;
+import ru.liga.mapper.DeliveryMapper;
 
 /**
  * Сервис для работы с маппером MyBatis.

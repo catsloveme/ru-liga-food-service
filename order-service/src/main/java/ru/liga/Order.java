@@ -12,6 +12,7 @@ import ru.liga.configuration.ApplicationConfig;
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)
 @SpringBootApplication
+@SuppressWarnings("uncommentedmain")
 public class Order {
 
     /**

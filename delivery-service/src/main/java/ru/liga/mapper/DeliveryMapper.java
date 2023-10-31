@@ -1,12 +1,12 @@
 package ru.liga.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.api.CourierService;
-import java.util.List;
 
 /**
  * Интерфейс (меппер) для работы с myBatis.

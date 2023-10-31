@@ -1,14 +1,14 @@
 package ru.liga.service.jpa;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
 import ru.liga.mapping.CourierMapper;
 import ru.liga.repository.CourierRepository;
-import ru.liga.api.CourierService;
-import java.util.List;
 
 /**
  * Сервис для работы с репозиторием jpa.
