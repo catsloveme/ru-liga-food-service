@@ -11,8 +11,8 @@ public interface CourierService {
 
     /**
      * Поиск курьеров по статусу.
-     * @param status статус курьера
-     * @return списов ответов курьеров
+     * @param status статус курьера.
+     * @return списов ответов курьеров.
      */
     List<CourierResponse> findByStatus(StatusCourier status);
 

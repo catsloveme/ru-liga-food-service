@@ -46,7 +46,7 @@ public class JpaOrderService implements OrderService {
      * @return список ответов заказов
      */
     public List<OrderResponse> findAllOrders() {
-        List<Order> orders = jpaOrderRepository.findAll();//firstPageWithTenElements);
+        List<Order> orders = jpaOrderRepository.findAll();
         List<OrderResponse> responses = new ArrayList<>();
         for (Order order : orders) {
             responses.add(this.findOrderById(order.getId()));
@@ -61,7 +61,7 @@ public class JpaOrderService implements OrderService {
      * @return ответ заказа
      */
     public OrderResponse findOrderById(Long orderId) {
-        Order order = jpaOrderRepository.findOrderById(orderId);//, firstPageWithTenElements);
+        Order order = jpaOrderRepository.findOrderById(orderId);
         OffsetDateTime time = order.getTimestamp();
         RestaurantResponse restaurantResponse = mapperRestaurant.toDto(order.getRestaurant());
         List<OrderItem> orderItems = jpaOrderItemRepository.findByOrderId(orderId);

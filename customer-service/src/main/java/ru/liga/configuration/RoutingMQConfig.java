@@ -15,7 +15,7 @@ public class RoutingMQConfig {
 
     /**
      * Создание очереди сообщений для order-service, получающей сообщение о создании нового заказа.
-     * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи)
+     * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи).
      */
     @Bean
     public Declarables myQueue() {

@@ -13,7 +13,7 @@ public class RestaurantService {
 
     /**
      * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
-     * @param orderId идентификатор заказа
+     * @param orderId идентификатор заказа.
      */
     public void sendMessageCreate(Long orderId) {
         rabbitMQProducerService.sendMessageCreate(orderId, "new_order_to_restaurant");
