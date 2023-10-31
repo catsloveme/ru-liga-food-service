@@ -8,12 +8,19 @@ import ru.liga.api.CourierService;
 import ru.liga.mapper.DeliveryMapper;
 import ru.liga.service.batis.BatisCourierService;
 
+/**
+ * Конфирурация для быстрого выбора MyBatis реализации работы с базой данных.
+ */
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "my_batis")
 public class MyBatisConfiguration {
     private final DeliveryMapper deliveryMapper;
 
+    /**
+     * Создание бина реализации MyBatis для сервиса courier.
+     * @return
+     */
     @Bean("myBatisOrderService")
     public CourierService courierService() {
         return new BatisCourierService(deliveryMapper);

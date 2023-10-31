@@ -21,12 +21,12 @@ public class JpaAccessConfiguration {
     private final CustomerMapper customerMapperMapStruct;
 
     /**
-     * Создание бина реализации jpa для сервиса order.
+     * Создание бина реализации jpa для сервиса customer.
      * @return
      */
     @Primary
     @Bean("jpaCustomerService")
-    public JpaCustomerService orderService() {
+    public JpaCustomerService customerService() {
         return new JpaCustomerService(jpaCustomerRepository, customerMapperMapStruct);
     }
 

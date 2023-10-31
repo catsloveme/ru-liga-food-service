@@ -8,13 +8,31 @@ import ru.liga.enums.StatusCourier;
 import ru.liga.api.CourierService;
 import java.util.List;
 
+/**
+ * Интерфейс (меппер) для работы с myBatis.
+ */
 @Mapper
 public interface DeliveryMapper extends CourierService {
+    /**
+     * Поиск курьеров по статусу.
+     * @param status статус курьера
+     * @return список ответов курьеров
+     */
     @Select("SELECT courier_id as address, coordinates as distance fROM couriers")
     List<CourierResponse> findByStatus(StatusCourier status);
 
+    /**
+     * Поиск курьера по id.
+     * @param id идентификатор курьера
+     * @return ответ курьера
+     */
     @Select("SELECT courier_id as address, coordinates as distance FROM couriers WHERE courier_id=#{id};")
     CourierResponse findById(@Param("id") Long id);
 
+    /**
+     * Изменение статуса курьера по его id.
+     * @param courierId идентификатор курьера
+     * @param status    желаемый статус курьера
+     */
     void changeOrderStatusById(@Param("courierId") Long courierId, @Param("status") StatusCourier status);
 }

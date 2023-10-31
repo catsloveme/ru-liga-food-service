@@ -10,7 +10,6 @@ import ru.liga.dto.response.CustomerResponse;
  * Интерфейс (меппер) для работы с myBatis.
  */
 @Mapper
-
 public interface CustomerMapper extends CustomerService {
     /**
      * Поиск всех заказчиков.

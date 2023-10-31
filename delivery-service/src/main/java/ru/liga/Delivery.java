@@ -8,11 +8,18 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.liga.configuration.ApplicationConfig;
 
+/**
+ * Класс запускающий сервис Delivery.
+ */
 @EnableFeignClients(clients = OrderFeign.class)
 @EnableJpaRepositories
 @EnableConfigurationProperties(ApplicationConfig.class)
 @SpringBootApplication
 public class Delivery {
+    /**
+     * Запуск сервиса Delivery
+     * @param args массив строковых аргументов
+     */
     public static void main(String[] args) {
         SpringApplication.run(Delivery.class, args);
     }

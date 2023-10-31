@@ -11,6 +11,9 @@ import ru.liga.enums.StatusCourier;
 
 import java.util.List;
 
+/**
+ * Контроллер курьеров.
+ */
 @Log4j2
 @RestController
 @RequiredArgsConstructor
@@ -18,12 +21,23 @@ public class DeliveryController {
 
     private final CourierService courierService;
 
+    /**
+     * Поиск курьеров по статусу.
+     * @param status статус курьера
+     * @return список ответов курьеров
+     */
     @GetMapping("/deliveries")
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(@RequestParam StatusCourier status) {
         List<CourierResponse> response = courierService.findByStatus(status);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Изменение статуса курьера по его id.
+     * @param id идентификатор курьера
+     * @param status статус курьера
+     * @return ResponseEntity
+     */
     @PostMapping("/delivery/{id}")
     public ResponseEntity<Void> changeCourierStatusById(
         @PathVariable Long id,

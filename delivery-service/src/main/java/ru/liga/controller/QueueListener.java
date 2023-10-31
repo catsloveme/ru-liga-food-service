@@ -22,6 +22,9 @@ import java.util.Optional;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
+/**
+ * Класс получателя сообщений.
+ */
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -30,17 +33,28 @@ public class QueueListener {
     private final JpaCourierService jpaCourierService;
     private final OrderFeign orderFeign;
     private final RetryTemplate retryTemplate;
+    private final ObjectMapper objectMapper;
 
+    /**
+     * Метод, отвечающий за получение сообщения из очереди courierSearchQueueToCourier о поиске курьера и
+     * запуск поиска ближайшего курьера.
+     * @param idOrder идентификатор заказа
+     * @throws JsonProcessingException
+     */
     @RabbitListener(queues = "courierSearchQueueToCourier")
-    public void getSearchingMessage(String message) throws JsonProcessingException {
+    public void getSearchingMessage(String idOrder) throws JsonProcessingException {
         log.info("The message about searching courier is received");
-        ObjectMapper objectMapper = new ObjectMapper();
-        Long idOrder = objectMapper.readValue(message, Long.class);
+        Long gettingIdOrder = objectMapper.readValue(idOrder, Long.class);
 
-        searchNearestCouriers(idOrder);
+        searchNearestCouriers(gettingIdOrder);
 
     }
 
+    /**
+     * Поиск свободных курьеров, если таких нет, то поиск возобновится через 10 минут.
+     * Если в течении часа свободные курьеры найдены, то среди них ищется ближайший к ресторану.
+     * @param idOrder идентификатор заказа
+     */
     public void searchNearestCouriers(Long idOrder) {
 
         List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.DELIVERY_PENDING);
@@ -57,6 +71,12 @@ public class QueueListener {
         }
     }
 
+    /**
+     * Поиск ближайшего курьера и изменение его статуса.
+     * @param activeCouriers список свободных курьеров
+     * @param restaurantAddress координаты ресторана
+     * @param idOrder идентификатор заказа
+     */
     public void searchNearestCouriersAndChangeOrderStatus(
         List<Courier> activeCouriers,
         String restaurantAddress,
@@ -69,6 +89,11 @@ public class QueueListener {
         jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
     }
 
+    /**
+     * Поиск координат ресторана через id заказа.
+     * @param idOrder идентификатор заказа
+     * @return координаты ресторана
+     */
     public String searchRestaurantAddress(Long idOrder) {
         ResponseEntity<OrderResponse> orderResponseEntity = orderFeign.findOrderById(idOrder);
         OrderResponse orderResponse = orderResponseEntity.getBody();
@@ -82,6 +107,12 @@ public class QueueListener {
         return restaurantAddress;
     }
 
+    /**
+     * Выбор ближайшего курьера.
+     * @param activeCouriers список курьеров
+     * @param restaurantAddress координаты ресторана
+     * @return идентификатор курьера
+     */
     public Long choseNearestCourierId(List<Courier> activeCouriers, String restaurantAddress) {
         Long nearestCourierId = null;
         Double minimumDistance = Double.MAX_VALUE;
@@ -96,6 +127,12 @@ public class QueueListener {
         return nearestCourierId;
     }
 
+    /**
+     * Вычисление расстояния между двумя точками, заданными координатами в двумерном пространстве.
+     * @param firstPoint координаты первой точки
+     * @param secondPoint координаты второй точки
+     * @return расстояние между исходными точками
+     */
     public Double calculateDistanceBetweenTwoPoints(String firstPoint, String secondPoint) {
 
         String[] coordinateFirstPoint = firstPoint.split(",");

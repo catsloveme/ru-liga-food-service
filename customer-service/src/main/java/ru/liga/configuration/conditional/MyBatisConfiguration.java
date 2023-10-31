@@ -19,12 +19,12 @@ public class MyBatisConfiguration {
     private final CustomerMapper customerMapper;
 
     /**
-     * Создание бина реализации MyBatis для сервиса order.
+     * Создание бина реализации MyBatis для сервиса customer.
      * @return
      */
     @Primary
     @Bean("myBatisCustomerService")
-    public CustomerService orderService() {
+    public CustomerService customerService() {
         return new BatisCustomerService(customerMapper);
     }
 
