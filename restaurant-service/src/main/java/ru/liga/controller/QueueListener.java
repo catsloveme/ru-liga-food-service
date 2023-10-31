@@ -14,10 +14,10 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class QueueListener {
     private final OrderFeign orderFeign;
+    private final ObjectMapper objectMapper;
 
     @RabbitListener(queues = "newOrderQueueToRestaurant")
     public void processQueueCreateOrder(String orderId) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
         Long id = objectMapper.readValue(orderId, Long.class);
         orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_ACCEPTED);
 

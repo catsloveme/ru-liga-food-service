@@ -6,7 +6,7 @@ import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusRestaurant;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.RestaurantRepository;
 import ru.liga.api.RestaurantService;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class JpaRestaurantService implements RestaurantService {
 
     private final RestaurantRepository jpaRestaurantRepository;
-    private final AbstractMapper<Restaurant, RestaurantResponse> mapper;
+    private final RestaurantMapper mapper;
 
     public RestaurantResponse findRestaurantById(Long id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->

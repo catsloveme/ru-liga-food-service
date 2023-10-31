@@ -1,5 +1,6 @@
 package ru.liga.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
@@ -21,6 +22,10 @@ public class RoutingMQConfig {
             BindingBuilder.bind(queueDirectRestaurant).to(directExchange).with("new_order_to_restaurant"),
             BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier")
         );
+    }
+    @Bean
+    public ObjectMapper createObjectMapper() {
+        return new ObjectMapper();
     }
 
 }

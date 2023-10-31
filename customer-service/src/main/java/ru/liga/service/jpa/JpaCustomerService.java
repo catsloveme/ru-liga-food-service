@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import ru.liga.api.CustomerService;
 import ru.liga.dto.response.CustomerResponse;
 import ru.liga.entity.Customer;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.CustomerMapper;
 import ru.liga.repository.CustomerRepository;
 
 /**
@@ -14,7 +14,7 @@ import ru.liga.repository.CustomerRepository;
 @RequiredArgsConstructor
 public class JpaCustomerService implements CustomerService {
     private final CustomerRepository jpaCustomerRepository;
-    private final AbstractMapper<Customer, CustomerResponse> mapper;
+    private final CustomerMapper mapper;
 
     /**
      * Поиск всех заказчиков

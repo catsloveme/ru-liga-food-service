@@ -7,7 +7,9 @@ import ru.liga.dto.response.*;
 import ru.liga.entity.*;
 import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.CreateOrderMapper;
+import ru.liga.mapping.OrderItemToMenuMapper;
+import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.*;
 import ru.liga.api.OrderService;
 
@@ -27,9 +29,9 @@ public class JpaOrderService implements OrderService {
     private final CustomerRepository jpaCustomerRepository;
 
     private final RestaurantRepository jpaRestaurantRepository;
-    private final AbstractMapper<OrderItem, RestaurantMenuItemResponse> mapperOrderItem;
-    private final AbstractMapper<Restaurant, RestaurantResponse> mapperRestaurant;
-    private final AbstractMapper<Order, CreateOrderResponse> mapperCreateOrder;
+    private final OrderItemToMenuMapper mapperOrderItem;
+    private final RestaurantMapper mapperRestaurant;
+    private final CreateOrderMapper mapperCreateOrder;
 //    Pageable firstPageWithTenElements = PageRequest.of(0, 10);
 
     public List<OrderResponse> findAllOrders() {

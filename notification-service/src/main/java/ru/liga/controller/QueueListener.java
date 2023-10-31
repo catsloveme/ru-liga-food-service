@@ -15,10 +15,10 @@ import ru.liga.service.rabbitMQ.RestaurantService;
 public class QueueListener {
     public final RestaurantService restaurantService;
     public final CourierService courierService;
+    public final ObjectMapper objectMapper;
 
     @RabbitListener(queues = "newOrderQueueToNotification")
     public void processQueueCreateOrder(String orderId) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         Long createOrderRequest = objectMapper.readValue(orderId, Long.class);
         restaurantService.sendMessageCreate(createOrderRequest);
 
@@ -26,7 +26,6 @@ public class QueueListener {
 
     @RabbitListener(queues = "courierSearchQueueToNotification")
     public void searchCouriers(String message) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         Long idOrder = objectMapper.readValue(message, Long.class);
         courierService.sendMessageSearch(idOrder);
     }

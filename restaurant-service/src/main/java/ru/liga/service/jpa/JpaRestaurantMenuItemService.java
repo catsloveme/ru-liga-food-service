@@ -7,7 +7,8 @@ import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.entity.Restaurant;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.RestaurantMenuItemMapper;
+import ru.liga.mapping.RestaurantMenuItemRequestMapper;
 import ru.liga.repository.RestaurantMenuItemRepository;
 import ru.liga.repository.RestaurantRepository;
 import ru.liga.api.RestaurantMenuItemService;
@@ -20,27 +21,23 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
 
     private final RestaurantRepository jpaRestaurantRepository;
-    private final AbstractMapper<RestaurantMenuItem, RestaurantMenuItemResponse> mapper;
+    private final RestaurantMenuItemMapper restaurantMenuItemMapper;
+    private final RestaurantMenuItemRequestMapper restaurantMenuItemRequestMapper;
 
     public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {
         RestaurantMenuItem restaurantMenuItem = jpaRestaurantMenuItemRepository.findById(id).orElseThrow(() ->
             new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
-        return mapper.toDto(restaurantMenuItem);
+        return restaurantMenuItemMapper.toDto(restaurantMenuItem);
     }
 
     public RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) {
-        RestaurantMenuItem restaurantMenuItem;
+        RestaurantMenuItem restaurantMenuItem = restaurantMenuItemRequestMapper.toEntity(request);
         Long restaurantId = request.getRestaurantId();
         Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
             new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
-        restaurantMenuItem = new RestaurantMenuItem();
         restaurantMenuItem.setRestaurant(restaurant);
-        restaurantMenuItem.setName(request.getName());
-        restaurantMenuItem.setPrice(request.getPrice());
-        restaurantMenuItem.setImage(request.getImageUrl());
-        restaurantMenuItem.setDescription(request.getDescription());
         jpaRestaurantMenuItemRepository.save(restaurantMenuItem);
-        return mapper.toDto(restaurantMenuItem);
+        return restaurantMenuItemMapper.toDto(restaurantMenuItem);
     }
 
     @Transactional

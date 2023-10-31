@@ -8,7 +8,7 @@ import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.mapping.abstraction.AbstractMapper;
 
 /**
- * Интервейс для преобразования сущности Restaurant в dto RestaurantResponse.
+ * Интервейс для преобразования сущности RestaurantMenuItem в dto RestaurantMenuItemResponse.
  */
 @Mapper(componentModel = "spring")
 public interface RestaurantMenuItemMapper

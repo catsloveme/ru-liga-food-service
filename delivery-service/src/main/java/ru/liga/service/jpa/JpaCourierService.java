@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
-import ru.liga.mapping.abstraction.AbstractMapper;
+import ru.liga.mapping.CourierMapper;
 import ru.liga.repository.CourierRepository;
 import ru.liga.api.CourierService;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class JpaCourierService implements CourierService {
 
     private final CourierRepository jpaCourierRepository;
-    private final AbstractMapper<Courier, CourierResponse> mapper;
+    private final CourierMapper mapper;
 
     public List<CourierResponse> findByStatus(StatusCourier status) {
         List<Courier> courier = jpaCourierRepository.findByStatus(status);

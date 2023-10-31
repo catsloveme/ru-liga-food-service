@@ -1,5 +1,6 @@
 package ru.liga.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
@@ -19,6 +20,11 @@ public class RoutingMQConfig {
         return new Declarables(queueCreateOrder, directExchange,
             BindingBuilder.bind(queueCreateOrder).to(directExchange).with("new_order_to_notification")
         );
+    }
+
+    @Bean
+    public ObjectMapper createObjectMapper() {
+        return new ObjectMapper();
     }
 
 }
