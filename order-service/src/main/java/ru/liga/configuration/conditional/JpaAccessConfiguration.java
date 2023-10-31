@@ -10,6 +10,7 @@ import ru.liga.api.OrderService;
 import ru.liga.mapping.CreateOrderMapper;
 import ru.liga.mapping.OrderItemMapper;
 import ru.liga.mapping.OrderItemToMenuMapper;
+import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.*;
 import ru.liga.service.jpa.JpaOrderItemService;
 import ru.liga.service.jpa.JpaOrderService;

@@ -33,7 +33,7 @@ public interface OrderFeign {
     ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status);
 
     /**
-     * Поиск заказа по id.
+     * Поиск заказа по его id.
      * @param id идентификатор заказа.
      * @return ответ заказа
      */
