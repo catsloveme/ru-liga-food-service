@@ -16,6 +16,8 @@ import ru.liga.configuration.conditional.AccessType;
 @Data
 public class ApplicationConfig {
     private AccessType databaseAccessType;
+    private final Long time = 600_000L;
+    private final int maxAttempts = 2;
 
     /**
      * Метод для исподльзования Retry, который дает возможность автоматического повторного запуска неудачной операции.
@@ -26,11 +28,11 @@ public class ApplicationConfig {
         RetryTemplate retryTemplate = new RetryTemplate();
 
         FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
-        fixedBackOffPolicy.setBackOffPeriod(600_000L);
+        fixedBackOffPolicy.setBackOffPeriod(time);
         retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
 
         SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
-        retryPolicy.setMaxAttempts(2);
+        retryPolicy.setMaxAttempts(maxAttempts);
         retryTemplate.setRetryPolicy(retryPolicy);
 
         return retryTemplate;

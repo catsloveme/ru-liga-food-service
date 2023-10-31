@@ -1,33 +1,45 @@
 package ru.liga.service.batis;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-import ru.liga.mapper.restaurant.RestaurantMapper;
-import ru.liga.dto.response.RestaurantByStatusResponse;
+import ru.liga.api.RestaurantService;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.api.RestaurantService;
+import ru.liga.mapper.restaurant.RestaurantMapper;
 
-import java.util.List;
-
+/**
+ * Сервис для работы с маппером MyBatis.
+ */
 @RequiredArgsConstructor
 public class BatisRestaurantService implements RestaurantService {
 
     private final RestaurantMapper restaurantMapper;
 
+    /**
+     * Поиск ресторана по его id.
+     *
+     * @param id идентификатор ресторана
+     * @return ответ ресторана
+     */
     public RestaurantResponse findRestaurantById(Long id) {
         return restaurantMapper.findRestaurantById(id);
     }
 
-    public void changeOrderStatusById(StatusRestaurant status, Long restaurantId) {
-        restaurantMapper.changeOrderStatusById(status, restaurantId);
+    /**
+     * Изменение статуса ресторана.
+     *
+     * @param status       статус ресторана
+     * @param restaurantId идентификкатор ресторана
+     */
+    public void changeStatusById(StatusRestaurant status, Long restaurantId) {
+        restaurantMapper.changeStatusById(status, restaurantId);
     }
 
-    public List<RestaurantByStatusResponse> findRestaurantsByStatus(StatusRestaurant status) {
-        return restaurantMapper.findRestaurantsByStatus(status);
-
-    }
-
+    /**
+     * Поиск всех ресторанов.
+     *
+     * @return список ответов ресторанов
+     */
     public List<RestaurantResponse> findAllRestaurants() {
         return restaurantMapper.findAllRestaurants();
     }

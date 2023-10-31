@@ -1,10 +1,19 @@
 package ru.liga.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.clients.OrderFeign;
@@ -15,38 +24,60 @@ import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
 import ru.liga.service.rabbitMQ.NotificationService;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+/**
+ * Контроллер ресторанов.
+ */
 @Log4j2
 @RestController
 @RequiredArgsConstructor
 public class RestaurantController {
 
     private final RestaurantService jpaRestaurantService;
-
     private final RestaurantMenuItemService jpaRestaurantMenuItemService;
     private final NotificationService notificationService;
     private final OrderFeign orderFeign;
 
+    /**
+     * Поиск ресторана по его id.
+     *
+     * @param id идентификатор ресторана
+     * @return ответ ресторана
+     */
     @GetMapping("restaurant/{id}")
     public ResponseEntity<RestaurantResponse> findRestaurantById(@PathVariable Long id) {
         RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Поиск всех ресторанов.
+     *
+     * @return список ответов ресторанов
+     */
     @GetMapping("/restaurants")
     public ResponseEntity<List<RestaurantResponse>> findAllRestaurants() {
         List<RestaurantResponse> response = jpaRestaurantService.findAllRestaurants();
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Поиск блюда по id.
+     *
+     * @param id дентификатор блюда
+     * @return ответ блюда
+     */
     @GetMapping("menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(@PathVariable Long id) {
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Добавить блюдо.
+     *
+     * @param request данные для запроса добавления блюда
+     * @return ответ блюда
+     */
     @PostMapping("/menuItem")
     public ResponseEntity<RestaurantMenuItemResponse> addRestaurantMenuItem(
         @RequestBody RestaurantMenuItemRequest request
@@ -55,39 +86,83 @@ public class RestaurantController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Удаление блюда по его id.
+     *
+     * @param id идентификатор блюда
+     * @return ResponseEntity
+     */
     @DeleteMapping("/menuItem/{id}")
     public ResponseEntity<Void> deleteRestaurantMenuItemById(@PathVariable Long id) {
         jpaRestaurantMenuItemService.deleteRestaurantMenuItemById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Обновление цены блюда.
+     *
+     * @param id    идентификатор блюда
+     * @param price новая цена блюда
+     * @return ResponseEntity
+     */
     @PatchMapping("/menuItem/{id}")
     public ResponseEntity<Void> updatePrice(@PathVariable Long id, @RequestParam BigDecimal price) {
         jpaRestaurantMenuItemService.updatePrice(price, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Обновление статуса ресторана.
+     *
+     * @param id     идентификатор ресторана
+     * @param status статус ресторана
+     * @return ResponseEntity
+     */
     @PatchMapping("/restaurant/{id}")
     public ResponseEntity<Void> updateStatus(@PathVariable Long id, @RequestParam StatusRestaurant status) {
-        jpaRestaurantService.changeOrderStatusById(status, id);
+        jpaRestaurantService.changeStatusById(status, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Отклонение заказа и обновление статуса заказа.
+     *
+     * @param id идентификатор заказа
+     * @return ResponseEntity
+     */
     @PatchMapping("/order/{id}/denied")
     public ResponseEntity<Void> denyOrder(@PathVariable Long id) {
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_DENIED);
     }
 
+    /**
+     * Приготовление заказа и обновдение статуса заказа.
+     *
+     * @param id идентификатор заказа
+     * @return ResponseEntity
+     */
     @PatchMapping("/order/{id}/preparing")
     public ResponseEntity<Void> preparingOrder(@PathVariable Long id) {
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_PREPARING);
     }
 
+    /**
+     * Возврат средств за заказ и обновление статуса заказа.
+     *
+     * @param id идентификатор заказа
+     * @return ResponseEntity
+     */
     @PatchMapping("/order/{id}/refunded")
     public ResponseEntity<Void> refundOrder(@PathVariable Long id) {
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_REFUNDED);
     }
 
+    /**
+     * Завершение заказа, обновдение статуса заказа, отправление сообщения о поиске рурьеров.
+     *
+     * @param id идентификатор заказа
+     * @return ResponseEntity
+     */
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(@PathVariable Long id) {
         notificationService.sendCourierSearch(id);
