@@ -17,7 +17,8 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
 
     /**
      * Отправка сообщения через RabbitTemplate.
-     * @param orderId идентификатор заказа
+     *
+     * @param orderId    идентификатор заказа
      * @param routingKey ключ для определения очереди
      */
     public void sendMessageCreate(Long orderId, String routingKey) {

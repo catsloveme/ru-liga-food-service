@@ -1,11 +1,11 @@
 package ru.liga.service.batis;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import ru.liga.mapper.OrderItemMapperBatis;
+import ru.liga.api.OrderItemService;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
-import ru.liga.api.OrderItemService;
-import java.util.List;
+import ru.liga.mapper.OrderItemMapperBatis;
 
 /**
  * Сервис для работы с маппером MyBatis.
@@ -16,7 +16,8 @@ public class BatisOrderItemService implements OrderItemService {
 
     /**
      * Поиск всех частей заказов.
-     * @return  список ответов частей заказов
+     *
+     * @return список ответов частей заказов
      */
     public List<OrderItemResponse> findAllOrderItems() {
         return orderItemMapper.findAllOrderItems();
@@ -24,6 +25,7 @@ public class BatisOrderItemService implements OrderItemService {
 
     /**
      * Поиск части заказа по его id.
+     *
      * @param id идентификатор части заказа
      * @return ответ части заказа
      */
@@ -33,6 +35,7 @@ public class BatisOrderItemService implements OrderItemService {
 
     /**
      * Созадание части заказа
+     *
      * @param creatingOrderItemRequest данные для запроса создания части заказа
      * @return ответ части заказа
      */

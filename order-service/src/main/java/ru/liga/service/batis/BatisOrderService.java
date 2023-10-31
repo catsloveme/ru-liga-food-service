@@ -1,14 +1,13 @@
 package ru.liga.service.batis;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import ru.liga.enums.StatusOrder;
-import ru.liga.mapper.OrderMapperBatis;
+import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.api.OrderService;
-
-import java.util.List;
+import ru.liga.enums.StatusOrder;
+import ru.liga.mapper.OrderMapperBatis;
 
 /**
  * Сервис для работы с маппером MyBatis.
@@ -19,6 +18,7 @@ public class BatisOrderService implements OrderService {
 
     /**
      * Поиск всех заказов.
+     *
      * @return список ответов заказов
      */
     public List<OrderResponse> findAllOrders() {
@@ -27,6 +27,7 @@ public class BatisOrderService implements OrderService {
 
     /**
      * Поиск заказа по его id.
+     *
      * @param orderId идентификатор заказа
      * @return ответ заказа
      */
@@ -36,6 +37,7 @@ public class BatisOrderService implements OrderService {
 
     /**
      * Созадние заказа.
+     *
      * @param createOrderRequest данные для запроса на создание заказа
      * @return ответ созадния заказа
      */
@@ -45,6 +47,7 @@ public class BatisOrderService implements OrderService {
 
     /**
      * Обновление id курьера у заказа, найденного по id.
+     *
      * @param orderId   идентификатор курьера
      * @param courierId идентификатор заказа
      */
@@ -55,6 +58,7 @@ public class BatisOrderService implements OrderService {
 
     /**
      * Обновление статуса заказа.
+     *
      * @param status  статус заказа
      * @param orderId идентификатор заказа
      */

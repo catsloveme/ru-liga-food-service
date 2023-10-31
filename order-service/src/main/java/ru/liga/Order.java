@@ -16,6 +16,7 @@ public class Order {
 
     /**
      * Запуск сервиса Order.
+     *
      * @param args массив строковых аргументов
      */
     public static void main(String[] args) {

@@ -13,6 +13,7 @@ public class NotificationService {
 
     /**
      * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
+     *
      * @param orderId идентификатор заказа
      */
     public void sendCreateOrder(Long orderId) {

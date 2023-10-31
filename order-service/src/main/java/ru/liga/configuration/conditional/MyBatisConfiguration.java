@@ -24,7 +24,6 @@ public class MyBatisConfiguration {
 
     /**
      * Создание бина реализации MyBatis для сервиса Order.
-     * @return
      */
     @Primary
     @Bean("myBatisOrderService")
@@ -34,7 +33,6 @@ public class MyBatisConfiguration {
 
     /**
      * Создание бина реализации MyBatis для сервиса OrderItem.
-     * @return
      */
     @Primary
     @Bean("myBatisOrderItemService")

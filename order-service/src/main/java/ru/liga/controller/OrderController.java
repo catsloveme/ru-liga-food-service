@@ -1,20 +1,26 @@
 package ru.liga.controller;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import ru.liga.dto.request.CreateOrderItemRequest;
-import ru.liga.dto.request.CreateOrderRequest;
-import ru.liga.dto.response.OrderItemResponse;
-import ru.liga.dto.response.CreateOrderResponse;
-import ru.liga.dto.response.OrderResponse;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
+import ru.liga.dto.request.CreateOrderItemRequest;
+import ru.liga.dto.request.CreateOrderRequest;
+import ru.liga.dto.response.CreateOrderResponse;
+import ru.liga.dto.response.OrderItemResponse;
+import ru.liga.dto.response.OrderResponse;
 import ru.liga.enums.StatusOrder;
-
-import java.util.List;
 
 /**
  * Контроллер заказа.
@@ -31,6 +37,7 @@ public class OrderController {
 
     /**
      * Поиск всех заказов.
+     *
      * @return список ответов всех заказов
      */
     @GetMapping
@@ -42,6 +49,7 @@ public class OrderController {
 
     /**
      * Поиск заказа по его id.
+     *
      * @param id идентификатор заказа
      * @return ответ заказа
      */
@@ -53,6 +61,7 @@ public class OrderController {
 
     /**
      * Поиск всех частей всех заказов.
+     *
      * @return список ответов частей заказоы
      */
     @GetMapping("/orderItems")
@@ -63,6 +72,7 @@ public class OrderController {
 
     /**
      * Поиск части заказа по его id.
+     *
      * @param id идентификатор части заказа
      * @return ответ части заказа
      */
@@ -74,6 +84,7 @@ public class OrderController {
 
     /**
      * Создание заказа.
+     *
      * @param requestCreatingOrder данные для запроса по созданию заказа
      * @return ответ создания заказа
      */
@@ -86,7 +97,8 @@ public class OrderController {
 
     /**
      * Создание части заказа.
-     * @param requestCreatingOrder  данные для запроса по созданию части заказа
+     *
+     * @param requestCreatingOrder данные для запроса по созданию части заказа
      * @return ответ части заказа
      */
     @PostMapping("/orderItem")
@@ -98,8 +110,9 @@ public class OrderController {
 
     /**
      * Обновление id курьера у заказа, найденного по его id.
+     *
      * @param courierId идентификатор курьера
-     * @param orderId идентификатор заказа
+     * @param orderId   идентификатор заказа
      * @return ResponseEntity
      */
     @PatchMapping("/courier/{courierId}/order/{orderId}")
@@ -110,8 +123,9 @@ public class OrderController {
 
     /**
      * Обновление статуса заказа по его id.
+     *
      * @param orderId идентификатор заказа
-     * @param status статус заказа
+     * @param status  статус заказа
      * @return ResponseEntity
      */
     @PatchMapping("/{orderId}")

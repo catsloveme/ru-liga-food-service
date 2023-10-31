@@ -16,6 +16,7 @@ public class RoutingMQConfig {
 
     /**
      * Создание очереди сообщений для notification-service, получающей сообщение о создании нового заказа.
+     *
      * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи)
      */
     @Bean
@@ -30,6 +31,7 @@ public class RoutingMQConfig {
 
     /**
      * Создание маппера для преобразования полученного сообщения.
+     *
      * @return ObjectMapper
      */
     @Bean

@@ -1,16 +1,17 @@
 package ru.liga.service.jpa;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import ru.liga.api.OrderItemService;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.RestaurantMenuItem;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapping.OrderItemMapper;
-import ru.liga.repository.*;
-import ru.liga.api.OrderItemService;
-
-import java.util.List;
+import ru.liga.repository.OrderItemRepository;
+import ru.liga.repository.OrderRepository;
+import ru.liga.repository.RestaurantMenuItemRepository;
 
 /**
  * Сервис для работы с репозиторием jpa.
@@ -25,6 +26,7 @@ public class JpaOrderItemService implements OrderItemService {
 
     /**
      * Поиск всех частей заказов.
+     *
      * @return список ответов частей заказов.
      */
     public List<OrderItemResponse> findAllOrderItems() {
@@ -34,6 +36,7 @@ public class JpaOrderItemService implements OrderItemService {
 
     /**
      * Поиск части заказа по его id.
+     *
      * @param id идентификатор части заказа
      * @return ответ части заказа
      */
@@ -45,6 +48,7 @@ public class JpaOrderItemService implements OrderItemService {
 
     /**
      * Создание части заказа.
+     *
      * @param creatingOrderItemRequest данные для запроса создания части заказа
      * @return ответ части заказа
      */

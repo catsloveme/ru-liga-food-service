@@ -1,20 +1,29 @@
 package ru.liga.service.jpa;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
-import ru.liga.dto.response.*;
-import ru.liga.entity.*;
+import ru.liga.dto.response.CreateOrderResponse;
+import ru.liga.dto.response.OrderResponse;
+import ru.liga.dto.response.RestaurantMenuItemResponse;
+import ru.liga.dto.response.RestaurantResponse;
+import ru.liga.entity.Customer;
+import ru.liga.entity.Order;
+import ru.liga.entity.OrderItem;
+import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapping.CreateOrderMapper;
 import ru.liga.mapping.OrderItemToMenuMapper;
 import ru.liga.mapping.RestaurantMapper;
-import ru.liga.repository.*;
-import ru.liga.api.OrderService;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import ru.liga.repository.CustomerRepository;
+import ru.liga.repository.OrderItemRepository;
+import ru.liga.repository.OrderRepository;
+import ru.liga.repository.RestaurantRepository;
 import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 
 /**
@@ -33,6 +42,7 @@ public class JpaOrderService implements OrderService {
 
     /**
      * Поиск всех заказов.
+     *
      * @return список ответов заказов
      */
     public List<OrderResponse> findAllOrders() {
@@ -46,6 +56,7 @@ public class JpaOrderService implements OrderService {
 
     /**
      * Поиск заказа по его id.
+     *
      * @param orderId идентификатор заказа
      * @return ответ заказа
      */
@@ -66,6 +77,7 @@ public class JpaOrderService implements OrderService {
 
     /**
      * Создание заказа.
+     *
      * @param createOrderRequest данные для запроса на создание заказа
      * @return ответ создания заказа
      */
@@ -93,6 +105,7 @@ public class JpaOrderService implements OrderService {
 
     /**
      * Обновление id курьера у заказа, найденного по его id.
+     *
      * @param courierId идентификатор курьера
      * @param orderId   идентификатор заказа
      */
@@ -103,6 +116,7 @@ public class JpaOrderService implements OrderService {
 
     /**
      * Обновление статуса закза по его id.
+     *
      * @param status  статус заказа
      * @param orderId идентификатор заказа
      */
