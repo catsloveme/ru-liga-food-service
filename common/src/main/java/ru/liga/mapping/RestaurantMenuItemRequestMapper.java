@@ -15,9 +15,9 @@ public interface RestaurantMenuItemRequestMapper
     extends AbstractMapper<RestaurantMenuItem, RestaurantMenuItemRequest> {
     /**
      * Преобразование dto в сущность.
-     * @param request
+     *
      * @return сущность
      */
     @Mapping(source = "imageUrl", target = "image")
-
-    RestaurantMenuItem toEntity(RestaurantMenuItemRequest request);}
+    RestaurantMenuItem toEntity(RestaurantMenuItemRequest request);
+}
