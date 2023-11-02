@@ -31,7 +31,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/restaurants")
+@RequestMapping("/restaurant-service")
 public class RestaurantController {
 
     private final RestaurantService jpaRestaurantService;

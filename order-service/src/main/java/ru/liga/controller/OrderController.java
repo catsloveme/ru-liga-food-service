@@ -27,7 +27,7 @@ import ru.liga.enums.StatusOrder;
  */
 @Log4j2
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/order-service")
 @RequiredArgsConstructor
 public class OrderController {
 

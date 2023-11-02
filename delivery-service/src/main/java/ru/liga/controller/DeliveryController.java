@@ -21,7 +21,7 @@ import ru.liga.enums.StatusCourier;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/couriers")
+@RequestMapping("/delivery-service")
 public class DeliveryController {
 
     private final CourierService courierService;

@@ -1,6 +1,8 @@
 package ru.liga.controller;
 
 import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,9 @@ import ru.liga.service.rabbitMQ.OrderService;
  * Контроллер заказчика.
  */
 @Log4j2
+@Tag(name = "API работы с заказом")
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/customer-service")
 @RequiredArgsConstructor
 public class CustomerController {
 
@@ -32,6 +35,7 @@ public class CustomerController {
      * Поиск всех заказов.
      * @return список ответов для заказа
      */
+    @Operation(summary = "Получить все заказы")
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> findAllOrders() {
         List<CustomerResponse> customerResponses = customerService.findAllCustomers();
@@ -44,6 +48,7 @@ public class CustomerController {
      * @param id идентификатор заказа
      * @return ответ для заказа
      */
+    @Operation(summary = "Получить заказ по идентификатору")
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> findOrderById(@PathVariable Long id) {
         CustomerResponse customerResponse = customerService.findCustomerById(id);
@@ -55,6 +60,7 @@ public class CustomerController {
      * @param request запрос заказа
      * @return ответ для заказа
      */
+    @Operation(summary = "Создать новый заказ")
     @PostMapping("/order/create")
     public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request) {
         orderService.createOrder(request);

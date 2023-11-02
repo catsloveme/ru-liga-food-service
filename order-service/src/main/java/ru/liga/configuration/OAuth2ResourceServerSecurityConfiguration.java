@@ -10,8 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @EnableWebSecurity
 public class OAuth2ResourceServerSecurityConfiguration {
-
-    @Bean
+        @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .mvcMatcher("/**")
