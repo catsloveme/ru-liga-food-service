@@ -1,9 +1,10 @@
 package ru.liga.controller;
 
-import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,9 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> findOrderById(@PathVariable Long id) {
+    public ResponseEntity<OrderResponse> findOrderById(
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
         OrderResponse orderResponse = orderService.findOrderById(id);
         return ResponseEntity.ok(orderResponse);
     }
@@ -79,7 +82,6 @@ public class OrderController {
      */
     @Operation(summary = "Получить все части заказов")
     @ApiResponse(responseCode = "200", description = "Ok")
-    @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Order items not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/orderItems")
@@ -100,7 +102,9 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order item not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/orderItems/{id}")
-    public ResponseEntity<OrderItemResponse> findOrderItemById(@PathVariable Long id) {
+    public ResponseEntity<OrderItemResponse> findOrderItemById(
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
         OrderItemResponse orderItemResponse = orderItemService.findOrderItemById(id);
         return ResponseEntity.ok(orderItemResponse);
     }
@@ -152,7 +156,10 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/courier/{courierId}/order/{orderId}")
-    ResponseEntity<Void> updateCourierId(@PathVariable Long courierId, @PathVariable Long orderId) {
+    ResponseEntity<Void> updateCourierId(
+        @Parameter(description = "Идентификатор курьера") @PathVariable Long courierId,
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long orderId
+    ) {
         orderService.updateCourierId(courierId, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -170,7 +177,10 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/{orderId}")
-    ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status) {
+    ResponseEntity<Void> updateOrderStatus(
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long orderId,
+        @Parameter(description = "Статус заказа") @RequestParam StatusOrder status
+    ) {
         orderService.updateOrderStatus(status, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
