@@ -1,4 +1,4 @@
-name: Java CI for customer with Maven
+name: Java CI for courier with Maven
 on:
   push:
     paths:
