@@ -1,5 +1,8 @@
 package ru.liga.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,25 +31,37 @@ public class DeliveryController {
 
     /**
      * Поиск курьеров по статусу.
+     *
      * @param status статус курьера
      * @return список ответов курьеров
      */
+    @Operation(summary = "Найти курьеров по статусу")
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "404", description = "Couriers not found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping
-    public ResponseEntity<List<CourierResponse>> findCourierByStatus(@RequestParam StatusCourier status) {
+    public ResponseEntity<List<CourierResponse>> findCourierByStatus(
+        @Parameter(description = "статус курьера") @RequestParam StatusCourier status) {
         List<CourierResponse> response = courierService.findByStatus(status);
         return ResponseEntity.ok(response);
     }
 
     /**
      * Изменение статуса курьера по его id.
-     * @param id идентификатор курьера
+     * @param id     идентификатор курьера
      * @param status статус курьера
      * @return ResponseEntity
      */
+    @Operation(summary = "Изменить статус курьера")
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "404", description = "Courier not found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
     @PostMapping("{id}")
     public ResponseEntity<Void> changeCourierStatusById(
-        @PathVariable Long id,
-        @RequestParam StatusCourier status
+        @Parameter(description = "идентификатор курьера") @PathVariable Long id,
+        @Parameter(description = "статус курьера") @RequestParam StatusCourier status
     ) {
         log.info("change couriers by status: {}", status);
         courierService.changeOrderStatusById(id, status);
