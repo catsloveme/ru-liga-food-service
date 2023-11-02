@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.liga.api.CourierService;
@@ -20,6 +21,7 @@ import ru.liga.enums.StatusCourier;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/couriers")
 public class DeliveryController {
 
     private final CourierService courierService;
@@ -29,7 +31,7 @@ public class DeliveryController {
      * @param status статус курьера
      * @return список ответов курьеров
      */
-    @GetMapping("/deliveries")
+    @GetMapping
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(@RequestParam StatusCourier status) {
         List<CourierResponse> response = courierService.findByStatus(status);
         return ResponseEntity.ok(response);
@@ -41,7 +43,7 @@ public class DeliveryController {
      * @param status статус курьера
      * @return ResponseEntity
      */
-    @PostMapping("/delivery/{id}")
+    @PostMapping("{id}")
     public ResponseEntity<Void> changeCourierStatusById(
         @PathVariable Long id,
         @RequestParam StatusCourier status

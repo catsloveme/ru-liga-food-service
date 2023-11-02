@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.liga.api.RestaurantMenuItemService;
@@ -30,6 +31,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/restaurants")
 public class RestaurantController {
 
     private final RestaurantService jpaRestaurantService;
@@ -43,7 +45,7 @@ public class RestaurantController {
      * @param id идентификатор ресторана
      * @return ответ ресторана
      */
-    @GetMapping("restaurant/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<RestaurantResponse> findRestaurantById(@PathVariable Long id) {
         RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
         return ResponseEntity.ok(response);
@@ -54,7 +56,7 @@ public class RestaurantController {
      *
      * @return список ответов ресторанов
      */
-    @GetMapping("/restaurants")
+    @GetMapping
     public ResponseEntity<List<RestaurantResponse>> findAllRestaurants() {
         List<RestaurantResponse> response = jpaRestaurantService.findAllRestaurants();
         return ResponseEntity.ok(response);
@@ -66,7 +68,7 @@ public class RestaurantController {
      * @param id дентификатор блюда
      * @return ответ блюда
      */
-    @GetMapping("menuItem/{id}")
+    @GetMapping("/menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(@PathVariable Long id) {
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
         return ResponseEntity.ok(response);

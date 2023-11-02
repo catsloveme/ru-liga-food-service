@@ -5,10 +5,34 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: client-service
+        - id: order-service
           uri: http://127.0.0.1:8083/orders
           predicates:
             - Path=/orders/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
+
+        - id: customer-service
+          uri: http://127.0.0.1:8084/customers
+          predicates:
+            - Path=/customers/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
+
+        - id: restaurant-service
+          uri: http://127.0.0.1:8081/restaurants
+          predicates:
+            - Path=/restaurants/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
+
+        - id: delivery-service
+          uri: http://127.0.0.1:8080/couriers
+          predicates:
+            - Path=/couriers/**
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
