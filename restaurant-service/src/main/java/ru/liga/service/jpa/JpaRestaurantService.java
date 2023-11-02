@@ -49,7 +49,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @return список ответов ресторанов
      */
     public List<RestaurantResponse> findAllRestaurants() {
-        List<Restaurant> restaurants = jpaRestaurantRepository.findAll();//firstPageWithTenElements);
+        List<Restaurant> restaurants = jpaRestaurantRepository.findAll();
 
         return mapper.toDto(restaurants);
     }
