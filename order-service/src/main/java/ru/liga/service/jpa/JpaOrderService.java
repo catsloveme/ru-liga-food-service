@@ -98,7 +98,7 @@ public class JpaOrderService implements OrderService {
             new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
 
         order.setRestaurant(restaurant);
-        order.setTimestamp(OffsetDateTime.now());
+        order.setTimestamp(OffsetDateTime.now().plusHours(1L));
         jpaOrderRepository.saveAndFlush(order);
         return mapperCreateOrder.toDto(order);
     }

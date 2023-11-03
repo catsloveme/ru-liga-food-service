@@ -69,8 +69,5 @@ public class JpaOrderItemService implements OrderItemService {
         return mapper.toDto(orderItem);
     }
 
-//    public void deleteOrderItemById(Long id){
-//        jpaOrderItemRepository.deleteById(id);
-//    }
 }
 
