@@ -18,21 +18,14 @@ public interface DeliveryMapper extends CourierService {
      * @param status статус курьера
      * @return список ответов курьеров
      */
-    @Select("SELECT courier_id as address, coordinates as distance fROM couriers")
+    @Select("SELECT courier_id as id, coordinates as address FROM couriers")
     List<CourierResponse> findByStatus(StatusCourier status);
-
-    /**
-     * Поиск курьера по id.
-     * @param id идентификатор курьера
-     * @return ответ курьера
-     */
-    @Select("SELECT courier_id as address, coordinates as distance FROM couriers WHERE courier_id=#{id};")
-    CourierResponse findById(@Param("id") Long id);
 
     /**
      * Изменение статуса курьера по его id.
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */
+    @Select("UPDATE couriers SET status = #{status} WHERE courier_id = #{courierId}")
     void changeOrderStatusById(@Param("courierId") Long courierId, @Param("status") StatusCourier status);
 }

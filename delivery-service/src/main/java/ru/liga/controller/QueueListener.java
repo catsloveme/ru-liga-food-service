@@ -10,14 +10,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
+import ru.liga.api.CourierService;
 import ru.liga.clients.OrderFeign;
+import ru.liga.dto.response.CourierResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.entity.Courier;
 import ru.liga.enums.StatusCourier;
 import ru.liga.enums.StatusOrder;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.repository.CourierRepository;
-import ru.liga.service.jpa.JpaCourierService;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -28,8 +27,7 @@ import static java.lang.Math.sqrt;
 @Service
 @RequiredArgsConstructor
 public class QueueListener {
-    private final CourierRepository jpaCourierRepository;
-    private final JpaCourierService jpaCourierService;
+    private final CourierService courierService;
     private final OrderFeign orderFeign;
     private final RetryTemplate retryTemplate;
     private final ObjectMapper objectMapper;
@@ -56,7 +54,7 @@ public class QueueListener {
      */
     public void searchNearestCouriers(Long idOrder) {
 
-        List<Courier> activeCouriers = jpaCourierRepository.findByStatus(StatusCourier.DELIVERY_PENDING);
+        List<CourierResponse> activeCouriers = courierService.findByStatus(StatusCourier.DELIVERY_PENDING);
         String restaurantAddress = searchRestaurantAddress(idOrder);
 
         if (!activeCouriers.isEmpty()) {
@@ -77,7 +75,7 @@ public class QueueListener {
      * @param idOrder идентификатор заказа
      */
     public void searchNearestCouriersAndChangeOrderStatus(
-        List<Courier> activeCouriers,
+        List<CourierResponse> activeCouriers,
         String restaurantAddress,
         Long idOrder
     ) {
@@ -85,7 +83,7 @@ public class QueueListener {
         log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
         orderFeign.updateCourierId(courierIdForDelivery, idOrder);
         orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
-        jpaCourierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
+        courierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
     }
 
     /**
@@ -112,12 +110,12 @@ public class QueueListener {
      * @param restaurantAddress координаты ресторана
      * @return идентификатор курьера
      */
-    public Long choseNearestCourierId(List<Courier> activeCouriers, String restaurantAddress) {
+    public Long choseNearestCourierId(List<CourierResponse> activeCouriers, String restaurantAddress) {
         Long nearestCourierId = null;
         Double minimumDistance = Double.MAX_VALUE;
         Double currentDistance;
-        for (Courier courier : activeCouriers) {
-            currentDistance = calculateDistanceBetweenTwoPoints(restaurantAddress, courier.getCoordinates());
+        for (CourierResponse courier : activeCouriers) {
+            currentDistance = calculateDistanceBetweenTwoPoints(restaurantAddress, courier.getAddress());
             if (currentDistance < minimumDistance) {
                 minimumDistance = currentDistance;
                 nearestCourierId = courier.getId();

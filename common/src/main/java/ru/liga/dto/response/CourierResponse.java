@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourierResponse {
+    private Long id;
     private String address;
-    private Double distance;
 }
