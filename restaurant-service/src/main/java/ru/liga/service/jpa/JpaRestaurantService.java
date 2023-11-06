@@ -7,7 +7,7 @@ import ru.liga.api.RestaurantService;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusRestaurant;
-import ru.liga.exception.DataNotFoundException;
+import ru.liga.exception.NotFoundException;
 import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.RestaurantRepository;
 
@@ -28,7 +28,7 @@ public class JpaRestaurantService implements RestaurantService {
      */
     public RestaurantResponse findRestaurantById(Long id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
-            new DataNotFoundException(String.format("Restaurant menu item id = %d not found", id)));
+            new NotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return mapper.toDto(restaurant);
     }
 

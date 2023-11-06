@@ -1,6 +1,10 @@
 package ru.liga.mapping;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
@@ -8,15 +12,14 @@ import ru.liga.entity.Order;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.Restaurant;
 import ru.liga.repository.OrderItemRepository;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
+@Component
 @RequiredArgsConstructor
 public class OrderMapper {
     private final RestaurantMapper restaurantMapper;
     private final OrderItemRepository jpaOrderItemRepository;
     private final OrderItemToMenuMapper mapperOrderItem;
+
     public OrderResponse toDto(Order order){
         Long orderId = order.getId();
         OffsetDateTime time = order.getTimestamp();
@@ -34,6 +37,7 @@ public class OrderMapper {
             .build();
         return response;
     }
+
     public List<OrderResponse> toDtos(List<Order> order){
         List<OrderResponse> orderResponses = new ArrayList<>();
         for(Order element: order){

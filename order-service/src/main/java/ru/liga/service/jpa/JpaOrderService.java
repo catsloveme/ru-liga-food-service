@@ -12,7 +12,7 @@ import ru.liga.entity.Customer;
 import ru.liga.entity.Order;
 import ru.liga.entity.Restaurant;
 import ru.liga.enums.StatusOrder;
-import ru.liga.exception.DataNotFoundException;
+import ru.liga.exception.NotFoundException;
 import ru.liga.mapping.CreateOrderMapper;
 import ru.liga.mapping.OrderMapper;
 import ru.liga.repository.CustomerRepository;
@@ -50,7 +50,8 @@ public class JpaOrderService implements OrderService {
      * @return ответ заказа
      */
     public OrderResponse findOrderById(Long orderId) {
-        Order order = jpaOrderRepository.findOrderById(orderId);
+        Order order = jpaOrderRepository.findById(orderId).orElseThrow(() ->
+            new NotFoundException(String.format("Order id = %d not found", orderId)));
         OrderResponse response = mapperOrder.toDto(order);
         return response;
     }
@@ -79,7 +80,7 @@ public class JpaOrderService implements OrderService {
         Long customerId = createOrderRequest.getCustomerId();
 
         Customer customer = jpaCustomerRepository.findById(customerId).orElseThrow(() ->
-            new DataNotFoundException(String.format("Customer id = %d not found", customerId)));
+            new NotFoundException(String.format("Customer id = %d not found", customerId)));
 
         order.setCustomer(customer);
         order.setStatus(CUSTOMER_CREATED);
@@ -87,7 +88,7 @@ public class JpaOrderService implements OrderService {
         Long restaurantId = createOrderRequest.getRestaurantId();
 
         Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
-            new DataNotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
+            new NotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
 
         order.setRestaurant(restaurant);
         order.setTimestamp(OffsetDateTime.now().plusHours(1L));

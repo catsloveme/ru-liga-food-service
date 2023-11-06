@@ -16,7 +16,7 @@ import ru.liga.dto.response.CourierResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.enums.StatusCourier;
 import ru.liga.enums.StatusOrder;
-import ru.liga.exception.DataNotFoundException;
+import ru.liga.exception.NotFoundException;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -97,7 +97,7 @@ public class QueueListener {
         String restaurantAddress = Optional
             .ofNullable(orderResponse)
             .map(it -> it.getRestaurant().getAddress())
-            .orElseThrow(() -> new DataNotFoundException(String.format(
+            .orElseThrow(() -> new NotFoundException(String.format(
                 "order response by id = %d not found",
                 idOrder
             )));

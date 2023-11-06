@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.request.MenuItem;
-import ru.liga.exception.DataNotFoundException;
+import ru.liga.exception.NotFoundException;
 
 @Component
 @Aspect
@@ -48,7 +48,7 @@ public class LoggingAspect {
     }
 
     @AfterThrowing(value = "addOrder()", throwing = "exception")
-    public void logAfterThrowing(JoinPoint joinPoint, DataNotFoundException exception) {
+    public void logAfterThrowing(JoinPoint joinPoint, NotFoundException exception) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getSourceLocation().getWithinType().getName();
         log.debug("Метод {} класса {} был аварийно завершен с исключением",

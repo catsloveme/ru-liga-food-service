@@ -7,12 +7,13 @@ import lombok.AllArgsConstructor;
  */
 
 @AllArgsConstructor
-public class DataNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
     /**
      * Исключение, когда не найдена информация в базе данных.
+     *
      * @param message String
      */
-    public DataNotFoundException(String message) {
+    public NotFoundException(String message) {
         super(message);
     }
 }

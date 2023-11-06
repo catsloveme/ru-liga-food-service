@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -70,7 +71,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findOrderById(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long id
     ) {
         OrderResponse orderResponse = orderService.findOrderById(id);
         return ResponseEntity.ok(orderResponse);
@@ -89,7 +90,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/customer/{id}")
     public ResponseEntity<List<OrderResponse>> findOrderByCustomer(
-        @Parameter(description = "Идентификатор заказчика") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказчика") @Min(1L) @PathVariable Long id
     ) {
         List<OrderResponse> orderResponses = orderService.findOrdersByCustomerId(id);
         return ResponseEntity.ok(orderResponses);
@@ -123,7 +124,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/orderItems/{id}")
     public ResponseEntity<OrderItemResponse> findOrderItemById(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long id
     ) {
         OrderItemResponse orderItemResponse = orderItemService.findOrderItemById(id);
         return ResponseEntity.ok(orderItemResponse);
@@ -177,7 +178,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/courier/{courierId}/order/{orderId}")
     ResponseEntity<Void> updateCourierId(
-        @Parameter(description = "Идентификатор курьера") @PathVariable Long courierId,
+        @Parameter(description = "Идентификатор курьера") @Min(1L) @PathVariable Long courierId,
         @Parameter(description = "Идентификатор заказа") @PathVariable Long orderId
     ) {
         orderService.updateCourierId(courierId, orderId);
@@ -198,7 +199,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/{orderId}")
     ResponseEntity<Void> updateOrderStatus(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long orderId,
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long orderId,
         @Parameter(description = "Статус заказа") @RequestParam StatusOrder status
     ) {
         orderService.updateOrderStatus(status, orderId);
