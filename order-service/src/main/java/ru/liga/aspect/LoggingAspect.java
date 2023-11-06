@@ -17,8 +17,8 @@ import ru.liga.exception.DataNotFoundException;
 @Aspect
 @Slf4j
 public class LoggingAspect {
-    @Pointcut(value = "execution(public ru.liga.dto.response.CreateOrderResponse " +
-        "ru.liga.service.jpa.JpaOrderService.addOrder(ru.liga.dto.request.CreateOrderRequest))")
+    @Pointcut(value = "execution(public ru.liga.dto.response.CreateOrderResponse "
+        + "ru.liga.service.jpa.JpaOrderService.addOrder(ru.liga.dto.request.CreateOrderRequest))")
     public void addOrder() {
     }
 
