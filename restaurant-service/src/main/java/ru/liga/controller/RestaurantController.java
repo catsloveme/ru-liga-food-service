@@ -6,9 +6,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
 import java.util.List;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -26,6 +23,7 @@ import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.clients.OrderFeign;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
+import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
@@ -251,7 +249,7 @@ public class RestaurantController {
     /**
      * Завершение заказа, обновдение статуса заказа, отправление сообщения о поиске рурьеров.
      *
-     * @param id идентификатор заказа
+     * @param createOrderResponse ответ заказа
      * @return ResponseEntity
      */
     @Operation(summary = "Завершить приготовление заказа")
@@ -262,11 +260,11 @@ public class RestaurantController {
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(
 
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @RequestBody CreateOrderResponse createOrderResponse
     ) {
-
-        notificationService.sendCourierSearch(id);
-        return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
+        notificationService.sendCourierSearch(createOrderResponse);
+        //return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

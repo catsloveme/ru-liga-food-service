@@ -19,7 +19,7 @@ public interface DeliveryMapper extends CourierService {
      * @param status статус курьера
      * @return список ответов курьеров
      */
-    @Select("SELECT courier_id as id, coordinates as address FROM couriers")
+    @Select("SELECT courier_id as id, coordinates as address FROM couriers WHERE status = #{status}")
     List<CourierResponse> findByStatus(StatusCourier status);
 
     /**

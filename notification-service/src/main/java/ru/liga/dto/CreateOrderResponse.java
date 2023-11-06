@@ -1,4 +1,4 @@
-package ru.liga.dto.response;
+package ru.liga.dto;
 
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;

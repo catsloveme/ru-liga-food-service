@@ -10,7 +10,7 @@ import ru.liga.enums.StatusOrder;
 /**
  * Класс Feign клиента.
  */
-@FeignClient(name = "order-service", url = "http://localhost:8083")
+@FeignClient(name = "order-service", url = "http://localhost:8000")
 public interface OrderFeign {
     /**
      * Метод, обновляющий статус у конкретного заказа, найденного по id.
@@ -19,7 +19,7 @@ public interface OrderFeign {
      * @param status  статус заказа
      * @return ResponseEntity
      */
-    @PatchMapping("/orders/{orderId}")
+    @PatchMapping("/order-service/{orderId}")
     ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam StatusOrder status);
 
 }
