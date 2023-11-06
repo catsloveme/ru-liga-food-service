@@ -17,14 +17,22 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * Поиск всех заказов.
      * @return список всех сущностей заказов
      */
-    List<Order> findAll(); //Pageable pageable);
+    List<Order> findAll();
 
     /**
      * Поиск заказа по id.
      * @param id идентификатор заказа
      * @return сущность заказа
      */
-    Order findOrderById(Long id); //, Pageable pageable);
+    Order findOrderById(Long id);
+
+    /**
+     * Поиск историия заказов по id заказчика.
+     * @param id идентификатор заказа
+     * @return сущность заказа
+     */
+    @Query("select ord from Order ord where ord.courier.id = :id ")
+    List<Order> findOrderByCustomerId(Long id);
 
     /**
      * Обновление статуса заказа по id.

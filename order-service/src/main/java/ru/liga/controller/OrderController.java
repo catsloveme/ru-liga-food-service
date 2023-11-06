@@ -77,6 +77,25 @@ public class OrderController {
     }
 
     /**
+     * Поиск истории заказов по id заказчика.
+     *
+     * @param id идентификатор заказа
+     * @return ответ заказа
+     */
+    @Operation(summary = "Получить заказы по идентификатору заказччика")
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<OrderResponse>> findOrderByCustomer(
+        @Parameter(description = "Идентификатор заказчика") @PathVariable Long id
+    ) {
+        List<OrderResponse> orderResponses = orderService.findOrdersByCustomerId(id);
+        return ResponseEntity.ok(orderResponses);
+    }
+
+    /**
      * Поиск всех частей всех заказов.
      *
      * @return список ответов частей заказоы

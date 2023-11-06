@@ -16,10 +16,7 @@ import ru.liga.entity.Customer;
 import ru.liga.entity.Order;
 import ru.liga.entity.Restaurant;
 import ru.liga.mapping.CreateOrderMapper;
-import ru.liga.mapping.OrderItemToMenuMapper;
-import ru.liga.mapping.RestaurantMapper;
 import ru.liga.repository.CustomerRepository;
-import ru.liga.repository.OrderItemRepository;
 import ru.liga.repository.OrderRepository;
 import ru.liga.repository.RestaurantRepository;
 import ru.liga.service.jpa.JpaOrderService;
@@ -40,15 +37,9 @@ public class OrderTest {
     @Mock
     private OrderRepository jpaOrderRepository;
     @Mock
-    private OrderItemRepository jpaOrderItemRepository;
-    @Mock
     private CustomerRepository jpaCustomerRepository;
     @Mock
     private RestaurantRepository jpaRestaurantRepository;
-    @Mock
-    private OrderItemToMenuMapper mapperOrderItem;
-    @Mock
-    private RestaurantMapper mapperRestaurant;
     @Mock
     private CreateOrderMapper mapperCreateOrder;
     @InjectMocks

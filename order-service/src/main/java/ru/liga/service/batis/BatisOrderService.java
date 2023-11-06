@@ -35,6 +35,10 @@ public class BatisOrderService implements OrderService {
         return orderMapper.findOrderById(orderId);
     }
 
+    public List<OrderResponse> findOrdersByCustomerId(Long customerId) {
+        return orderMapper.findOrdersByCustomerId(customerId);
+    }
+
     /**
      * Созадние заказа.
      *
