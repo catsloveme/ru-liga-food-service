@@ -3,8 +3,8 @@ package ru.liga.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -44,13 +44,15 @@ public class DeliveryController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(
-        @Parameter(description = "статус курьера") @RequestParam StatusCourier status) {
+        @Parameter(description = "статус курьера") @RequestParam StatusCourier status
+    ) {
         List<CourierResponse> response = courierService.findByStatus(status);
         return ResponseEntity.ok(response);
     }
 
     /**
      * Изменение статуса курьера по его id.
+     *
      * @param id     идентификатор курьера
      * @param status статус курьера
      * @return ResponseEntity

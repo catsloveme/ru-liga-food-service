@@ -1,5 +1,6 @@
 package ru.liga.aspect;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.request.MenuItem;
 import ru.liga.exception.DataNotFoundException;
-import java.util.List;
 
 @Component
 @Aspect
@@ -23,20 +23,27 @@ public class LoggingAspect {
     }
 
     @Before(value = "addOrder()")
-    public void logBeforeExecution(JoinPoint joinPoint){
+    public void logBeforeExecution(JoinPoint joinPoint) {
         CreateOrderRequest args = (CreateOrderRequest) joinPoint.getArgs()[0];
         Long customerId = args.getCustomerId();
-        Long restaurantId =args.getRestaurantId();
+        Long restaurantId = args.getRestaurantId();
         List<MenuItem> menuItems = args.getMenuItems();
-        log.info("Заказчик с id = {} заказывает из ресторана id = {} следующие блюда {}", customerId,restaurantId,menuItems.toString());
+        log.info(
+            "Заказчик с id = {} заказывает из ресторана id = {} следующие блюда {}",
+            customerId,
+            restaurantId,
+            menuItems.toString()
+        );
 
     }
+
     @AfterReturning(value = "addOrder()", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getSourceLocation().getWithinType().getName();
 
-        log.debug("Отработал метод {} класса {} с результатом {}", methodName, className, result.toString());
+        log.debug("Отработал метод {} класса {} с результатом {}",
+            methodName, className, result.toString());
         log.info("Успешное создание нового заказа : {}", result);
     }
 
@@ -44,9 +51,9 @@ public class LoggingAspect {
     public void logAfterThrowing(JoinPoint joinPoint, DataNotFoundException exception) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getSourceLocation().getWithinType().getName();
-        log.debug("Метод {} класса {} был аварийно завершен с исключением {}", methodName, className, exception);
+        log.debug("Метод {} класса {} был аварийно завершен с исключением",
+            methodName, className, exception);
         log.warn("Произошел сбой в программе, попробуйте позже создать заказ");
     }
-
 
 }

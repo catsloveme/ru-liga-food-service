@@ -35,6 +35,7 @@ public class CustomerController {
 
     /**
      * Поиск всех заказов.
+     *
      * @return список ответов для заказа
      */
     @Operation(summary = "Получить все заказы")
@@ -50,6 +51,7 @@ public class CustomerController {
 
     /**
      * Поиск заказа по id.
+     *
      * @param id идентификатор заказа
      * @return ответ для заказа
      */
@@ -68,6 +70,7 @@ public class CustomerController {
 
     /**
      * Создание заказа.
+     *
      * @param request запрос заказа
      * @return ответ для заказа
      */
