@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import ru.liga.enums.StatusCourier;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/delivery-service")
+@Tag(name = "API работы с курьерами")
 public class DeliveryController {
 
     private final CourierService courierService;

@@ -29,7 +29,7 @@ import ru.liga.enums.StatusOrder;
 /**
  * Контроллер заказа.
  */
-@Tag(name = "API работы с заказом со стороны заказчика")
+@Tag(name = "API работы с заказом")
 @Slf4j
 @RestController
 @RequestMapping("/order-service")
@@ -112,7 +112,7 @@ public class OrderController {
     /**
      * Создание заказа.
      *
-     * @param requestCreatingOrder данные для запроса по созданию заказа
+     * @param requestCreateOrder данные для запроса по созданию заказа
      * @return ответ создания заказа
      */
     @Operation(summary = "Создать новый заказ")
@@ -120,8 +120,8 @@ public class OrderController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PostMapping
-    public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreatingOrder) {
-        CreateOrderResponse response = orderService.addOrder(requestCreatingOrder);
+    public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreateOrder) {
+        CreateOrderResponse response = orderService.addOrder(requestCreateOrder);
 
         return ResponseEntity.ok(response);
     }
