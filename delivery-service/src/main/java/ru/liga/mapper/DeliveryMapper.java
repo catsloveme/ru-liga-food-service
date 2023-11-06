@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.enums.StatusCourier;
@@ -26,6 +27,6 @@ public interface DeliveryMapper extends CourierService {
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */
-    @Select("UPDATE couriers SET status = #{status} WHERE courier_id = #{courierId}")
+    @Update("UPDATE couriers SET status = #{status} WHERE courier_id = #{courierId}")
     void changeOrderStatusById(@Param("courierId") Long courierId, @Param("status") StatusCourier status);
 }
