@@ -66,12 +66,16 @@ public class OrderTest {
 
     @Test
     public void methodAddOrder_CreateOrderRequest_Success() {
+        //Arrange
         when(jpaCustomerRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(customer));
         when(jpaRestaurantRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(restaurant));
         when(jpaOrderRepository.saveAndFlush(any(Order.class))).thenReturn(order);
         when(mapperCreateOrder.toDto(any(Order.class))).thenReturn(expectedResponse);
 
+        //Act
         CreateOrderResponse testResponse = orderService.addOrder(request);
+
+        //Assert
         assertThat(testResponse.getEstimatedTimeOfArrival()).isEqualTo(expectedResponse.getEstimatedTimeOfArrival());
 
     }

@@ -20,9 +20,9 @@ public interface OrderMapperBatis extends OrderService {
      *
      * @return список ответов заказов
      */
-    @Select("SELECT * FROM orders " +
-        "LEFT JOIN restaurants ON orders.restaurant_id = restaurants.restaurant_id " +
-        "LEFT JOIN order_items ON orders.customer_id = customers.customer_id ")
+    @Select("SELECT * FROM orders "
+        + "LEFT JOIN restaurants ON orders.restaurant_id = restaurants.restaurant_id "
+        + "LEFT JOIN order_items ON orders.customer_id = customers.customer_id ")
     List<OrderResponse> findAllOrders();
 
     /**
@@ -31,10 +31,10 @@ public interface OrderMapperBatis extends OrderService {
      * @param id идентификатор заказа
      * @return ответ заказа
      */
-    @Select("SELECT * FROM orders " +
-        "LEFT JOIN restaurants ON orders.restaurant_id = restaurants.restaurant_id " +
-        "LEFT JOIN order_items ON orders.customer_id = customers.customer_id " +
-        "WHERE order_id = #{id}")
+    @Select("SELECT * FROM orders "
+        + "LEFT JOIN restaurants ON orders.restaurant_id = restaurants.restaurant_id "
+        + "LEFT JOIN order_items ON orders.customer_id = customers.customer_id "
+        + "WHERE order_id = #{id}")
     OrderResponse findOrderById(@Param("id") Long id);
 
     /**
