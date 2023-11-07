@@ -9,8 +9,7 @@ import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
 import ru.liga.mapping.CreateOrderMapper;
 import ru.liga.mapping.OrderItemMapper;
-import ru.liga.mapping.OrderItemToMenuMapper;
-import ru.liga.mapping.RestaurantMapper;
+import ru.liga.mapping.OrderMapper;
 import ru.liga.repository.CustomerRepository;
 import ru.liga.repository.OrderItemRepository;
 import ru.liga.repository.OrderRepository;
@@ -33,9 +32,8 @@ public class JpaAccessConfiguration {
     private final RestaurantRepository jpaRestaurantRepository;
     private final RestaurantMenuItemRepository jpaRestaurantMenuItemRepository;
     private final OrderItemMapper mapper;
-    private final OrderItemToMenuMapper mapperOrderItem;
-    private final RestaurantMapper mapperRestaurant;
     private final CreateOrderMapper mapperCreateOrder;
+    private final OrderMapper mapperOrder;
 
     /**
      * Создание бина реализации jpa для сервиса Order.
@@ -45,12 +43,10 @@ public class JpaAccessConfiguration {
     public OrderService orderService() {
         return new JpaOrderService(
             jpaOrderRepository,
-            jpaOrderItemRepository,
             jpaCustomerRepository,
             jpaRestaurantRepository,
-            mapperOrderItem,
-            mapperRestaurant,
-            mapperCreateOrder
+            mapperCreateOrder,
+            mapperOrder
         );
     }
 

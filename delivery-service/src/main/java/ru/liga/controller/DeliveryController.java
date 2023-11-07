@@ -3,6 +3,9 @@ package ru.liga.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +28,7 @@ import ru.liga.enums.StatusCourier;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/delivery-service")
+@Tag(name = "API работы с курьерами")
 public class DeliveryController {
 
     private final CourierService courierService;
@@ -42,7 +46,10 @@ public class DeliveryController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping
     public ResponseEntity<List<CourierResponse>> findCourierByStatus(
-        @Parameter(description = "статус курьера") @RequestParam StatusCourier status) {
+
+        @Parameter(description = "статус курьера") @RequestParam StatusCourier status
+    ) {
+
         List<CourierResponse> response = courierService.findByStatus(status);
         return ResponseEntity.ok(response);
     }

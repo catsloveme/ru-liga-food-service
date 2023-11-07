@@ -4,7 +4,7 @@ create table if not exists restaurant_menu_items
 (
     restaurant_menu_item_id bigint primary key default nextval('restaurant_menu_item_seq') ,
     restaurant_id bigint,
-    name varchar(255) unique not null,
+    name varchar(255) not null,
     price numeric not null,
     image varchar(255) not null,
     description varchar(255) not null

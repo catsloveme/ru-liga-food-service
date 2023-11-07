@@ -11,4 +11,5 @@ import ru.liga.configuration.conditional.AccessType;
 @Data
 public class ApplicationConfig {
     private AccessType databaseAccessType;
+
 }

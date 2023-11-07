@@ -2,6 +2,7 @@ package ru.liga.service.rabbitMQ;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.liga.dto.CreateOrderResponse;
 
 /**
  * Класс для отправки сообщения с использованием конкретного routing key.
@@ -13,10 +14,11 @@ public class CourierService {
 
     /**
      * Метод  для отправки сообщения о поиске курьера с конкретным routing key.
-     * @param orderId идентификатор заказа
+     *
+     * @param response ответ созданного заказа
      */
-    public void sendMessageSearch(Long orderId) {
-        rabbitMQProducerService.sendCourierSearch(orderId, "courier_search_to_courier");
+    public void sendMessageSearch(CreateOrderResponse response) {
+        rabbitMQProducerService.sendCourierSearch(response, "courier_search_to_courier");
     }
 
 }

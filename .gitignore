@@ -30,7 +30,7 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/test/**/build/
+
 
 ### VS Code ###
 .vscode/
@@ -39,6 +39,5 @@ build/
 .DS_Store
 /delivery-service/src/test/
 /kitchen-service/src/test/
-/order-service/src/test/
 /.idea/
 /notification-service/src/test/

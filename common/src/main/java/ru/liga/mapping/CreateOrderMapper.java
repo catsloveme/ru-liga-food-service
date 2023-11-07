@@ -1,6 +1,7 @@
 package ru.liga.mapping;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.entity.Order;
 import ru.liga.mapping.abstraction.AbstractMapper;
@@ -12,4 +13,6 @@ import ru.liga.mapping.abstraction.AbstractMapper;
 public interface CreateOrderMapper
     extends AbstractMapper<Order, CreateOrderResponse> {
 
+    @Mapping(source = "timestamp", target = "estimatedTimeOfArrival")
+    CreateOrderResponse toDto(Order order);
 }

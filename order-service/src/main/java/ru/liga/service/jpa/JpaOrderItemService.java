@@ -7,7 +7,7 @@ import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.RestaurantMenuItem;
-import ru.liga.exception.DataNotFoundException;
+import ru.liga.exception.NotFoundException;
 import ru.liga.mapping.OrderItemMapper;
 import ru.liga.repository.OrderItemRepository;
 import ru.liga.repository.OrderRepository;
@@ -42,7 +42,7 @@ public class JpaOrderItemService implements OrderItemService {
      */
     public OrderItemResponse findOrderItemById(Long id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
-            new DataNotFoundException(String.format("Order Item id = %d not found", id)));
+            new NotFoundException(String.format("Order Item id = %d not found", id)));
         return mapper.toDto(orderItem);
     }
 
@@ -55,11 +55,12 @@ public class JpaOrderItemService implements OrderItemService {
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         OrderItem orderItem = new OrderItem();
         Long orderId = creatingOrderItemRequest.getOrderId();
-        orderItem.setOrder(jpaOrderRepository.findOrderById(orderId));
+        orderItem.setOrder(jpaOrderRepository.findById(orderId).orElseThrow(() ->
+            new NotFoundException(String.format("Order id = %d not found", orderId))));
 
         Long menuItemId = creatingOrderItemRequest.getRestaurantMenuItemId();
         RestaurantMenuItem menuItem = jpaRestaurantMenuItemRepository.findById(menuItemId).orElseThrow(() ->
-            new DataNotFoundException(String.format("Restaurant Menu Item id = %d not found", menuItemId)));
+            new NotFoundException(String.format("Restaurant Menu Item id = %d not found", menuItemId)));
         orderItem.setRestaurantMenuItem(menuItem);
 
         orderItem.setPrice(creatingOrderItemRequest.getPrice());
@@ -69,8 +70,5 @@ public class JpaOrderItemService implements OrderItemService {
         return mapper.toDto(orderItem);
     }
 
-//    public void deleteOrderItemById(Long id){
-//        jpaOrderItemRepository.deleteById(id);
-//    }
 }
 

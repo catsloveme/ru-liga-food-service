@@ -1,6 +1,7 @@
 package ru.liga.repository;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,14 +18,23 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * Поиск всех заказов.
      * @return список всех сущностей заказов
      */
-    List<Order> findAll(); //Pageable pageable);
+    List<Order> findAll();
 
     /**
      * Поиск заказа по id.
+     *
      * @param id идентификатор заказа
      * @return сущность заказа
      */
-    Order findOrderById(Long id); //, Pageable pageable);
+    Optional<Order> findById(Long id);
+
+    /**
+     * Поиск историия заказов по id заказчика.
+     * @param id идентификатор заказа
+     * @return сущность заказа
+     */
+    @Query("select ord from Order ord where ord.courier.id = :id ")
+    List<Order> findOrderByCustomerId(Long id);
 
     /**
      * Обновление статуса заказа по id.

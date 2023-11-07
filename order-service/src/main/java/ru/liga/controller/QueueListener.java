@@ -1,5 +1,6 @@
 package ru.liga.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
+import ru.liga.enums.StatusOrder;
 import ru.liga.service.rabbitMQ.NotificationService;
 
 /**
@@ -33,8 +35,28 @@ public class QueueListener {
         CreateOrderRequest createOrderRequest = objectMapper.readValue(request, CreateOrderRequest.class);
         CreateOrderResponse response = orderService.addOrder(createOrderRequest);
         log.info("Received from createOrderQueue : " + response);
-        notificationService.sendCreateOrder(response.getId());
+        notificationService.sendCreateOrder(response);
     }
 
+    /**
+     * Метод, отвечающий за получение сообщения из очереди updateStatus о том, что найден курьер и
+     * отправку сообщения order-service о смене статуса заказа.
+     *
+     * @param orderId идентификатор заказа
+     */
+    @RabbitListener(queues = "updateStatusOrderRestaurant")
+    public void updateStatusFromRestaurant(String orderId) throws JsonProcessingException {
+        Long idOrder = objectMapper.readValue(orderId, Long.class);
+        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, idOrder);
+    }
+
+    @RabbitListener(queues = "updateStatusOrderDelivery")
+    public void updateStatusFromDelivery(String pairMessage) {
+        String[] arrayOrderIdAndCourierId = pairMessage.split("=");
+        Long orderId = Long.parseLong(arrayOrderIdAndCourierId[0]);
+        Long courierId = Long.parseLong(arrayOrderIdAndCourierId[1]);
+        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, orderId);
+        orderService.updateCourierId(orderId, courierId);
+    }
 }
 

@@ -1,5 +1,7 @@
 package ru.liga.api;
 
+import ru.liga.dto.response.CreateOrderResponse;
+
 /**
  * Интерфейс отправителя сообщения.
  */
@@ -8,9 +10,8 @@ public interface RabbitMQProducerService {
     /**
      * Метод отправки сообщения о создании нового заказа.
      *
-     * @param orderId идентификатор заказа
-     * @param routingKey
+     * @param response ответ заказа
      */
-    void sendMessageCreate(Long orderId, String routingKey);
+    void sendMessageCreate(CreateOrderResponse response, String routingKey);
 
 }

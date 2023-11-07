@@ -26,6 +26,14 @@ public interface OrderService {
     OrderResponse findOrderById(Long orderId);
 
     /**
+     * Поиск истории заказов по id заказчика.
+     *
+     * @param customerId идентификатор заказчика
+     * @return ответ заказа
+     */
+    List<OrderResponse> findOrdersByCustomerId(Long customerId);
+
+    /**
      * Создание заказа.
      *
      * @param requestCreatingOrder данные для запроса на создание заказа

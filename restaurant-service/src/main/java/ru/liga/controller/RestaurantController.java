@@ -1,10 +1,11 @@
 package ru.liga.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.clients.OrderFeign;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
+import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
@@ -35,6 +37,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/restaurant-service")
+@Tag(name = "API работы с ресторанами и меню")
 public class RestaurantController {
 
     private final RestaurantService jpaRestaurantService;
@@ -55,7 +58,10 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantResponse> findRestaurantById(
-        @Parameter(description = "Идентификатор ресторана") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор ресторана") @PathVariable Long id
+    ) {
+
         RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
         return ResponseEntity.ok(response);
     }
@@ -87,7 +93,10 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(
-        @Parameter(description = "Идентификатор части заказа") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор части заказа") @PathVariable Long id
+    ) {
+
         RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
         return ResponseEntity.ok(response);
     }
@@ -123,7 +132,10 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @DeleteMapping("/menuItem/{id}")
     public ResponseEntity<Void> deleteRestaurantMenuItemById(
-        @Parameter(description = "Идентификатор блюда") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор блюда") @PathVariable Long id
+    ) {
+
         jpaRestaurantMenuItemService.deleteRestaurantMenuItemById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -143,7 +155,10 @@ public class RestaurantController {
     @PatchMapping("/menuItem/{id}")
     public ResponseEntity<Void> updatePrice(
         @Parameter(description = "Идентификатор блюда") @PathVariable Long id,
-        @RequestParam BigDecimal price) {
+
+        @RequestParam BigDecimal price
+    ) {
+
         jpaRestaurantMenuItemService.updatePrice(price, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -163,7 +178,10 @@ public class RestaurantController {
     @PatchMapping("/restaurant/{id}")
     public ResponseEntity<Void> updateStatus(
         @Parameter(description = "Идентификатор ресторана") @PathVariable Long id,
-        @RequestParam StatusRestaurant status) {
+
+        @RequestParam StatusRestaurant status
+    ) {
+
         jpaRestaurantService.changeStatusById(status, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -181,7 +199,10 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/denied")
     public ResponseEntity<Void> denyOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
+
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_DENIED);
     }
 
@@ -198,7 +219,10 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/preparing")
     public ResponseEntity<Void> preparingOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
+
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_PREPARING);
     }
 
@@ -215,14 +239,17 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/refunded")
     public ResponseEntity<Void> refundOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id) {
+
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
+
         return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_REFUNDED);
     }
 
     /**
      * Завершение заказа, обновдение статуса заказа, отправление сообщения о поиске рурьеров.
      *
-     * @param id идентификатор заказа
+     * @param createOrderResponse ответ заказа
      * @return ResponseEntity
      */
     @Operation(summary = "Завершить приготовление заказа")
@@ -232,9 +259,12 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id) {
-        notificationService.sendCourierSearch(id);
-        return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
+
+        @Parameter(description = "Идентификатор заказа") @RequestBody CreateOrderResponse createOrderResponse
+    ) {
+        notificationService.sendCourierSearch(createOrderResponse);
+        //return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

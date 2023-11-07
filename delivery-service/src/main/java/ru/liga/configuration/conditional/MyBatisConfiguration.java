@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import ru.liga.api.CourierService;
 import ru.liga.mapper.DeliveryMapper;
 import ru.liga.service.batis.BatisCourierService;
@@ -21,6 +22,7 @@ public class MyBatisConfiguration {
      * Создание бина реализации MyBatis для сервиса Courier.
      * @return
      */
+    @Primary
     @Bean("myBatisOrderService")
     public CourierService courierService() {
         return new BatisCourierService(deliveryMapper);

@@ -1,6 +1,7 @@
 package ru.liga.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
@@ -23,21 +24,35 @@ public class RoutingMQConfig {
     public Declarables myQueue() {
         Queue queueDirectRestaurant = new Queue("newOrderQueueToRestaurant", false);
         Queue queueDirectCouriers = new Queue("courierSearchQueueToCourier", false);
+        Queue queueDirectOrdersFromRestaurant = new Queue("updateStatusOrderRestaurant", false);
+        Queue queueDirectOrdersFromDelivery = new Queue("updateStatusOrderDelivery", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(queueDirectRestaurant, queueDirectCouriers, directExchange,
+        return new Declarables(
+            queueDirectRestaurant,
+            queueDirectCouriers,
+            queueDirectOrdersFromRestaurant,
+            queueDirectOrdersFromDelivery,
+            directExchange,
             BindingBuilder.bind(queueDirectRestaurant).to(directExchange).with("new_order_to_restaurant"),
-            BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier")
+            BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier"),
+            BindingBuilder.bind(queueDirectOrdersFromRestaurant).to(directExchange)
+                .with("update_status_order_kitchen_accepted"),
+            BindingBuilder.bind(queueDirectOrdersFromDelivery).to(directExchange)
+                .with("update_status_order_delivery_picking")
         );
     }
 
     /**
      * Создание маппера для преобразования полученного сообщения.
+     *
      * @return ObjectMapper
      */
     @Bean
-    public ObjectMapper createObjectMapper() {
-        return new ObjectMapper();
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
     }
 
 }

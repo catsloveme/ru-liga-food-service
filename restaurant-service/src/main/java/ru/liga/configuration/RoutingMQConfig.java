@@ -1,6 +1,5 @@
 package ru.liga.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
@@ -22,21 +21,13 @@ public class RoutingMQConfig {
     @Bean
     public Declarables myQueue() {
         Queue queueDirectCouriers = new Queue("courierSearchQueueToNotification", false);
+        Queue queueDirectOrders = new Queue("orderUpdateStatusToNotificationFromRestaurant", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(queueDirectCouriers, directExchange,
-            BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_notification")
+        return new Declarables(queueDirectCouriers, queueDirectOrders, directExchange,
+            BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_notification"),
+            BindingBuilder.bind(queueDirectOrders).to(directExchange).with("update_order_status_to_notification")
         );
-    }
-
-    /**
-     * Создание маппера для преобразования полученного сообщения.
-     *
-     * @return ObjectMapper
-     */
-    @Bean
-    public ObjectMapper createObjectMapper() {
-        return new ObjectMapper();
     }
 
 }

@@ -2,6 +2,7 @@ package ru.liga.service.rabbitMQ;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.liga.dto.CreateOrderResponse;
 
 /**
  * Класс для отправки сообщения с использованием конкретного routing key.
@@ -13,10 +14,11 @@ public class RestaurantService {
 
     /**
      * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
-     * @param orderId идентификатор заказа.
+     *
+     * @param response ответ создания заказа.
      */
-    public void sendMessageCreate(Long orderId) {
-        rabbitMQProducerService.sendMessageCreate(orderId, "new_order_to_restaurant");
+    public void sendMessageCreate(CreateOrderResponse response) {
+        rabbitMQProducerService.sendMessageCreate(response, "new_order_to_restaurant");
     }
 
 }

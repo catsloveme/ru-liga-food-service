@@ -17,6 +17,7 @@ import ru.liga.dto.request.CreateOrderRequest;
 @Slf4j
 public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
     private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper mapper;
 
     /**
      * Отправка сообщения через RabbitTemplate.
@@ -24,7 +25,6 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param routingKey ключ для определения очереди
      */
     public void sendCreateRequest(CreateOrderRequest request, String routingKey) {
-        ObjectMapper mapper = new ObjectMapper();
         String jsonRequest;
         try {
             jsonRequest = mapper.writeValueAsString(request);
