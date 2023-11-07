@@ -20,7 +20,7 @@ public class OrderMapper {
     private final OrderItemRepository jpaOrderItemRepository;
     private final OrderItemToMenuMapper mapperOrderItem;
 
-    public OrderResponse toDto(Order order){
+    public OrderResponse toDto(Order order) {
         Long orderId = order.getId();
         OffsetDateTime time = order.getTimestamp();
         Restaurant restaurant = order.getRestaurant();
@@ -38,9 +38,9 @@ public class OrderMapper {
         return response;
     }
 
-    public List<OrderResponse> toDtos(List<Order> order){
+    public List<OrderResponse> toDtos(List<Order> order) {
         List<OrderResponse> orderResponses = new ArrayList<>();
-        for(Order element: order){
+        for (Order element : order) {
             orderResponses.add(toDto(element));
         }
         return orderResponses;
