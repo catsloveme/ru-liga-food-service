@@ -24,20 +24,20 @@ public class RoutingMQConfig {
     public Declarables myQueue() {
         Queue queueDirectRestaurant = new Queue("newOrderQueueToRestaurant", false);
         Queue queueDirectCouriers = new Queue("courierSearchQueueToCourier", false);
-        Queue queueDirectOrdersFromRestaurant = new Queue("updateStatusOrderRestaurant", false);
+        Queue queueDirectToOrder = new Queue("toOrder", false);
         Queue queueDirectOrdersFromDelivery = new Queue("updateStatusOrderDelivery", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
         return new Declarables(
             queueDirectRestaurant,
             queueDirectCouriers,
-            queueDirectOrdersFromRestaurant,
+            queueDirectToOrder,
             queueDirectOrdersFromDelivery,
             directExchange,
             BindingBuilder.bind(queueDirectRestaurant).to(directExchange).with("new_order_to_restaurant"),
             BindingBuilder.bind(queueDirectCouriers).to(directExchange).with("courier_search_to_courier"),
-            BindingBuilder.bind(queueDirectOrdersFromRestaurant).to(directExchange)
-                .with("update_status_order_kitchen_accepted"),
+            BindingBuilder.bind(queueDirectToOrder).to(directExchange)
+                .with("message_to_order"),
             BindingBuilder.bind(queueDirectOrdersFromDelivery).to(directExchange)
                 .with("update_status_order_delivery_picking")
         );

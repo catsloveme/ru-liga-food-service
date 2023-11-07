@@ -14,16 +14,18 @@ import org.springframework.context.annotation.Configuration;
 public class RoutingMQConfig {
 
     /**
-     * Создание очереди сообщений для order-service, получающей сообщение о создании нового заказа.
-     * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи).
+     * Создание очереди сообщений для notification-service, получающей сообщение о создании нового заказа.
+     *
+     * @return Declarables - Класс объединящий в себе очереди, тип обменника и байдинги(связи)
      */
     @Bean
     public Declarables myQueue() {
-        Queue queueDirectCreateOrder = new Queue("createOrderQueueToOrder", false);
+        Queue queueCreateOrder = new Queue("toNotification", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(queueDirectCreateOrder, directExchange,
-            BindingBuilder.bind(queueDirectCreateOrder).to(directExchange).with("create_order_to_order")
+        return new Declarables(queueCreateOrder, directExchange,
+            BindingBuilder.bind(queueCreateOrder).to(directExchange).with("to_notification")
         );
     }
+
 }

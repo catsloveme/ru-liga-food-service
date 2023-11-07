@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import ru.liga.api.RabbitMQProducerService;
+import ru.liga.dto.ResponseAndKey;
 import ru.liga.dto.response.CreateOrderResponse;
 
 /**
@@ -18,17 +19,32 @@ import ru.liga.dto.response.CreateOrderResponse;
 public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper mapper;
+    private final static String KEY = "kitchen";
 
     /**
-     * Отправка сообщения через RabbitTemplate.
+     * Отправка сообщения о новом заказе ресторану с ключем - kitchen .
      *
      * @param response   ответ создания заказа
      * @param routingKey ключ для определения очереди
      */
     public void sendMessageCreate(CreateOrderResponse response, String routingKey) {
+        String jsonResponse;
+        try {
+            jsonResponse = mapper.writeValueAsString(response);
+        } catch (JsonProcessingException e) {
+            log.info("JsonProcessingException");
+            throw new RuntimeException(e);
+        }
+        ResponseAndKey responseAndKey = ResponseAndKey
+            .builder()
+            .id(response.getId())
+            .response(jsonResponse)
+            .key(KEY)
+            .build();
+
         String jsonRequest;
         try {
-            jsonRequest = mapper.writeValueAsString(response);
+            jsonRequest = mapper.writeValueAsString(responseAndKey);
         } catch (JsonProcessingException e) {
             log.info("JsonProcessingException");
             throw new RuntimeException(e);

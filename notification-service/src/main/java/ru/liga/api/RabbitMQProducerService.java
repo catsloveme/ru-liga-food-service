@@ -15,26 +15,27 @@ public interface RabbitMQProducerService {
     void sendMessageCreate(CreateOrderResponse response, String routingKey);
 
     /**
-     * Отправка сообщения через RabbitTemplate.
+     * Метод отправки уведомления заказчику.
      *
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    void sendUpdateDeliveryPicking(Long orderId, Long courierId, String routingKey);
-
-    /**
-     * Отправка сообщения через RabbitTemplate.
-     *
-     * @param orderId    идентификатор заказа.
-     * @param routingKey ключ для определения очереди.
-     */
-    void sendUpdateKitchenAccepted(Long orderId, String routingKey);
-
-    /**
-     * Отправка сообщения через RabbitTemplate.
-     *
-     * @param response   ответ созданного заказа.
-     * @param routingKey ключ для определения очереди.
-     */
-    void sendCourierSearch(CreateOrderResponse response, String routingKey);
+    void sendMessageOrder(Long orderId, String message, String routingKey);
+//    void sendUpdateDeliveryPicking(Long orderId, Long courierId, String routingKey);
+//
+//    /**
+//     * Отправка сообщения через RabbitTemplate.
+//     *
+//     * @param orderId    идентификатор заказа.
+//     * @param routingKey ключ для определения очереди.
+//     */
+//    void sendUpdateKitchenAccepted(Long orderId, String routingKey);
+//
+//    /**
+//     * Отправка сообщения через RabbitTemplate.
+//     *
+//     * @param response   ответ созданного заказа.
+//     * @param routingKey ключ для определения очереди.
+//     */
+//    void sendCourierSearch(CreateOrderResponse response, String routingKey);
 }

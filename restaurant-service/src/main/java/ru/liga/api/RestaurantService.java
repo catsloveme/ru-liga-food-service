@@ -2,6 +2,7 @@ package ru.liga.api;
 
 import java.util.List;
 import ru.liga.dto.response.RestaurantResponse;
+import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
 
 /**
@@ -30,4 +31,12 @@ public interface RestaurantService {
      * @param restaurantId идентификкатор ресторана
      */
     void changeStatusById(StatusRestaurant status, Long restaurantId);
+
+    /**
+     * Обновление статуса заказа по его id.
+     *
+     * @param status  статус заказа
+     * @param orderId идентификатор заказа
+     */
+    void updateOrderStatus(StatusOrder status, Long orderId);
 }

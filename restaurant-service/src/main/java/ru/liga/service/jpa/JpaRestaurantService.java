@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.liga.api.RestaurantService;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Restaurant;
+import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
 import ru.liga.exception.NotFoundException;
 import ru.liga.mapping.RestaurantMapper;
+import ru.liga.repository.OrderRepository;
 import ru.liga.repository.RestaurantRepository;
 
 /**
@@ -18,6 +20,7 @@ import ru.liga.repository.RestaurantRepository;
 public class JpaRestaurantService implements RestaurantService {
 
     private final RestaurantRepository jpaRestaurantRepository;
+    private final OrderRepository jpaOrderRepository;
     private final RestaurantMapper mapper;
 
     /**
@@ -52,5 +55,16 @@ public class JpaRestaurantService implements RestaurantService {
         List<Restaurant> restaurants = jpaRestaurantRepository.findAll();
 
         return mapper.toDto(restaurants);
+    }
+
+    /**
+     * Обновление статуса закза по его id.
+     *
+     * @param status  статус заказа
+     * @param orderId идентификатор заказа
+     */
+    @Transactional
+    public void updateOrderStatus(StatusOrder status, Long orderId) {
+        jpaOrderRepository.updateOrderStatus(status, orderId);
     }
 }

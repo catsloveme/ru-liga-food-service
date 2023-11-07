@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -40,10 +41,11 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Tag(name = "API работы с ресторанами и меню")
 public class RestaurantController {
 
-    private final RestaurantService jpaRestaurantService;
-    private final RestaurantMenuItemService jpaRestaurantMenuItemService;
+    private static final String MESSAGE_ACCEPT = "Заказ номер {} принят в работу";
+    private final RestaurantService restaurantService;
     private final NotificationService notificationService;
     private final OrderFeign orderFeign;
+    private final RestaurantMenuItemService restaurantMenuItemService;
 
     /**
      * Поиск ресторана по его id.
@@ -62,7 +64,7 @@ public class RestaurantController {
         @Parameter(description = "Идентификатор ресторана") @PathVariable Long id
     ) {
 
-        RestaurantResponse response = jpaRestaurantService.findRestaurantById(id);
+        RestaurantResponse response = restaurantService.findRestaurantById(id);
         return ResponseEntity.ok(response);
     }
 
@@ -77,7 +79,7 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping
     public ResponseEntity<List<RestaurantResponse>> findAllRestaurants() {
-        List<RestaurantResponse> response = jpaRestaurantService.findAllRestaurants();
+        List<RestaurantResponse> response = restaurantService.findAllRestaurants();
         return ResponseEntity.ok(response);
     }
 
@@ -97,7 +99,7 @@ public class RestaurantController {
         @Parameter(description = "Идентификатор части заказа") @PathVariable Long id
     ) {
 
-        RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.findRestaurantMenuItemById(id);
+        RestaurantMenuItemResponse response = restaurantMenuItemService.findRestaurantMenuItemById(id);
         return ResponseEntity.ok(response);
     }
 
@@ -115,7 +117,7 @@ public class RestaurantController {
     public ResponseEntity<RestaurantMenuItemResponse> addRestaurantMenuItem(
         @RequestBody RestaurantMenuItemRequest request
     ) {
-        RestaurantMenuItemResponse response = jpaRestaurantMenuItemService.addRestaurantMenuItem(request);
+        RestaurantMenuItemResponse response = restaurantMenuItemService.addRestaurantMenuItem(request);
         return ResponseEntity.ok(response);
     }
 
@@ -136,7 +138,7 @@ public class RestaurantController {
         @Parameter(description = "Идентификатор блюда") @PathVariable Long id
     ) {
 
-        jpaRestaurantMenuItemService.deleteRestaurantMenuItemById(id);
+        restaurantMenuItemService.deleteRestaurantMenuItemById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -159,7 +161,7 @@ public class RestaurantController {
         @RequestParam BigDecimal price
     ) {
 
-        jpaRestaurantMenuItemService.updatePrice(price, id);
+        restaurantMenuItemService.updatePrice(price, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -182,7 +184,30 @@ public class RestaurantController {
         @RequestParam StatusRestaurant status
     ) {
 
-        jpaRestaurantService.changeStatusById(status, id);
+        restaurantService.changeStatusById(status, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Принятие заказа, обновление статуса заказа, оповещение заказчика.
+     *
+     * @param id идентификатор заказа
+     * @return ResponseEntity
+     */
+    @Operation(summary = "Принять заказ")
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "404", description = "Order not found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @PatchMapping("/order/{id}/accept")
+    public ResponseEntity<Void> acceptOrder(
+
+        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+    ) {
+        restaurantService.updateOrderStatus(StatusOrder.KITCHEN_ACCEPTED, id);
+
+        notificationService.sendMessageOrder(MESSAGE_ACCEPT, id);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -262,8 +287,29 @@ public class RestaurantController {
 
         @Parameter(description = "Идентификатор заказа") @RequestBody CreateOrderResponse createOrderResponse
     ) {
-        notificationService.sendCourierSearch(createOrderResponse);
+        // notificationService.sendCourierSearch(createOrderResponse);
         //return orderFeign.updateOrderStatus(id, StatusOrder.KITCHEN_FINISHED);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Обновление статуса заказа по его id.
+     *
+     * @param orderId идентификатор заказа
+     * @param status  статус заказа
+     * @return ResponseEntity
+     */
+    @Operation(summary = "Обновить статус заказа")
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "404", description = "Order not found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @PatchMapping("/{orderId}")
+    ResponseEntity<Void> updateOrderStatus(
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long orderId,
+        @Parameter(description = "Статус заказа") @RequestParam StatusOrder status
+    ) {
+        restaurantService.updateOrderStatus(status, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

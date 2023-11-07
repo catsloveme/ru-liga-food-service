@@ -8,6 +8,7 @@ import ru.liga.dto.request.MenuItem;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 import ru.liga.dto.response.RestaurantResponse;
+import ru.liga.entity.Order;
 
 public class DataOrder {
     public static CreateOrderRequest getCreateRequest() {
@@ -31,7 +32,7 @@ public class DataOrder {
         return request;
     }
 
-    public static OrderResponse getOrder() {
+    public static OrderResponse getOrderResponse() {
         RestaurantResponse restaurant = RestaurantResponse
             .builder()
             .name("Вкусно и точка")
@@ -46,5 +47,11 @@ public class DataOrder {
             .timestamp(OffsetDateTime.now())
             .build();
         return order;
+    }
+
+    public static List<Order> getOrderListEntity() {
+        List<Order> orders = new ArrayList<>();
+        Order order = new Order();//(1, StatusOrder.CUSTOMER_CREATED,OffsetDateTime.now(),);
+        return orders;
     }
 }

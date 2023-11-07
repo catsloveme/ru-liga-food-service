@@ -1,5 +1,5 @@
 app:
-  database-access-type: my_batis
+  database-access-type: jpa
 
 management:
   endpoints:

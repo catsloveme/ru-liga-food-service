@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-    /**
-     * Метод  для отправки сообщения о поиске курьера с конкретным routing key.
-     *
-     * @param orderId идентификатор заказа
-     */
-    public void sendMessageUpdateStatusDeliveryPicking(Long orderId, Long courierId) {
-        rabbitMQProducerService.sendUpdateDeliveryPicking(orderId, courierId, "update_status_order_delivery_picking");
-    }
+//    /**
+//     * Метод  для отправки сообщения о поиске курьера с конкретным routing key.
+//     *
+//     * @param orderId идентификатор заказа
+//     */
+//    public void sendMessageUpdateStatusDeliveryPicking(Long orderId, Long courierId) {
+//        rabbitMQProducerService.sendUpdateDeliveryPicking(orderId, courierId, "update_status_order_delivery_picking");
+//    }
 
-    public void sendMessageUpdateStatusKitchenAccepted(Long orderId) {
-        rabbitMQProducerService.sendUpdateKitchenAccepted(orderId, "update_status_order_kitchen_accepted");
+    public void sendMessageOrder(Long orderId, String message) {
+        rabbitMQProducerService.sendMessageOrder(orderId, message, "message_to_order");
     }
 
 }

@@ -92,7 +92,7 @@ class OrderControllerTest {
     @WithMockUser
     void testFindAllOrders_Ok() throws Exception {
         //Arrange
-        OrderResponse orderResponse = DataOrder.getOrder();
+        OrderResponse orderResponse = DataOrder.getOrderResponse();
         when(orderService.findAllOrders()).thenReturn(List.of(orderResponse));
 
         //Act
@@ -109,7 +109,7 @@ class OrderControllerTest {
     @WithMockUser
     void testFindOrderById_Ok() throws Exception {
         //Arrange
-        OrderResponse orderResponse = DataOrder.getOrder();
+        OrderResponse orderResponse = DataOrder.getOrderResponse();
         when(orderService.findOrderById(orderResponse.getId())).thenReturn(orderResponse);
 
         //Act

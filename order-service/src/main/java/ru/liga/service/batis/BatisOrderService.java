@@ -6,7 +6,6 @@ import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.enums.StatusOrder;
 import ru.liga.mapper.OrderMapperBatis;
 
 /**
@@ -60,14 +59,4 @@ public class BatisOrderService implements OrderService {
 
     }
 
-    /**
-     * Обновление статуса заказа.
-     *
-     * @param status  статус заказа
-     * @param orderId идентификатор заказа
-     */
-    @Override
-    public void updateOrderStatus(StatusOrder status, Long orderId) {
-
-    }
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.liga.api.OrderItemService;
 import ru.liga.api.OrderService;
@@ -25,7 +24,7 @@ import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderItemResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.enums.StatusOrder;
+import ru.liga.service.rabbitMQ.NotificationService;
 
 /**
  * Контроллер заказа.
@@ -41,6 +40,7 @@ public class OrderController {
     private final OrderService orderService;
 
     private final OrderItemService orderItemService;
+    private final NotificationService notificationService;
 
     /**
      * Поиск всех заказов.
@@ -143,7 +143,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreateOrder) {
         CreateOrderResponse response = orderService.addOrder(requestCreateOrder);
-
+        notificationService.sendCreateOrder(response);
         return ResponseEntity.ok(response);
     }
 
@@ -185,25 +185,5 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * Обновление статуса заказа по его id.
-     *
-     * @param orderId идентификатор заказа
-     * @param status  статус заказа
-     * @return ResponseEntity
-     */
-    @Operation(summary = "Обновить статус заказа")
-    @ApiResponse(responseCode = "200", description = "Ok")
-    @ApiResponse(responseCode = "400", description = "Bad request")
-    @ApiResponse(responseCode = "404", description = "Order not found")
-    @ApiResponse(responseCode = "500", description = "Internal server error")
-    @PatchMapping("/{orderId}")
-    ResponseEntity<Void> updateOrderStatus(
-        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long orderId,
-        @Parameter(description = "Статус заказа") @RequestParam StatusOrder status
-    ) {
-        orderService.updateOrderStatus(status, orderId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }
 

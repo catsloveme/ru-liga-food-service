@@ -2,7 +2,6 @@ package ru.liga.service;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +25,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@Slf4j
 public class OrderTest {
     private static CreateOrderRequest request;
     private static CreateOrderResponse expectedResponse;

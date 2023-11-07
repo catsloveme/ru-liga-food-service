@@ -18,7 +18,7 @@ public class NotificationService {
      * @param response ответ создания заказа
      */
     public void sendCreateOrder(CreateOrderResponse response) {
-        rabbitMQProducerService.sendMessageCreate(response, "new_order_to_notification");
+        rabbitMQProducerService.sendMessageCreate(response, "to_notification");
     }
 
 }

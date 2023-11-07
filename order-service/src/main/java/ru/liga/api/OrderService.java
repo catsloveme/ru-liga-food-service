@@ -4,7 +4,6 @@ import java.util.List;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
-import ru.liga.enums.StatusOrder;
 
 /**
  * Интерфейс описания api сервиса Order.
@@ -49,11 +48,4 @@ public interface OrderService {
      */
     void updateCourierId(Long courierId, Long orderId);
 
-    /**
-     * Обновление статуса заказа по его id.
-     *
-     * @param status  статус заказа
-     * @param orderId идентификатор заказа
-     */
-    void updateOrderStatus(StatusOrder status, Long orderId);
 }

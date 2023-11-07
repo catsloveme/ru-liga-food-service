@@ -10,6 +10,7 @@ import ru.liga.api.RestaurantService;
 import ru.liga.mapping.RestaurantMapper;
 import ru.liga.mapping.RestaurantMenuItemMapper;
 import ru.liga.mapping.RestaurantMenuItemRequestMapper;
+import ru.liga.repository.OrderRepository;
 import ru.liga.repository.RestaurantMenuItemRepository;
 import ru.liga.repository.RestaurantRepository;
 import ru.liga.service.jpa.JpaRestaurantMenuItemService;
@@ -27,6 +28,7 @@ public class JpaAccessConfiguration {
     private final RestaurantMapper mapperRestaurant;
     private final RestaurantMenuItemMapper mapperRestaurantMenuItem;
     private final RestaurantMenuItemRequestMapper restaurantMenuItemRequestMapper;
+    private final OrderRepository jpaOrderRepository;
 
     /**
      * Создание бина реализации jpa для сервиса Restaurant.
@@ -34,7 +36,7 @@ public class JpaAccessConfiguration {
     @Primary
     @Bean("jpaRestaurantService")
     public RestaurantService restaurantService() {
-        return new JpaRestaurantService(jpaRestaurantRepository, mapperRestaurant);
+        return new JpaRestaurantService(jpaRestaurantRepository, jpaOrderRepository, mapperRestaurant);
     }
 
     /**

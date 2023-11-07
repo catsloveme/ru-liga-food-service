@@ -2,16 +2,12 @@ package ru.liga.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.liga.api.OrderService;
-import ru.liga.dto.request.CreateOrderRequest;
-import ru.liga.dto.response.CreateOrderResponse;
-import ru.liga.enums.StatusOrder;
-import ru.liga.service.rabbitMQ.NotificationService;
+import ru.liga.dto.ResponseAndKey;
 
 /**
  * Класс получателя сообщений.
@@ -21,42 +17,28 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @RequiredArgsConstructor
 public class QueueListener {
     private final OrderService orderService;
-    private final NotificationService notificationService;
     private final ObjectMapper objectMapper;
 
     /**
-     * Метод, отвечающий за получение сообщения из очереди createOrderQueueToOrder о новом заказе и
-     * отправку сообщения notification-service о новом заказе.
+     * Метод, отвечающий за получение уведомлений заказчика.
      *
-     * @param request данные ответа о создании нового заказа
+     * @param responseMessage сообщение заказчику
      */
-    @RabbitListener(queues = "createOrderQueueToOrder")
-    public void processQueueCreateOrder(String request) throws IOException {
-        CreateOrderRequest createOrderRequest = objectMapper.readValue(request, CreateOrderRequest.class);
-        CreateOrderResponse response = orderService.addOrder(createOrderRequest);
-        log.info("Received from createOrderQueue : " + response);
-        notificationService.sendCreateOrder(response);
+    @RabbitListener(queues = "toOrder")
+    public void updateStatusFromRestaurant(String responseMessage) throws JsonProcessingException {
+        ResponseAndKey responseAndKey = objectMapper.readValue(responseMessage, ResponseAndKey.class);
+        Long idOrder = responseAndKey.getId();
+        String message = responseAndKey.getResponse();
+        log.info(message, idOrder);
     }
-
-    /**
-     * Метод, отвечающий за получение сообщения из очереди updateStatus о том, что найден курьер и
-     * отправку сообщения order-service о смене статуса заказа.
-     *
-     * @param orderId идентификатор заказа
-     */
-    @RabbitListener(queues = "updateStatusOrderRestaurant")
-    public void updateStatusFromRestaurant(String orderId) throws JsonProcessingException {
-        Long idOrder = objectMapper.readValue(orderId, Long.class);
-        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, idOrder);
-    }
-
-    @RabbitListener(queues = "updateStatusOrderDelivery")
-    public void updateStatusFromDelivery(String pairMessage) {
-        String[] arrayOrderIdAndCourierId = pairMessage.split("=");
-        Long orderId = Long.parseLong(arrayOrderIdAndCourierId[0]);
-        Long courierId = Long.parseLong(arrayOrderIdAndCourierId[1]);
-        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, orderId);
-        orderService.updateCourierId(orderId, courierId);
-    }
+//
+//    @RabbitListener(queues = "updateStatusOrderDelivery")
+//    public void updateStatusFromDelivery(String pairMessage) {
+//        String[] arrayOrderIdAndCourierId = pairMessage.split("=");
+//        Long orderId = Long.parseLong(arrayOrderIdAndCourierId[0]);
+//        Long courierId = Long.parseLong(arrayOrderIdAndCourierId[1]);
+//        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, orderId);
+//        orderService.updateCourierId(orderId, courierId);
+//    }
 }
 
