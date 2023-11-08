@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +70,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findOrderById(
-        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable UUID id
     ) {
         OrderResponse orderResponse = orderService.findOrderById(id);
         return ResponseEntity.ok(orderResponse);
@@ -88,7 +89,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/customer/{id}")
     public ResponseEntity<List<OrderResponse>> findOrderByCustomer(
-        @Parameter(description = "Идентификатор заказчика") @Min(1L) @PathVariable Long id
+        @Parameter(description = "Идентификатор заказчика") @Min(1L) @PathVariable UUID id
     ) {
         List<OrderResponse> orderResponses = orderService.findOrdersByCustomerId(id);
         return ResponseEntity.ok(orderResponses);
@@ -122,7 +123,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/orderItems/{id}")
     public ResponseEntity<OrderItemResponse> findOrderItemById(
-        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @Min(1L) @PathVariable UUID id
     ) {
         OrderItemResponse orderItemResponse = orderItemService.findOrderItemById(id);
         return ResponseEntity.ok(orderItemResponse);
@@ -141,7 +142,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreateOrder) {
         CreateOrderResponse response = orderService.addOrder(requestCreateOrder);
-        Long orderId = response.getId();
+        UUID orderId = response.getId();
         String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан. Необходимо его принять или отменить заказ.";
         notificationService.sendCreateOrder(orderId, MESSAGE_CREATE_ORDER);
         return ResponseEntity.ok(response);

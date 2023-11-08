@@ -1,11 +1,23 @@
-create sequence if not exists customer_seq;
-
+create
+extension if not exists "uuid-ossp";
 create table if not exists customers
 (
-    customer_id bigint primary key default nextval('customer_seq'),
-    phone varchar(12) not null unique,
-    email varchar(255) not null unique,
-    address varchar(255) not null
+    customer_id uuid primary key default uuid_generate_v4
+(
+),
+    phone varchar
+(
+    12
+) not null unique,
+    email varchar
+(
+    255
+) not null unique,
+    address varchar
+(
+    255
+) not null
     );
 
-comment on table customers is 'Заказчики';
+comment
+on table customers is 'Заказчики';

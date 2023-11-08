@@ -1,6 +1,7 @@
 package ru.liga.service.jpa;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.api.OrderItemService;
@@ -42,7 +43,7 @@ public class JpaOrderItemService implements OrderItemService {
      * @param id идентификатор части заказа
      * @return ответ части заказа
      */
-    public OrderItemResponse findOrderItemById(Long id) {
+    public OrderItemResponse findOrderItemById(UUID id) {
         OrderItem orderItem = jpaOrderItemRepository.findById(id).orElseThrow(() ->
             new NotFoundException(String.format("Order Item id = %d not found", id)));
         return mapper.toDto(orderItem);
@@ -56,11 +57,11 @@ public class JpaOrderItemService implements OrderItemService {
      */
     public OrderItemResponse addOrderItem(CreateOrderItemRequest creatingOrderItemRequest) {
         OrderItem orderItem = new OrderItem();
-        Long orderId = creatingOrderItemRequest.getOrderId();
+        UUID orderId = creatingOrderItemRequest.getOrderId();
         orderItem.setOrder(jpaOrderRepository.findById(orderId).orElseThrow(() ->
             new NotFoundException(String.format("Order id = %d not found", orderId))));
 
-        Long menuItemId = creatingOrderItemRequest.getRestaurantMenuItemId();
+        UUID menuItemId = creatingOrderItemRequest.getRestaurantMenuItemId();
         RestaurantMenuItem menuItem = jpaRestaurantMenuItemRepository.findById(menuItemId).orElseThrow(() ->
             new NotFoundException(String.format("Restaurant Menu Item id = %d not found", menuItemId)));
         orderItem.setRestaurantMenuItem(menuItem);

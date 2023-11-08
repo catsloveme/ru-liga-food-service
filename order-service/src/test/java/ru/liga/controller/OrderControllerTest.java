@@ -3,6 +3,7 @@ package ru.liga.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
 import ru.liga.service.rabbitMQ.NotificationService;
 import ru.liga.test_data.DataOrder;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -57,9 +59,10 @@ class OrderControllerTest {
     void testAddOrder_Ok() throws Exception {
         //Arrange
         CreateOrderRequest request = DataOrder.getCreateRequest();
+        UUID id = randomUUID();
         expectedResponse = CreateOrderResponse
             .builder()
-            .id(1L)
+            .id(id)
             .estimatedTimeOfArrival(OffsetDateTime.now().plusHours(1L))
             .build();
 

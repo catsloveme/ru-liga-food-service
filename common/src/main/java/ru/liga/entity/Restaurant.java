@@ -1,5 +1,6 @@
 package ru.liga.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,9 +25,9 @@ import ru.liga.enums.StatusRestaurant;
 @AllArgsConstructor
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "restaurant_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "name")
     private String name;

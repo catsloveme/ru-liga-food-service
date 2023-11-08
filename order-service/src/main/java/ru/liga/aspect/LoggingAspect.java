@@ -1,6 +1,7 @@
 package ru.liga.aspect;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -25,8 +26,8 @@ public class LoggingAspect {
     @Before(value = "addOrder()")
     public void logBeforeExecution(JoinPoint joinPoint) {
         CreateOrderRequest args = (CreateOrderRequest) joinPoint.getArgs()[0];
-        Long customerId = args.getCustomerId();
-        Long restaurantId = args.getRestaurantId();
+        UUID customerId = args.getCustomerId();
+        UUID restaurantId = args.getRestaurantId();
         List<MenuItem> menuItems = args.getMenuItems();
         log.info(
             "Заказчик с id = {} заказывает из ресторана id = {} следующие блюда {}",

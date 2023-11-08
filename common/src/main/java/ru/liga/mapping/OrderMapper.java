@@ -3,6 +3,7 @@ package ru.liga.mapping;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.liga.dto.response.OrderResponse;
@@ -21,7 +22,7 @@ public class OrderMapper {
     private final OrderItemToMenuMapper mapperOrderItem;
 
     public OrderResponse toDto(Order order) {
-        Long orderId = order.getId();
+        UUID orderId = order.getId();
         OffsetDateTime time = order.getTimestamp();
         Restaurant restaurant = order.getRestaurant();
         RestaurantResponse restaurantResponse = restaurantMapper.toDto(restaurant);

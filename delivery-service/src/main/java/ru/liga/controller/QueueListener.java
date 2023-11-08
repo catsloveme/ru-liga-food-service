@@ -3,6 +3,7 @@ package ru.liga.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -37,7 +38,7 @@ public class QueueListener {
 
         String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
-        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
+        UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         String addressRestaurant = objectMapper.readValue(arrayOrderIdAndCourierId[1], String.class);
         log.info("Получено сообщение с адресом ресторана: {}, для заказа {}", addressRestaurant, orderId);
         searchNearestCouriers(orderId, addressRestaurant);
@@ -51,7 +52,7 @@ public class QueueListener {
      * @param addressRestaurant адрес ресторана
      */
 
-    public void searchNearestCouriers(Long orderId, String addressRestaurant) {
+    public void searchNearestCouriers(UUID orderId, String addressRestaurant) {
 
         List<CourierResponse> activeCouriers = courierService.findByStatus(StatusCourier.DELIVERY_PENDING);
 
@@ -74,9 +75,9 @@ public class QueueListener {
     public void searchNearestCouriersAndChangeOrderStatus(
         List<CourierResponse> activeCouriers,
         String restaurantAddress,
-        Long idOrder
+        UUID idOrder
     ) {
-        Long courierIdForDelivery = choseNearestCourierId(activeCouriers, restaurantAddress);
+        UUID courierIdForDelivery = choseNearestCourierId(activeCouriers, restaurantAddress);
         log.info("Курьер id = {} был выбран для заказа id = {}", courierIdForDelivery, idOrder);
         notificationService.sendMessage(idOrder, courierIdForDelivery);
         courierService.changeStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
@@ -84,12 +85,13 @@ public class QueueListener {
 
     /**
      * Выбор ближайшего курьера.
-     * @param activeCouriers список курьеров
+     *
+     * @param activeCouriers    список курьеров
      * @param restaurantAddress координаты ресторана
      * @return идентификатор курьера
      */
-    public Long choseNearestCourierId(List<CourierResponse> activeCouriers, String restaurantAddress) {
-        Long nearestCourierId = null;
+    public UUID choseNearestCourierId(List<CourierResponse> activeCouriers, String restaurantAddress) {
+        UUID nearestCourierId = null;
         Double minimumDistance = Double.MAX_VALUE;
         Double currentDistance;
         for (CourierResponse courier : activeCouriers) {

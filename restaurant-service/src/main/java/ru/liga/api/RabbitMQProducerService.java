@@ -1,5 +1,7 @@
 package ru.liga.api;
 
+import java.util.UUID;
+
 /**
  * Интерфейс отправителя сообщения.
  */
@@ -17,5 +19,5 @@ public interface RabbitMQProducerService {
      *
      * @param orderId идентификатор заказа
      */
-    void sendMessageOrder(String message, Long orderId, String routingKey);
+    void sendMessageOrder(String message, UUID orderId, String routingKey);
 }

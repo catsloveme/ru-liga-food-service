@@ -1,0 +1,10 @@
+{
+  "customerId": "ef688faa-67af-4fca-a154-be4423daaf75",
+  "restaurantId": "15ac38da-feed-43a6-996c-e1b2e9dd4586",
+  "menuItems": [
+    {
+      "quantity": 5,
+      "restaurantMenuItemId": "327e8f31-dc4d-4537-a86a-cf59c8d35704"
+    }
+  ]
+}

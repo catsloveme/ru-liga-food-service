@@ -1,5 +1,6 @@
 package ru.liga.service.rabbitMQ;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class NotificationService {
      *
      * @param courierId идентификатор курьера
      */
-    public void sendMessage(Long orderId, Long courierId) {
+    public void sendMessage(UUID orderId, UUID courierId) {
         rabbitMQProducerService.sendMessage(orderId, courierId, "to_notification");
     }
 
@@ -25,7 +26,7 @@ public class NotificationService {
      *
      * @param orderId идентификатор заказа
      */
-    public void sendMessageFinish(Long orderId, String message) {
+    public void sendMessageFinish(UUID orderId, String message) {
         rabbitMQProducerService.sendMessageFinish(orderId, message, "to_notification");
     }
 

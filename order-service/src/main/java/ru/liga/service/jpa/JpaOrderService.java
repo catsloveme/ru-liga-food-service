@@ -2,6 +2,7 @@ package ru.liga.service.jpa;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.api.OrderService;
@@ -49,7 +50,7 @@ public class JpaOrderService implements OrderService {
      * @param orderId идентификатор заказа
      * @return ответ заказа
      */
-    public OrderResponse findOrderById(Long orderId) {
+    public OrderResponse findOrderById(UUID orderId) {
         Order order = jpaOrderRepository.findById(orderId).orElseThrow(() ->
             new NotFoundException(String.format("Order id = %d not found", orderId)));
         OrderResponse response = mapperOrder.toDto(order);
@@ -62,7 +63,7 @@ public class JpaOrderService implements OrderService {
      * @param customerId идентификатор заказчика
      * @return ответ заказа
      */
-    public List<OrderResponse> findOrdersByCustomerId(Long customerId) {
+    public List<OrderResponse> findOrdersByCustomerId(UUID customerId) {
         List<Order> orders = jpaOrderRepository.findOrderByCustomerId(customerId);
         List<OrderResponse> responses = mapperOrder.toDtos(orders);
         return responses;
@@ -77,7 +78,7 @@ public class JpaOrderService implements OrderService {
     public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
         Order order = new Order();
 
-        Long customerId = createOrderRequest.getCustomerId();
+        UUID customerId = createOrderRequest.getCustomerId();
 
         Customer customer = jpaCustomerRepository.findById(customerId).orElseThrow(() ->
             new NotFoundException(String.format("Customer id = %d not found", customerId)));
@@ -85,7 +86,7 @@ public class JpaOrderService implements OrderService {
         order.setCustomer(customer);
         order.setStatus(CUSTOMER_CREATED);
 
-        Long restaurantId = createOrderRequest.getRestaurantId();
+        UUID restaurantId = createOrderRequest.getRestaurantId();
 
         Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
             new NotFoundException(String.format("Restaurant id = %d not found", restaurantId)));

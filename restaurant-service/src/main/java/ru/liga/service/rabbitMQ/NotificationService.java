@@ -1,5 +1,6 @@
 package ru.liga.service.rabbitMQ;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +18,18 @@ public class NotificationService {
      * @param massage уведомление для заказчика
      * @param orderId идентификатор заказа
      */
-    public void sendMessageOrder(String massage, Long orderId) {
+    public void sendMessageOrder(String massage, UUID orderId) {
         rabbitMQProducerService.sendMessageOrder(massage, orderId, "to_notification");
     }
 
     /**
      * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
-     * @param id идентификатор заказа
+     *
+     * @param id              идентификатор заказа
      * @param addressCustomer адрес заказчика
      */
 
-    public void sendCourierSearch(Long id, String addressCustomer) {
+    public void sendCourierSearch(UUID id, String addressCustomer) {
         rabbitMQProducerService.sendMessageSearch(id, addressCustomer, "to_notification");
     }
 

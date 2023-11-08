@@ -1,5 +1,6 @@
 package ru.liga.dto.request;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,5 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuItem {
     private Integer quantity;
-    private Long restaurantMenuItemId;
+    private UUID restaurantMenuItemId;
 }

@@ -1,6 +1,7 @@
 package ru.liga.dto.response;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateOrderResponse {
-    private Long id;
-   // private String address;
+    private UUID id;
     private OffsetDateTime estimatedTimeOfArrival;
 }

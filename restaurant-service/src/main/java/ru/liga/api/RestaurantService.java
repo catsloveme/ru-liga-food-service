@@ -1,6 +1,6 @@
 package ru.liga.api;
 
-import java.util.List;
+import java.util.UUID;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
@@ -10,14 +10,13 @@ import ru.liga.enums.StatusRestaurant;
  */
 public interface RestaurantService {
 
-
     /**
      * Поиск ресторана по его id.
      *
      * @param id идентификатор ресторана
      * @return ответ ресторана
      */
-    RestaurantResponse findRestaurantById(Long id);
+    RestaurantResponse findRestaurantById(UUID id);
 
     /**
      * Изменение статуса ресторана по его id.
@@ -25,7 +24,7 @@ public interface RestaurantService {
      * @param status       статус ресторана
      * @param restaurantId идентификкатор ресторана
      */
-    void changeStatusById(StatusRestaurant status, Long restaurantId);
+    void changeStatusById(StatusRestaurant status, UUID restaurantId);
 
     /**
      * Обновление статуса заказа по его id.
@@ -33,7 +32,7 @@ public interface RestaurantService {
      * @param status  статус заказа
      * @param orderId идентификатор заказа
      */
-    void updateOrderStatus(StatusOrder status, Long orderId);
+    void updateOrderStatus(StatusOrder status, UUID orderId);
 
     /**
      * Обновление id курьера у заказа, найденного по его id.
@@ -41,7 +40,7 @@ public interface RestaurantService {
      * @param courierId идентификатор курьера
      * @param orderId   идентификатор заказа
      */
-    void updateCourierId(Long courierId, Long orderId);
+    void updateCourierId(UUID courierId, UUID orderId);
 
     /**
      * Поиск адреса заказчика по id заказа.
@@ -49,7 +48,7 @@ public interface RestaurantService {
      * @param orderId идентификатор заказа
      * @return строковое представление адреса заказчика
      */
-    String findAddressCustomerByOrderId(Long orderId);
+    String findAddressCustomerByOrderId(UUID orderId);
 
     /**
      * Поиск адреса заказчика по id заказа.
@@ -57,5 +56,5 @@ public interface RestaurantService {
      * @param orderId идентификатор заказа
      * @return строковое представление адреса заказчика
      */
-    String findAddressRestaurantByOrderId(Long orderId);
+    String findAddressRestaurantByOrderId(UUID orderId);
 }

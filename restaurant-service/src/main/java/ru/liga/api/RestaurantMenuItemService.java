@@ -1,6 +1,7 @@
 package ru.liga.api;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
 
@@ -23,14 +24,14 @@ public interface RestaurantMenuItemService {
      * @param id идентификатор блюда
      * @return ответ блюда
      */
-    RestaurantMenuItemResponse findRestaurantMenuItemById(Long id);
+    RestaurantMenuItemResponse findRestaurantMenuItemById(UUID id);
 
     /**
      * Удаление блюда по id.
      *
      * @param id идентификатор блюда
      */
-    void deleteRestaurantMenuItemById(Long id);
+    void deleteRestaurantMenuItemById(UUID id);
 
     /**
      * Обновление цены блюда.
@@ -38,6 +39,6 @@ public interface RestaurantMenuItemService {
      * @param price цена
      * @param id    идентификатор блюда
      */
-    void updatePrice(BigDecimal price, Long id);
+    void updatePrice(BigDecimal price, UUID id);
 
 }

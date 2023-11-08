@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -57,7 +58,7 @@ public class RestaurantController {
     @GetMapping("/menuItem/{id}")
     public ResponseEntity<RestaurantMenuItemResponse> findRestaurantMenuItemById(
 
-        @Parameter(description = "Идентификатор части заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор части заказа") @PathVariable UUID id
     ) {
 
         RestaurantMenuItemResponse response = restaurantMenuItemService.findRestaurantMenuItemById(id);
@@ -96,7 +97,7 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/menuItem/{id}")
     public ResponseEntity<Void> updatePrice(
-        @Parameter(description = "Идентификатор блюда") @PathVariable Long id,
+        @Parameter(description = "Идентификатор блюда") @PathVariable UUID id,
 
         @RequestParam BigDecimal price
     ) {
@@ -119,7 +120,7 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/restaurant/{id}")
     public ResponseEntity<Void> updateStatus(
-        @Parameter(description = "Идентификатор ресторана") @PathVariable Long id,
+        @Parameter(description = "Идентификатор ресторана") @PathVariable UUID id,
 
         @RequestParam StatusRestaurant status
     ) {
@@ -141,7 +142,7 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/accept")
     public ResponseEntity<Void> acceptOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @PathVariable UUID id
     ) {
         restaurantService.updateOrderStatus(StatusOrder.KITCHEN_PREPARING, id);
         notificationService.sendMessageOrder(MESSAGE_ACCEPT, id);
@@ -161,7 +162,7 @@ public class RestaurantController {
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping("/order/{id}/denied")
     public ResponseEntity<Void> denyOrder(
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @PathVariable UUID id
     ) {
         restaurantService.updateOrderStatus(StatusOrder.KITCHEN_DENIED, id);
         notificationService.sendMessageOrder(MESSAGE_DENY, id);
@@ -182,7 +183,7 @@ public class RestaurantController {
     @PatchMapping("/order/{id}/finish")
     public ResponseEntity<Void> finishOrder(
 
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long id
+        @Parameter(description = "Идентификатор заказа") @PathVariable UUID id
     ) {
         restaurantService.updateOrderStatus(StatusOrder.KITCHEN_FINISHED, id);
         notificationService.sendMessageOrder(MESSAGE_SEARCH_COURIER, id);

@@ -2,6 +2,7 @@ package ru.liga.service.rabbitMQ;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -25,7 +26,7 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param courierId  идентификатор курьера
      * @param routingKey ключ для определения очереди
      */
-    public void sendMessage(Long orderId, Long courierId, String routingKey) {
+    public void sendMessage(UUID orderId, UUID courierId, String routingKey) {
 
         ResponseAndKey responseAndKey = ResponseAndKey
             .builder()
@@ -51,7 +52,7 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param orderId    идентификатор заказа
      * @param routingKey ключ для определения очереди
      */
-    public void sendMessageFinish(Long orderId, String message, String routingKey) {
+    public void sendMessageFinish(UUID orderId, String message, String routingKey) {
         ResponseAndKey responseAndKey = ResponseAndKey
             .builder()
             .id(orderId)

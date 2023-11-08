@@ -1,6 +1,7 @@
 package ru.liga.entity;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RestaurantMenuItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "restaurant_menu_item_id")
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

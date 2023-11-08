@@ -1,5 +1,6 @@
 package ru.liga.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,9 +23,9 @@ import ru.liga.enums.StatusCourier;
 @AllArgsConstructor
 public class Courier {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "courier_id")
-    private Long id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

@@ -3,6 +3,7 @@ package ru.liga.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -48,8 +49,8 @@ public class QueueListener {
         String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
 
-        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
-        Long courierId = objectMapper.readValue(arrayOrderIdAndCourierId[1], Long.class);
+        UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
+        UUID courierId = objectMapper.readValue(arrayOrderIdAndCourierId[1], UUID.class);
 
         if (courierId == null) {
             notificationService.sendMessageOrder(MESSAGE_COURIER_NOT_FOUND, orderId);

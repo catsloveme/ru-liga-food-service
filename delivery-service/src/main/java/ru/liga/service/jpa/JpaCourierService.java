@@ -1,6 +1,7 @@
 package ru.liga.service.jpa;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.api.CourierService;
@@ -55,7 +56,7 @@ public class JpaCourierService implements CourierService {
      * @param status    желаемый статус курьера
      */
 
-    public void changeStatusById(Long courierId, StatusCourier status) {
+    public void changeStatusById(UUID courierId, StatusCourier status) {
         jpaCourierRepository.updateCourierStatus(courierId, status);
         jpaCourierRepository.flush();
     }

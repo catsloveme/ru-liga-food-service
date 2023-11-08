@@ -1,6 +1,7 @@
 package ru.liga.entity;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,9 +26,9 @@ import ru.liga.enums.StatusOrder;
 @AllArgsConstructor
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
-    private Long id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

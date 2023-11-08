@@ -1,6 +1,7 @@
 package ru.liga.dto.request;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateOrderRequest {
-    private Long customerId;
-    private Long restaurantId;
+    private UUID customerId;
+    private UUID restaurantId;
     private List<MenuItem> menuItems;
 
 }

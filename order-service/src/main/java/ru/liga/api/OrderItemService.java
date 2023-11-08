@@ -1,6 +1,7 @@
 package ru.liga.api;
 
 import java.util.List;
+import java.util.UUID;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
 
@@ -21,7 +22,7 @@ public interface OrderItemService {
      * @param id идентификатор части заказа
      * @return ответ части заказа
      */
-    OrderItemResponse findOrderItemById(Long id);
+    OrderItemResponse findOrderItemById(UUID id);
 
     /**
      * Добавление части заказа.

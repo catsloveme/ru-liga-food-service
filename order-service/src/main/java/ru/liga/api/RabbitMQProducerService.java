@@ -1,5 +1,7 @@
 package ru.liga.api;
 
+import java.util.UUID;
+
 /**
  * Интерфейс отправителя сообщения.
  */
@@ -12,6 +14,6 @@ public interface RabbitMQProducerService {
      * @param message сообщение о создании заказа
      */
 
-    void sendMessageCreate(Long orderId, String message, String routingKey);
+    void sendMessageCreate(UUID orderId, String message, String routingKey);
 
 }

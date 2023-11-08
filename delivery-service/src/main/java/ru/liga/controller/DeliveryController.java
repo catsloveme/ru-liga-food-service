@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,7 @@ public class DeliveryController {
     @ApiResponse(responseCode = "404", description = "Courier not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PostMapping("/finishOrder/{orderId}/courier/{courierId}")
-    public ResponseEntity<Void> finishDelivery(@PathVariable Long orderId, @PathVariable Long courierId) {
+    public ResponseEntity<Void> finishDelivery(@PathVariable UUID orderId, @PathVariable UUID courierId) {
         log.info("Завершение доставки заказа {},в ресторан отправлено уведомление через notification сервис", orderId);
         String MESSAGE_DELIVERED = "Заказ {}  успешно доставлен";
         notificationService.sendMessageFinish(orderId, MESSAGE_DELIVERED);

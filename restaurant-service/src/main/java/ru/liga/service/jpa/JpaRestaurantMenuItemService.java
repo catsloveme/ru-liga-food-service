@@ -1,6 +1,7 @@
 package ru.liga.service.jpa;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.api.RestaurantMenuItemService;
@@ -32,7 +33,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      * @param id идентификатор блюда
      * @return ответ блюда
      */
-    public RestaurantMenuItemResponse findRestaurantMenuItemById(Long id) {
+    public RestaurantMenuItemResponse findRestaurantMenuItemById(UUID id) {
         RestaurantMenuItem restaurantMenuItem = jpaRestaurantMenuItemRepository.findById(id).orElseThrow(() ->
             new NotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return restaurantMenuItemMapper.toDto(restaurantMenuItem);
@@ -46,7 +47,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      */
     public RestaurantMenuItemResponse addRestaurantMenuItem(RestaurantMenuItemRequest request) {
         RestaurantMenuItem restaurantMenuItem = restaurantMenuItemRequestMapper.toEntity(request);
-        Long restaurantId = request.getRestaurantId();
+        UUID restaurantId = request.getRestaurantId();
         Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
             new NotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
         restaurantMenuItem.setRestaurant(restaurant);
@@ -60,7 +61,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      * @param id идентификатор блюда
      */
 
-    public void deleteRestaurantMenuItemById(Long id) {
+    public void deleteRestaurantMenuItemById(UUID id) {
         jpaRestaurantMenuItemRepository.deleteById(id);
     }
 
@@ -71,7 +72,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      * @param id    идентификатор блюда
      */
 
-    public void updatePrice(BigDecimal price, Long id) {
+    public void updatePrice(BigDecimal price, UUID id) {
         jpaRestaurantMenuItemRepository.updatePrice(price, id);
     }
 }

@@ -2,6 +2,7 @@ package ru.liga.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,7 +27,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @param id идентификатор заказа
      * @return сущность заказа
      */
-    Optional<Order> findById(Long id);
+    Optional<Order> findById(UUID id);
 
     /**
      * Поиск историия заказов по id заказчика.
@@ -35,7 +36,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @return сущность заказа
      */
     @Query("select ord from Order ord where ord.courier.id = :id ")
-    List<Order> findOrderByCustomerId(Long id);
+    List<Order> findOrderByCustomerId(UUID id);
 
     /**
      * Поиск историия заказов по id заказчика.
@@ -54,14 +55,15 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      */
     @Modifying
     @Query("update Order ord set ord.status= :status where ord.id = :id")
-    void updateOrderStatus(StatusOrder status, Long id);
+    void updateOrderStatus(StatusOrder status, UUID id);
 
     /**
      * Обновление id курьера в заказе, пойденом по id заказа.
+     *
      * @param courierId идентификатор курьера
-     * @param orderId идентификатор заказа
+     * @param orderId   идентификатор заказа
      */
     @Modifying
     @Query("update Order ord set ord.courier.id= :courierId where ord.id = :orderId")
-    void updateCourierId(Long courierId, Long orderId);
+    void updateCourierId(UUID courierId, UUID orderId);
 }

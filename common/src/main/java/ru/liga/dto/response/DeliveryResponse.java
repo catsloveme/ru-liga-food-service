@@ -1,5 +1,6 @@
 package ru.liga.dto.response;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import ru.liga.entity.Restaurant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeliveryResponse {
-    private Long orderId;
+    private UUID orderId;
     private Restaurant restaurant;
     private CourierResponse customer;
     private String payment;

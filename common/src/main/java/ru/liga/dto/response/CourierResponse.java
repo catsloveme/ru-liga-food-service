@@ -1,5 +1,6 @@
 package ru.liga.dto.response;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourierResponse {
-    private Long id;
+    private UUID id;
     private String address;
 }

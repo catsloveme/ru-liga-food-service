@@ -1,6 +1,7 @@
 package ru.liga.api;
 
 import java.util.List;
+import java.util.UUID;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
@@ -22,7 +23,7 @@ public interface OrderService {
      * @param orderId идентификатор заказа
      * @return ответ заказа
      */
-    OrderResponse findOrderById(Long orderId);
+    OrderResponse findOrderById(UUID orderId);
 
     /**
      * Поиск истории заказа по id заказчика.
@@ -30,7 +31,7 @@ public interface OrderService {
      * @param customerId идентификатор заказчика
      * @return ответ заказа
      */
-    List<OrderResponse> findOrdersByCustomerId(Long customerId);
+    List<OrderResponse> findOrdersByCustomerId(UUID customerId);
 
     /**
      * Создание заказа.

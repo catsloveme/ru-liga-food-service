@@ -1,5 +1,6 @@
 package ru.liga.service.jpa;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.api.RestaurantService;
@@ -30,7 +31,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param id идентификатор ресторана
      * @return ответ ресторана
      */
-    public RestaurantResponse findRestaurantById(Long id) {
+    public RestaurantResponse findRestaurantById(UUID id) {
         Restaurant restaurant = jpaRestaurantRepository.findById(id).orElseThrow(() ->
             new NotFoundException(String.format("Restaurant menu item id = %d not found", id)));
         return mapper.toDto(restaurant);
@@ -43,7 +44,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param restaurantId идентификкатор ресторана
      */
 
-    public void changeStatusById(StatusRestaurant status, Long restaurantId) {
+    public void changeStatusById(StatusRestaurant status, UUID restaurantId) {
         jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
     }
 
@@ -54,7 +55,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param orderId идентификатор заказа
      */
 
-    public void updateOrderStatus(StatusOrder status, Long orderId) {
+    public void updateOrderStatus(StatusOrder status, UUID orderId) {
         jpaOrderRepository.updateOrderStatus(status, orderId);
     }
 
@@ -65,7 +66,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param orderId   идентификатор заказа
      */
 
-    public void updateCourierId(Long courierId, Long orderId) {
+    public void updateCourierId(UUID courierId, UUID orderId) {
         jpaOrderRepository.updateCourierId(courierId, orderId);
     }
 
@@ -75,7 +76,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param orderId идентификатор заказа
      * @return строковое представление адреса заказчика
      */
-    public String findAddressCustomerByOrderId(Long orderId) {
+    public String findAddressCustomerByOrderId(UUID orderId) {
         Order order = jpaOrderRepository.findById(orderId).orElseThrow(() ->
             new NotFoundException(String.format("Order id = %d not found", orderId)));
         String addressCustomer = order.getCustomer().getAddress();
@@ -88,7 +89,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param orderId идентификатор заказа
      * @return строковое представление адреса заказчика
      */
-    public String findAddressRestaurantByOrderId(Long orderId) {
+    public String findAddressRestaurantByOrderId(UUID orderId) {
         Order order = jpaOrderRepository.findById(orderId).orElseThrow(() ->
             new NotFoundException(String.format("Order id = %d not found", orderId)));
         String addressRestaurant = order.getRestaurant().getAddress();

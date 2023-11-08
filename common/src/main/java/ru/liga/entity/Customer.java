@@ -1,5 +1,6 @@
 package ru.liga.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +22,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "phone")
     private String phone;

@@ -2,6 +2,7 @@ package ru.liga.service;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,8 +66,8 @@ public class OrderTest {
     @Test
     public void methodAddOrder_CreateOrderRequest_Success() {
         //Arrange
-        when(jpaCustomerRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(customer));
-        when(jpaRestaurantRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(restaurant));
+        when(jpaCustomerRepository.findById(any(UUID.class))).thenReturn(Optional.ofNullable(customer));
+        when(jpaRestaurantRepository.findById(any(UUID.class))).thenReturn(Optional.ofNullable(restaurant));
         when(jpaOrderRepository.saveAndFlush(any(Order.class))).thenReturn(order);
         when(mapperCreateOrder.toDto(any(Order.class))).thenReturn(expectedResponse);
 
