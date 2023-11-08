@@ -45,4 +45,28 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
         log.info("Сообщение о результате поиска курьеров отправлено в ресторан через notification сервис");
     }
 
+    /**
+     * Отправка сообщения об успешной доставке заказа.
+     *
+     * @param orderId    идентификатор заказа
+     * @param routingKey ключ для определения очереди
+     */
+    public void sendMessageFinish(Long orderId, String message, String routingKey) {
+        ResponseAndKey responseAndKey = ResponseAndKey
+            .builder()
+            .id(orderId)
+            .response(message)
+            .key("kitchen")
+            .build();
+        String jsonRequest;
+        try {
+            jsonRequest = mapper.writeValueAsString(responseAndKey);
+        } catch (JsonProcessingException e) {
+            log.info("JsonProcessingException");
+            throw new RuntimeException(e);
+        }
+
+        rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
+    }
+
 }

@@ -35,17 +35,17 @@ public class QueueListener {
     public void processQueueCreateOrder(String response) throws JsonProcessingException {
         ResponseAndKey responseAndKey = objectMapper.readValue(response, ResponseAndKey.class);
         KEY = responseAndKey.getKey();
-        CreateOrderResponse responseOrder;
         Long orderId;
+        String message;
         log.info("Получено сообщение {} с ключом {}", responseAndKey.getResponse(), KEY);
         switch (KEY) {
             case ("kitchen"):
-                responseOrder =
-                    objectMapper.readValue(responseAndKey.getResponse(), CreateOrderResponse.class);
-                restaurantService.sendMessageCreate(responseOrder);
+                message = responseAndKey.getResponse();
+                orderId = responseAndKey.getId();
+                restaurantService.sendMessageCreate(orderId, message);
                 break;
             case ("order"):
-                String message = objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                message = objectMapper.readValue(responseAndKey.getResponse(), String.class);
                 orderId = responseAndKey.getId();
                 orderService.sendMessageOrder(orderId, message);
                 break;
@@ -57,11 +57,11 @@ public class QueueListener {
             case ("kitchen_about_courier"):
                 orderId = responseAndKey.getId();
                 Long courierId = objectMapper.readValue(responseAndKey.getResponse(), Long.class);
-                // Long courierId = Long.valueOf(responseAndKey.getResponse()); //может быть null
                 restaurantService.sendMessageAboutSearchingCourier(orderId, courierId);
                 break;
+
         }
-//
+//kitchen_delivered
 //    /**
 //     * Метод, отвечающий за получение сообщения из очереди courierSearchQueueToNotification о поиске курьера и
 //     * отправку сообщения courier-service о поиске курьера.

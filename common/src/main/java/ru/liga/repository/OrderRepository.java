@@ -30,6 +30,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     /**
      * Поиск историия заказов по id заказчика.
+     *
      * @param id идентификатор заказа
      * @return сущность заказа
      */
@@ -37,9 +38,19 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findOrderByCustomerId(Long id);
 
     /**
-     * Обновление статуса заказа по id.
+     * Поиск историия заказов по id заказчика.
+     *
      * @param status статус заказа
-     * @param id идентификатор заказа
+     * @return сущность заказа
+     */
+    @Query("select ord from Order ord where ord.status = :status ")
+    List<Order> findOrderByStatus(StatusOrder status);
+
+    /**
+     * Обновление статуса заказа по id.
+     *
+     * @param status статус заказа
+     * @param id     идентификатор заказа
      */
     @Modifying
     @Query("update Order ord set ord.status= :status where ord.id = :id")

@@ -8,7 +8,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import ru.liga.api.RabbitMQProducerService;
 import ru.liga.dto.ResponseAndKey;
-import ru.liga.dto.response.CreateOrderResponse;
 
 /**
  * Класс по созданию сообщения, используя RabbitTemplate.
@@ -24,21 +23,14 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
     /**
      * Отправка сообщения о новом заказе ресторану с ключем - kitchen .
      *
-     * @param response   ответ создания заказа
+     * @param orderId    идентификатор заказа
      * @param routingKey ключ для определения очереди
      */
-    public void sendMessageCreate(CreateOrderResponse response, String routingKey) {
-        String jsonResponse;
-        try {
-            jsonResponse = mapper.writeValueAsString(response);
-        } catch (JsonProcessingException e) {
-            log.info("JsonProcessingException");
-            throw new RuntimeException(e);
-        }
+    public void sendMessageCreate(Long orderId, String message, String routingKey) {
         ResponseAndKey responseAndKey = ResponseAndKey
             .builder()
-            .id(response.getId())
-            .response(jsonResponse)
+            .id(orderId)
+            .response(message)
             .key(KEY)
             .build();
 

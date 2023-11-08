@@ -35,8 +35,7 @@ public class QueueListener {
     @RabbitListener(queues = "courierSearchQueueToCourier")
     public void getSearchingMessage(String pairMessage) throws JsonProcessingException {
 
-        String strWithoutBrackets = pairMessage.replace("{", "");
-        strWithoutBrackets = strWithoutBrackets.replace("}", "");
+        String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
         Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
         String addressRestaurant = objectMapper.readValue(arrayOrderIdAndCourierId[1], String.class);

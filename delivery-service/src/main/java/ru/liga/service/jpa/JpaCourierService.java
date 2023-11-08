@@ -5,10 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
+import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.Courier;
+import ru.liga.entity.Order;
 import ru.liga.enums.StatusCourier;
+import ru.liga.enums.StatusOrder;
 import ru.liga.mapping.CourierMapper;
+import ru.liga.mapping.OrderMapper;
 import ru.liga.repository.CourierRepository;
+import ru.liga.repository.OrderRepository;
 
 /**
  * Сервис для работы с репозиторием jpa.
@@ -17,20 +22,34 @@ import ru.liga.repository.CourierRepository;
 public class JpaCourierService implements CourierService {
 
     private final CourierRepository jpaCourierRepository;
-    private final CourierMapper mapper;
+    private final OrderRepository orderRepository;
+    private final CourierMapper courierMapper;
+    private final OrderMapper orderMapper;
 
     /**
      * Поиск курьеров по статусу.
+     *
      * @param status статус курьера
      * @return список ответов курьеров
      */
     public List<CourierResponse> findByStatus(StatusCourier status) {
         List<Courier> courier = jpaCourierRepository.findByStatus(status);
-        return mapper.toDto(courier);
+        return courierMapper.toDto(courier);
+    }
+
+    /**
+     * Поиск готовых заказов по статусу.
+     *
+     * @return список ответов курьеров
+     */
+    public List<OrderResponse> findFinishOrder() {
+        List<Order> orders = orderRepository.findOrderByStatus(StatusOrder.KITCHEN_FINISHED);
+        return orderMapper.toDtos(orders);
     }
 
     /**
      * Изменение статуса курьера по его id.
+     *
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */

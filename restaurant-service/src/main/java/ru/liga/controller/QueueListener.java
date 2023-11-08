@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.liga.api.RestaurantService;
-import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.enums.StatusOrder;
 import ru.liga.service.rabbitMQ.NotificationService;
 
@@ -31,19 +30,22 @@ public class QueueListener {
      * Метод, отвечающий за получение сообщения из очереди newOrderQueueToRestaurant о новом заказе и
      * зменение статуса заказа.
      *
-     * @param response ответ заказа
+     * @param pairMessage пара, состоящая из идентификатора заказа и сообщения заказчику
      */
-    @RabbitListener(queues = "newOrderQueueToRestaurant")
-    public void processQueueCreateOrder(String response) throws IOException {
-        CreateOrderResponse createOrderResponse = objectMapper.readValue(response, CreateOrderResponse.class);
-        log.info("Получен новый заказ {}, необходимо принять его или отклонить ", createOrderResponse);
+    @RabbitListener(queues = "restaurant")
+    public void processQueueCreateOrder(String pairMessage) throws IOException {
+        String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
+        String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
+
+        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
+        String message = arrayOrderIdAndCourierId[1];
+        log.info(message, orderId);
 
     }
 
     @RabbitListener(queues = "resultSearchingCourier")
     public void resultSearchCourier(String pairMessage) throws JsonProcessingException {
-        String strWithoutBrackets = pairMessage.replace("{", "");
-        strWithoutBrackets = strWithoutBrackets.replace("}", "");
+        String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
 
         Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);

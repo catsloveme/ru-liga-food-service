@@ -22,7 +22,7 @@ public class RoutingMQConfig {
      */
     @Bean
     public Declarables myQueue() {
-        Queue queueDirectRestaurant = new Queue("newOrderQueueToRestaurant", false);
+        Queue queueDirectRestaurant = new Queue("restaurant", false);
         Queue queueDirectCouriers = new Queue("courierSearchQueueToCourier", false);
         Queue queueDirectToOrder = new Queue("toOrder", false);
         Queue queueDirectResultSearchingCourier = new Queue("resultSearchingCourier", false);

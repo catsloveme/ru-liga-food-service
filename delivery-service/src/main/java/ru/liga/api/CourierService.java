@@ -2,6 +2,7 @@ package ru.liga.api;
 
 import java.util.List;
 import ru.liga.dto.response.CourierResponse;
+import ru.liga.dto.response.OrderResponse;
 import ru.liga.enums.StatusCourier;
 
 /**
@@ -18,8 +19,16 @@ public interface CourierService {
 
     /**
      * Изменение статуса курьера по его id.
+     *
      * @param courierId идентификатор курьера
-     * @param status желаемый статус курьера
+     * @param status    желаемый статус курьера
      */
     void changeOrderStatusById(Long courierId, StatusCourier status);
+
+    /**
+     * Поиск готовых заказов.
+     *
+     * @return список ответов заказа
+     */
+    List<OrderResponse> findFinishOrder();
 }

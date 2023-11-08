@@ -12,12 +12,21 @@ public class NotificationService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
     /**
-     * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
+     * Метод для отправки сообщения о создании нового заказа с конкретным routing key.
      *
      * @param courierId идентификатор курьера
      */
     public void sendMessage(Long orderId, Long courierId) {
         rabbitMQProducerService.sendMessage(orderId, courierId, "to_notification");
+    }
+
+    /**
+     * Метод для отправки сообщения об успешной доставке заказа.
+     *
+     * @param orderId идентификатор заказа
+     */
+    public void sendMessageFinish(Long orderId, String message) {
+        rabbitMQProducerService.sendMessageFinish(orderId, message, "to_notification");
     }
 
 }

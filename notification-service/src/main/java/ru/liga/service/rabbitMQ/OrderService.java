@@ -21,7 +21,7 @@ public class OrderService {
 //    }
 
     public void sendMessageOrder(Long orderId, String message) {
-        rabbitMQProducerService.sendMessageOrder(orderId, message, "message_to_order");
+        rabbitMQProducerService.sendIdAndMessage(orderId, message, "message_to_order");
     }
 
 }

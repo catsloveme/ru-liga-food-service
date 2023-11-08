@@ -41,6 +41,7 @@ public class OrderController {
 
     private final OrderItemService orderItemService;
     private final NotificationService notificationService;
+    private final String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан";
 
     /**
      * Поиск всех заказов.
@@ -143,7 +144,8 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreateOrder) {
         CreateOrderResponse response = orderService.addOrder(requestCreateOrder);
-        notificationService.sendCreateOrder(response);
+        Long orderId = response.getId();
+        notificationService.sendCreateOrder(orderId, MESSAGE_CREATE_ORDER);
         return ResponseEntity.ok(response);
     }
 

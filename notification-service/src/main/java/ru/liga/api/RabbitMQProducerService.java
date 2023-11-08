@@ -1,41 +1,32 @@
 package ru.liga.api;
 
-import ru.liga.dto.CreateOrderResponse;
-
 /**
  * Интерфейс отправителя сообщения.
  */
 public interface RabbitMQProducerService {
 
     /**
-     * Метод отправки сообщения о создании нового заказа.
-     *
-     * @param response запрос для создания заказа
-     */
-    void sendMessageCreate(CreateOrderResponse response, String routingKey);
-
-    /**
-     * Метод отправки уведомления заказчику.
+     * Отправка сообщения через RabbitTemplate.
      *
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    void sendMessageOrder(Long orderId, String message, String routingKey);
-//    void sendUpdateDeliveryPicking(Long orderId, Long courierId, String routingKey);
-//
-//    /**
-//     * Отправка сообщения через RabbitTemplate.
-//     *
-//     * @param orderId    идентификатор заказа.
-//     * @param routingKey ключ для определения очереди.
-//     */
-//    void sendUpdateKitchenAccepted(Long orderId, String routingKey);
-//
-//    /**
-//     * Отправка сообщения через RabbitTemplate.
-//     *
-//     * @param response   ответ созданного заказа.
-//     * @param routingKey ключ для определения очереди.
-//     */
-//    void sendCourierSearch(CreateOrderResponse response, String routingKey);
+    void sendIdAndMessage(Long orderId, String message, String routingKey);
+
+    /**
+     * Отправка сообщения в delivery о поиске курьера.
+     *
+     * @param orderId           идентификатор заказа
+     * @param addressRestaurant адрес заказчика
+     * @param routingKey        ключ для определения очереди.
+     */
+    void sendCourierSearch(Long orderId, String addressRestaurant, String routingKey);
+
+    /**
+     * Отправка сообщения через RabbitTemplate.
+     *
+     * @param orderId    идентификатор заказа.
+     * @param routingKey ключ для определения очереди.
+     */
+    void sendMessageAboutSearchingCourier(Long orderId, Long courierId, String routingKey);
 }
