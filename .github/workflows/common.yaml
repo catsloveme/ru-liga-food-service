@@ -1,0 +1,22 @@
+name: Java CI for common with Maven
+on:
+  push:
+    paths:
+      - 'common/**'
+    branches:
+      - 'main'
+      - 'hometask-*'
+
+jobs:
+
+  checkstyle:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Check style
+        run: mvn -pl common -am checkstyle:check

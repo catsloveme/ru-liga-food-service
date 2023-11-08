@@ -1,0 +1,102 @@
+package ru.liga.service.jpa;
+
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.liga.api.OrderService;
+import ru.liga.dto.request.CreateOrderRequest;
+import ru.liga.dto.response.CreateOrderResponse;
+import ru.liga.dto.response.OrderResponse;
+import ru.liga.entity.Customer;
+import ru.liga.entity.Order;
+import ru.liga.entity.Restaurant;
+import ru.liga.exception.NotFoundException;
+import ru.liga.mapping.CreateOrderMapper;
+import ru.liga.mapping.OrderMapper;
+import ru.liga.repository.CustomerRepository;
+import ru.liga.repository.OrderRepository;
+import ru.liga.repository.RestaurantRepository;
+import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
+
+/**
+ * Сервис для работы с репозиторием jpa.
+ */
+@Service
+@RequiredArgsConstructor
+public class JpaOrderService implements OrderService {
+
+    private final OrderRepository jpaOrderRepository;
+    private final CustomerRepository jpaCustomerRepository;
+    private final RestaurantRepository jpaRestaurantRepository;
+    private final CreateOrderMapper mapperCreateOrder;
+    private final OrderMapper mapperOrder;
+
+    /**
+     * Поиск всех заказов.
+     *
+     * @return список ответов заказов
+     */
+    public List<OrderResponse> findAllOrders() {
+        List<Order> orders = jpaOrderRepository.findAll();
+        List<OrderResponse> responses = mapperOrder.toDtos(orders);
+        return responses;
+    }
+
+    /**
+     * Поиск заказа по его id.
+     *
+     * @param orderId идентификатор заказа
+     * @return ответ заказа
+     */
+    public OrderResponse findOrderById(UUID orderId) {
+        Order order = jpaOrderRepository.findById(orderId).orElseThrow(() ->
+            new NotFoundException(String.format("Order id = %d not found", orderId)));
+        OrderResponse response = mapperOrder.toDto(order);
+        return response;
+    }
+
+    /**
+     * Поиск истории заказа по id заказчика.
+     *
+     * @param customerId идентификатор заказчика
+     * @return ответ заказа
+     */
+    public List<OrderResponse> findOrdersByCustomerId(UUID customerId) {
+        List<Order> orders = jpaOrderRepository.findOrderByCustomerId(customerId);
+        List<OrderResponse> responses = mapperOrder.toDtos(orders);
+        return responses;
+    }
+
+    /**
+     * Создание заказа.
+     *
+     * @param createOrderRequest данные для запроса на создание заказа
+     * @return ответ создания заказа
+     */
+    public CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest) {
+        Order order = new Order();
+
+        UUID customerId = createOrderRequest.getCustomerId();
+
+        Customer customer = jpaCustomerRepository.findById(customerId).orElseThrow(() ->
+            new NotFoundException(String.format("Customer id = %d not found", customerId)));
+
+        order.setCustomer(customer);
+        order.setStatus(CUSTOMER_CREATED);
+
+        UUID restaurantId = createOrderRequest.getRestaurantId();
+
+        Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(() ->
+            new NotFoundException(String.format("Restaurant id = %d not found", restaurantId)));
+
+        order.setRestaurant(restaurant);
+        order.setTimestamp(OffsetDateTime.now().plusHours(1L));
+        jpaOrderRepository.saveAndFlush(order);
+        return mapperCreateOrder.toDto(order);
+    }
+
+
+}
+

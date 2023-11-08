@@ -4,7 +4,6 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -12,7 +11,6 @@ target/
 *.iws
 *.iml
 *.ipr
-*.log
 
 ### Eclipse ###
 .apt_generated
@@ -31,14 +29,10 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-
+!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
 ### Mac OS ###
 .DS_Store
-/delivery-service/src/test/
-/kitchen-service/src/test/
-/.idea/
-/notification-service/src/test/
