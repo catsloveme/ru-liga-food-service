@@ -1,8 +1,7 @@
 package ru.liga.service.jpa;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.liga.api.RestaurantService;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Order;
@@ -17,6 +16,7 @@ import ru.liga.repository.RestaurantRepository;
 /**
  * Сервис для работы с репозиторием jpa.
  */
+@Service
 @RequiredArgsConstructor
 public class JpaRestaurantService implements RestaurantService {
 
@@ -42,20 +42,9 @@ public class JpaRestaurantService implements RestaurantService {
      * @param status       статус ресторана
      * @param restaurantId идентификкатор ресторана
      */
-    @Transactional
+
     public void changeStatusById(StatusRestaurant status, Long restaurantId) {
         jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
-    }
-
-    /**
-     * Поиск всех  ресторанов.
-     *
-     * @return список ответов ресторанов
-     */
-    public List<RestaurantResponse> findAllRestaurants() {
-        List<Restaurant> restaurants = jpaRestaurantRepository.findAll();
-
-        return mapper.toDto(restaurants);
     }
 
     /**
@@ -64,7 +53,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param status  статус заказа
      * @param orderId идентификатор заказа
      */
-    @Transactional
+
     public void updateOrderStatus(StatusOrder status, Long orderId) {
         jpaOrderRepository.updateOrderStatus(status, orderId);
     }
@@ -75,7 +64,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param courierId идентификатор курьера
      * @param orderId   идентификатор заказа
      */
-    @Transactional
+
     public void updateCourierId(Long courierId, Long orderId) {
         jpaOrderRepository.updateCourierId(courierId, orderId);
     }

@@ -2,6 +2,7 @@ package ru.liga.service.jpa;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.liga.api.OrderItemService;
 import ru.liga.dto.request.CreateOrderItemRequest;
 import ru.liga.dto.response.OrderItemResponse;
@@ -16,6 +17,7 @@ import ru.liga.repository.RestaurantMenuItemRepository;
 /**
  * Сервис для работы с репозиторием jpa.
  */
+@Service
 @RequiredArgsConstructor
 public class JpaOrderItemService implements OrderItemService {
 

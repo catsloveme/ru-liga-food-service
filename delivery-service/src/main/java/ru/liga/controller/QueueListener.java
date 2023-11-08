@@ -78,11 +78,8 @@ public class QueueListener {
     ) {
         Long courierIdForDelivery = choseNearestCourierId(activeCouriers, restaurantAddress);
         log.info("Курьер id = {} был выбран для заказа id = {}", courierIdForDelivery, idOrder);
-
         notificationService.sendMessage(idOrder, courierIdForDelivery);
-        //orderFeign.updateCourierId(courierIdForDelivery, idOrder);
-        // orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
-        courierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
+        courierService.changeStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);
     }
 
     /**

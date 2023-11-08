@@ -21,7 +21,6 @@ import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.api.RestaurantService;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
-import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.enums.StatusOrder;
 import ru.liga.enums.StatusRestaurant;
 import ru.liga.service.rabbitMQ.NotificationService;
@@ -43,26 +42,6 @@ public class RestaurantController {
     private final NotificationService notificationService;
     private final RestaurantMenuItemService restaurantMenuItemService;
 
-    /**
-     * Поиск ресторана по его id.
-     *
-     * @param id идентификатор ресторана
-     * @return ответ ресторана
-     */
-    @Operation(summary = "Получить ресторан по его идентификатору")
-    @ApiResponse(responseCode = "200", description = "Ok")
-    @ApiResponse(responseCode = "400", description = "Bad request")
-    @ApiResponse(responseCode = "404", description = "restaurant not found")
-    @ApiResponse(responseCode = "500", description = "Internal server error")
-    @GetMapping("/{id}")
-    public ResponseEntity<RestaurantResponse> findRestaurantById(
-
-        @Parameter(description = "Идентификатор ресторана") @PathVariable Long id
-    ) {
-
-        RestaurantResponse response = restaurantService.findRestaurantById(id);
-        return ResponseEntity.ok(response);
-    }
 
 
     /**
@@ -102,7 +81,6 @@ public class RestaurantController {
         RestaurantMenuItemResponse response = restaurantMenuItemService.addRestaurantMenuItem(request);
         return ResponseEntity.ok(response);
     }
-
 
     /**
      * Обновление цены блюда.

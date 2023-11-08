@@ -8,10 +8,8 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +39,7 @@ public class OrderController {
 
     private final OrderItemService orderItemService;
     private final NotificationService notificationService;
-    private final String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан";
+    private final String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан. Необходимо его принять или отменить заказ.";
 
     /**
      * Поиск всех заказов.
@@ -166,26 +164,6 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * Обновление id курьера у заказа, найденного по его id.
-     *
-     * @param courierId идентификатор курьера
-     * @param orderId   идентификатор заказа
-     * @return ResponseEntity
-     */
-    @Operation(summary = "Обновить идентификатор курьера по идентификатору заказа")
-    @ApiResponse(responseCode = "200", description = "Ok")
-    @ApiResponse(responseCode = "400", description = "Bad request")
-    @ApiResponse(responseCode = "404", description = "Order not found")
-    @ApiResponse(responseCode = "500", description = "Internal server error")
-    @PatchMapping("/courier/{courierId}/order/{orderId}")
-    ResponseEntity<Void> updateCourierId(
-        @Parameter(description = "Идентификатор курьера") @Min(1L) @PathVariable Long courierId,
-        @Parameter(description = "Идентификатор заказа") @PathVariable Long orderId
-    ) {
-        orderService.updateCourierId(courierId, orderId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
 }
 

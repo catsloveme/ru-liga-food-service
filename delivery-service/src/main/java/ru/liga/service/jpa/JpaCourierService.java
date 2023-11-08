@@ -2,7 +2,7 @@ package ru.liga.service.jpa;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.dto.response.OrderResponse;
@@ -18,6 +18,7 @@ import ru.liga.repository.OrderRepository;
 /**
  * Сервис для работы с репозиторием jpa.
  */
+@Service
 @RequiredArgsConstructor
 public class JpaCourierService implements CourierService {
 
@@ -53,8 +54,8 @@ public class JpaCourierService implements CourierService {
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */
-    @Transactional
-    public void changeOrderStatusById(Long courierId, StatusCourier status) {
+
+    public void changeStatusById(Long courierId, StatusCourier status) {
         jpaCourierRepository.updateCourierStatus(courierId, status);
         jpaCourierRepository.flush();
     }

@@ -12,10 +12,18 @@ public interface CourierService {
 
     /**
      * Поиск курьеров по статусу.
-     * @param status статус курьера.
-     * @return списов ответов курьеров.
+     *
+     * @param status статус курьера
+     * @return список ответов курьеров
      */
     List<CourierResponse> findByStatus(StatusCourier status);
+
+    /**
+     * Поиск готовых заказов по статусу.
+     *
+     * @return список ответов курьеров
+     */
+    List<OrderResponse> findFinishOrder();
 
     /**
      * Изменение статуса курьера по его id.
@@ -23,12 +31,5 @@ public interface CourierService {
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */
-    void changeOrderStatusById(Long courierId, StatusCourier status);
-
-    /**
-     * Поиск готовых заказов.
-     *
-     * @return список ответов заказа
-     */
-    List<OrderResponse> findFinishOrder();
+    void changeStatusById(Long courierId, StatusCourier status);
 }

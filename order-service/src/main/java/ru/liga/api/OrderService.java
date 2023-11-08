@@ -25,7 +25,7 @@ public interface OrderService {
     OrderResponse findOrderById(Long orderId);
 
     /**
-     * Поиск истории заказов по id заказчика.
+     * Поиск истории заказа по id заказчика.
      *
      * @param customerId идентификатор заказчика
      * @return ответ заказа
@@ -35,17 +35,9 @@ public interface OrderService {
     /**
      * Создание заказа.
      *
-     * @param requestCreatingOrder данные для запроса на создание заказа
+     * @param createOrderRequest данные для запроса на создание заказа
      * @return ответ создания заказа
      */
-    CreateOrderResponse addOrder(CreateOrderRequest requestCreatingOrder);
-
-    /**
-     * Обновление id курьера по id заказа.
-     *
-     * @param courierId идентификатор курьера
-     * @param orderId   идентификатор заказа
-     */
-    void updateCourierId(Long courierId, Long orderId);
+    CreateOrderResponse addOrder(CreateOrderRequest createOrderRequest);
 
 }

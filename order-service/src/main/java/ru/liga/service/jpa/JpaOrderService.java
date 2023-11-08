@@ -3,7 +3,7 @@ package ru.liga.service.jpa;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
@@ -22,6 +22,7 @@ import static ru.liga.enums.StatusOrder.CUSTOMER_CREATED;
 /**
  * Сервис для работы с репозиторием jpa.
  */
+@Service
 @RequiredArgsConstructor
 public class JpaOrderService implements OrderService {
 
@@ -93,17 +94,6 @@ public class JpaOrderService implements OrderService {
         order.setTimestamp(OffsetDateTime.now().plusHours(1L));
         jpaOrderRepository.saveAndFlush(order);
         return mapperCreateOrder.toDto(order);
-    }
-
-    /**
-     * Обновление id курьера у заказа, найденного по его id.
-     *
-     * @param courierId идентификатор курьера
-     * @param orderId   идентификатор заказа
-     */
-    @Transactional
-    public void updateCourierId(Long courierId, Long orderId) {
-        jpaOrderRepository.updateCourierId(courierId, orderId);
     }
 
 

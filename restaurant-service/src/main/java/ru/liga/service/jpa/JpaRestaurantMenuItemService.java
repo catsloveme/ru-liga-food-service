@@ -2,7 +2,7 @@ package ru.liga.service.jpa;
 
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
@@ -17,6 +17,7 @@ import ru.liga.repository.RestaurantRepository;
 /**
  * Сервис для работы с репозиторием jpa.
  */
+@Service
 @RequiredArgsConstructor
 public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
 
@@ -58,7 +59,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      *
      * @param id идентификатор блюда
      */
-    @Transactional
+
     public void deleteRestaurantMenuItemById(Long id) {
         jpaRestaurantMenuItemRepository.deleteById(id);
     }
@@ -69,7 +70,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      * @param price цена
      * @param id    идентификатор блюда
      */
-    @Transactional
+
     public void updatePrice(BigDecimal price, Long id) {
         jpaRestaurantMenuItemRepository.updatePrice(price, id);
     }
