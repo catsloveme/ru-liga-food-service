@@ -59,7 +59,7 @@ public class QueueListener {
         if (!activeCouriers.isEmpty()) {
             searchNearestCouriersAndChangeOrderStatus(activeCouriers, addressRestaurant, orderId);
         } else {
-            notificationService.sendMessage(orderId, null);
+            notificationService.sendMessage(orderId, orderId);
             log.info("Нет доступных курьеров, заказ необходимо отменить.");
 
         }

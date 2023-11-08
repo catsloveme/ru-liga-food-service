@@ -3,6 +3,7 @@ package ru.liga.service.jpa;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.api.RestaurantService;
 import ru.liga.dto.response.RestaurantResponse;
 import ru.liga.entity.Order;
@@ -43,7 +44,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param status       статус ресторана
      * @param restaurantId идентификкатор ресторана
      */
-
+    @Transactional
     public void changeStatusById(StatusRestaurant status, UUID restaurantId) {
         jpaRestaurantRepository.updateRestaurantStatus(status, restaurantId);
     }
@@ -54,7 +55,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param status  статус заказа
      * @param orderId идентификатор заказа
      */
-
+    @Transactional
     public void updateOrderStatus(StatusOrder status, UUID orderId) {
         jpaOrderRepository.updateOrderStatus(status, orderId);
     }
@@ -65,7 +66,7 @@ public class JpaRestaurantService implements RestaurantService {
      * @param courierId идентификатор курьера
      * @param orderId   идентификатор заказа
      */
-
+    @Transactional
     public void updateCourierId(UUID courierId, UUID orderId) {
         jpaOrderRepository.updateCourierId(courierId, orderId);
     }

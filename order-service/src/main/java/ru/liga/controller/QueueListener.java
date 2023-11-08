@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.liga.api.OrderService;
+import java.util.UUID;
 
 /**
  * Класс получателя сообщений.
@@ -27,20 +28,12 @@ public class QueueListener {
         String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
 
-        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
+        UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         System.out.println(pairMessage);
         String message = arrayOrderIdAndCourierId[1];
 
         log.info(message, orderId);
     }
-//
-//    @RabbitListener(queues = "updateStatusOrderDelivery")
-//    public void updateStatusFromDelivery(String pairMessage) {
-//        String[] arrayOrderIdAndCourierId = pairMessage.split("=");
-//        Long orderId = Long.parseLong(arrayOrderIdAndCourierId[0]);
-//        Long courierId = Long.parseLong(arrayOrderIdAndCourierId[1]);
-//        orderService.updateOrderStatus(StatusOrder.DELIVERY_PICKING, orderId);
-//        orderService.updateCourierId(orderId, courierId);
-//    }
+
 }
 

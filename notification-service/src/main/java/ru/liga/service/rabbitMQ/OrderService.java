@@ -2,6 +2,7 @@ package ru.liga.service.rabbitMQ;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 /**
  * Класс для отправки сообщения с использованием конкретного routing key.
@@ -11,16 +12,9 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private final RabbitMQProducerServiceImpl rabbitMQProducerService;
 
-//    /**
-//     * Метод  для отправки сообщения о поиске курьера с конкретным routing key.
-//     *
-//     * @param orderId идентификатор заказа
-//     */
-//    public void sendMessageUpdateStatusDeliveryPicking(Long orderId, Long courierId) {
-//        rabbitMQProducerService.sendUpdateDeliveryPicking(orderId, courierId, "update_status_order_delivery_picking");
-//    }
 
-    public void sendMessageOrder(Long orderId, String message) {
+
+    public void sendMessageOrder(UUID orderId, String message) {
         rabbitMQProducerService.sendIdAndMessage(orderId, message, "message_to_order");
     }
 

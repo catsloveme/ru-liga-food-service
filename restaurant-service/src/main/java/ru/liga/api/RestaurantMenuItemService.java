@@ -26,12 +26,7 @@ public interface RestaurantMenuItemService {
      */
     RestaurantMenuItemResponse findRestaurantMenuItemById(UUID id);
 
-    /**
-     * Удаление блюда по id.
-     *
-     * @param id идентификатор блюда
-     */
-    void deleteRestaurantMenuItemById(UUID id);
+
 
     /**
      * Обновление цены блюда.

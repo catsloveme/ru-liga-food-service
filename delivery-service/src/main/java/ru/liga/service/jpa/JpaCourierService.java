@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
 import ru.liga.dto.response.OrderResponse;
@@ -55,7 +56,7 @@ public class JpaCourierService implements CourierService {
      * @param courierId идентификатор курьера
      * @param status    желаемый статус курьера
      */
-
+    @Transactional
     public void changeStatusById(UUID courierId, StatusCourier status) {
         jpaCourierRepository.updateCourierStatus(courierId, status);
         jpaCourierRepository.flush();

@@ -3,6 +3,7 @@ package ru.liga.service.rabbitMQ;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.AbstractMap;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,8 +27,8 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    public void sendIdAndMessage(Long orderId, String message, String routingKey) {
-        AbstractMap.SimpleEntry<Long, String> pair = new AbstractMap.SimpleEntry<>(orderId, message);
+    public void sendIdAndMessage(UUID orderId, String message, String routingKey) {
+        AbstractMap.SimpleEntry<UUID, String> pair = new AbstractMap.SimpleEntry<>(orderId, message);
         String jsonRequest;
         try {
             jsonRequest = mapper.writeValueAsString(pair);
@@ -45,8 +46,8 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param addressRestaurant адрес заказчика
      * @param routingKey        ключ для определения очереди.
      */
-    public void sendCourierSearch(Long orderId, String addressRestaurant, String routingKey) {
-        AbstractMap.SimpleEntry<Long, String> pair = new AbstractMap.SimpleEntry<>(orderId, addressRestaurant);
+    public void sendCourierSearch(UUID orderId, String addressRestaurant, String routingKey) {
+        AbstractMap.SimpleEntry<UUID, String> pair = new AbstractMap.SimpleEntry<>(orderId, addressRestaurant);
         String jsonRequest;
         try {
             jsonRequest = mapper.writeValueAsString(pair);
@@ -64,8 +65,8 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    public void sendMessageAboutSearchingCourier(Long orderId, Long courierId, String routingKey) {
-        AbstractMap.SimpleEntry<Long, Long> pair = new AbstractMap.SimpleEntry<>(orderId, courierId);
+    public void sendMessageAboutSearchingCourier(UUID orderId, UUID courierId, String routingKey) {
+        AbstractMap.SimpleEntry<UUID, UUID> pair = new AbstractMap.SimpleEntry<>(orderId, courierId);
         String jsonRequest;
         try {
             jsonRequest = mapper.writeValueAsString(pair);

@@ -11,6 +11,7 @@ import ru.liga.dto.ResponseAndKey;
 import ru.liga.service.rabbitMQ.CourierService;
 import ru.liga.service.rabbitMQ.OrderService;
 import ru.liga.service.rabbitMQ.RestaurantService;
+import java.util.UUID;
 
 /**
  * Класс получателя сообщений.
@@ -35,7 +36,7 @@ public class QueueListener {
     public void processQueueCreateOrder(String response) throws JsonProcessingException {
         ResponseAndKey responseAndKey = objectMapper.readValue(response, ResponseAndKey.class);
         KEY = responseAndKey.getKey();
-        Long orderId;
+        UUID orderId;
         String message;
         log.info("Получено сообщение {} с ключом {}", responseAndKey.getResponse(), KEY);
         switch (KEY) {
@@ -56,42 +57,12 @@ public class QueueListener {
                 break;
             case ("kitchen_about_courier"):
                 orderId = responseAndKey.getId();
-                Long courierId = objectMapper.readValue(responseAndKey.getResponse(), Long.class);
+                UUID courierId = objectMapper.readValue(responseAndKey.getResponse(), UUID.class);
                 restaurantService.sendMessageAboutSearchingCourier(orderId, courierId);
                 break;
 
         }
-//kitchen_delivered
-//    /**
-//     * Метод, отвечающий за получение сообщения из очереди courierSearchQueueToNotification о поиске курьера и
-//     * отправку сообщения courier-service о поиске курьера.
-//     *
-//     * @param response ответ заказа
-//     */
-//    @RabbitListener(queues = "courierSearchQueueToNotification")
-//    public void searchCouriers(String response) throws JsonProcessingException {
-//        CreateOrderResponse createOrderResponse = objectMapper.readValue(response, CreateOrderResponse.class);
-//        courierService.sendMessageSearch(createOrderResponse);
-//    }
-//
-//    /**
-//     * Метод, отвечающий за получение сообщения из очереди updateStatus о том, что найден курьер и
-//     * отправку сообщения order-service о смене статуса заказа.
-//     *
-//     * @param orderId идентификатор заказа
-//     */
-//    @RabbitListener(queues = "updateStatus")
-//    public void updateStatus(String orderId, String courierId) throws JsonProcessingException {
-//        Long idOrder = objectMapper.readValue(orderId, Long.class);
-//        Long idCourier = objectMapper.readValue(courierId, Long.class);
-//        orderService.sendMessageUpdateStatusDeliveryPicking(idOrder, idCourier);
-//    }
-//
-//    @RabbitListener(queues = "orderUpdateStatusToNotificationFromRestaurant")
-//    public void updateStatusOrder(String orderId) throws JsonProcessingException {
-//        Long idOrder = objectMapper.readValue(orderId, Long.class);
-//        orderService.sendMessageUpdateStatusKitchenAccepted(idOrder);
-//    }
+
 
     }
 }

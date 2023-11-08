@@ -1,3 +1,4 @@
+Создание заказа
 {
   "customerId": "ef688faa-67af-4fca-a154-be4423daaf75",
   "restaurantId": "15ac38da-feed-43a6-996c-e1b2e9dd4586",
@@ -8,3 +9,28 @@
     }
   ]
 }
+
+
+
+curl -X 'POST' \
+  'http://127.0.0.1:8000/order-service/order-service' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "customerId": "ef688faa-67af-4fca-a154-be4423daaf75",
+  "restaurantId": "15ac38da-feed-43a6-996c-e1b2e9dd4586",
+  "menuItems": [
+    {
+      "quantity": 5,
+      "restaurantMenuItemId": "327e8f31-dc4d-4537-a86a-cf59c8d35704"
+    }
+  ]
+}'
+
+http://127.0.0.1:8000/restaurant-service/swagger-ui
+
+Меняем статус у курьеров
+
+25b6e984-d7ff-416a-bab7-36577d0421a8
+45b6e986-d7ff-416a-bab7-36577d0421a8
+65b6e988-d7ff-416a-bab7-36577d0421a8

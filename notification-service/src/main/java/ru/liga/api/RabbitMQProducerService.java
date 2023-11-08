@@ -1,5 +1,7 @@
 package ru.liga.api;
 
+import java.util.UUID;
+
 /**
  * Интерфейс отправителя сообщения.
  */
@@ -11,7 +13,7 @@ public interface RabbitMQProducerService {
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    void sendIdAndMessage(Long orderId, String message, String routingKey);
+    void sendIdAndMessage(UUID orderId, String message, String routingKey);
 
     /**
      * Отправка сообщения в delivery о поиске курьера.
@@ -20,7 +22,7 @@ public interface RabbitMQProducerService {
      * @param addressRestaurant адрес заказчика
      * @param routingKey        ключ для определения очереди.
      */
-    void sendCourierSearch(Long orderId, String addressRestaurant, String routingKey);
+    void sendCourierSearch(UUID orderId, String addressRestaurant, String routingKey);
 
     /**
      * Отправка сообщения через RabbitTemplate.
@@ -28,5 +30,5 @@ public interface RabbitMQProducerService {
      * @param orderId    идентификатор заказа.
      * @param routingKey ключ для определения очереди.
      */
-    void sendMessageAboutSearchingCourier(Long orderId, Long courierId, String routingKey);
+    void sendMessageAboutSearchingCourier(UUID orderId, UUID courierId, String routingKey);
 }

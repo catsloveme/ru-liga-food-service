@@ -38,7 +38,7 @@ public class QueueListener {
         String strWithoutBrackets = pairMessage.substring(1, pairMessage.length() - 1);
         String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
 
-        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
+        UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         String message = arrayOrderIdAndCourierId[1];
         log.info(message, orderId);
 
@@ -52,7 +52,7 @@ public class QueueListener {
         UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         UUID courierId = objectMapper.readValue(arrayOrderIdAndCourierId[1], UUID.class);
 
-        if (courierId == null) {
+        if (courierId == orderId) {
             notificationService.sendMessageOrder(MESSAGE_COURIER_NOT_FOUND, orderId);
             restaurantService.updateOrderStatus(StatusOrder.KITCHEN_DENIED, orderId);
             log.info("Получено сообщение о том, что курьер не найден. Заказ отменен, заказчику отправлено уведомление.");

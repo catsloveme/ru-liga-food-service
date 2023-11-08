@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.api.RestaurantMenuItemService;
 import ru.liga.dto.request.RestaurantMenuItemRequest;
 import ru.liga.dto.response.RestaurantMenuItemResponse;
@@ -55,15 +56,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
         return restaurantMenuItemMapper.toDto(restaurantMenuItem);
     }
 
-    /**
-     * Удаление блюда по его id.
-     *
-     * @param id идентификатор блюда
-     */
 
-    public void deleteRestaurantMenuItemById(UUID id) {
-        jpaRestaurantMenuItemRepository.deleteById(id);
-    }
 
     /**
      * бновление цены блюда по его id.
@@ -71,7 +64,7 @@ public class JpaRestaurantMenuItemService implements RestaurantMenuItemService {
      * @param price цена
      * @param id    идентификатор блюда
      */
-
+    @Transactional
     public void updatePrice(BigDecimal price, UUID id) {
         jpaRestaurantMenuItemRepository.updatePrice(price, id);
     }
