@@ -19,6 +19,7 @@ import ru.liga.api.OrderService;
 import ru.liga.dto.request.CreateOrderRequest;
 import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.dto.response.OrderResponse;
+import ru.liga.service.rabbitMQ.NotificationService;
 import ru.liga.test_data.DataOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,6 +43,8 @@ class OrderControllerTest {
     private OrderService orderService;
     @MockBean
     private OrderItemService orderItemService;
+    @MockBean
+    private NotificationService notificationService;
 
     @BeforeEach
     void setUp() {

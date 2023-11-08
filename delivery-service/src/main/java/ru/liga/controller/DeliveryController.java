@@ -30,8 +30,6 @@ public class DeliveryController {
 
     private final CourierService courierService;
     private final NotificationService notificationService;
-    private final String MESSAGE_DELIVERED = "Заказ {}  успешно доставлен";
-
 
     /**
      * Поиск готовых заказов.
@@ -64,6 +62,7 @@ public class DeliveryController {
     @PostMapping("/finishOrder/{orderId}/courier/{courierId}")
     public ResponseEntity<Void> finishDelivery(@PathVariable Long orderId, @PathVariable Long courierId) {
         log.info("Завершение доставки заказа {},в ресторан отправлено уведомление через notification сервис", orderId);
+        String MESSAGE_DELIVERED = "Заказ {}  успешно доставлен";
         notificationService.sendMessageFinish(orderId, MESSAGE_DELIVERED);
         courierService.changeStatusById(courierId, StatusCourier.DELIVERY_COMPLETE);
         courierService.changeStatusById(courierId, StatusCourier.DELIVERY_DENIED);

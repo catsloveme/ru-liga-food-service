@@ -39,7 +39,6 @@ public class OrderController {
 
     private final OrderItemService orderItemService;
     private final NotificationService notificationService;
-    private final String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан. Необходимо его принять или отменить заказ.";
 
     /**
      * Поиск всех заказов.
@@ -143,6 +142,7 @@ public class OrderController {
     public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest requestCreateOrder) {
         CreateOrderResponse response = orderService.addOrder(requestCreateOrder);
         Long orderId = response.getId();
+        String MESSAGE_CREATE_ORDER = "Заказ {} успешно создан. Необходимо его принять или отменить заказ.";
         notificationService.sendCreateOrder(orderId, MESSAGE_CREATE_ORDER);
         return ResponseEntity.ok(response);
     }
