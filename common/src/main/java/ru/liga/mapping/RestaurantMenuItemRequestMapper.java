@@ -19,5 +19,6 @@ public interface RestaurantMenuItemRequestMapper
      * @return сущность
      */
     @Mapping(source = "imageUrl", target = "image")
+    @Mapping(source = "restaurantId", target = "restaurant.id")
     RestaurantMenuItem toEntity(RestaurantMenuItemRequest request);
 }

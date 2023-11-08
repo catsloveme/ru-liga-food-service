@@ -1,0 +1,115 @@
+version: '3.9'
+services:
+
+  postgresql:
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    image: postgres:11
+    container_name: postgres
+    hostname: postgres
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    restart: always
+    networks:
+      - backend
+
+  liquibase-migrations:
+    image: liquibase/liquibase:4.18
+    depends_on:
+      - postgresql
+    command:
+      - --hub-mode=off
+      - --changelog-file=migration/src/main/resources/db/master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgresql:5432/postgres
+      - --username=postgres
+      - --password=password
+      - update
+    volumes:
+      - ./migration:/liquibase/changelog
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    restart: always
+
+    #    environment:
+    #      - RABBITMQ_DEFAULT_USER = user
+    #      - RABBITMQ_DEFAULT_PASS = password
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  order-service:
+    build: /order-service
+    container_name: order-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/postgres
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - rabbit.host=rabbitmq
+
+  restaurant-service:
+    build: /restaurant-service
+    container_name: restaurant-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/postgres
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - rabbit.host=rabbitmq
+
+  delivery-service:
+    build: /delivery-service
+    container_name: delivery-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/postgres
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - rabbit.host=rabbitmq
+
+  notification-service:
+    build: /notification-service
+    container_name: notification-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/postgres
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - rabbit.host=rabbitmq
+
+
+
+networks:
+  backend:
+    name: backend
+    external: false
+
+volumes:
+  postgres_data:
+    external: false
+    name: postgres_data
+  migrations:
+    external: false
+    name: migrations_data
+  rabbitmq_data:
+  rabbitmq_logs:
+#    external: false
+#    name: rabbitmq_data

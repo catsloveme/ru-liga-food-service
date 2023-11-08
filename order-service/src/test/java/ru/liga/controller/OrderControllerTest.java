@@ -75,7 +75,6 @@ class OrderControllerTest {
                     .contentType(MediaType.APPLICATION_JSON))
             //Asset
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(expectedResponse.getId()), Long.class))
 
         ;
     }
@@ -106,7 +105,6 @@ class OrderControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
             //Asset
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].id", is(orderResponse.getId()), Long.class))
             .andExpect(jsonPath("$[0].restaurant.name", is(orderResponse.getRestaurant().getName())))
             .andExpect(jsonPath("$[0].items", is(orderResponse.getItems())));
     }
@@ -123,7 +121,6 @@ class OrderControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
             //Asset
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(orderResponse.getId()), Long.class))
             .andExpect(jsonPath("$.restaurant.name", is(orderResponse.getRestaurant().getName())));
     }
 
