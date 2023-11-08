@@ -16,8 +16,8 @@ public class NotificationService {
      *
      * @param courierId идентификатор курьера
      */
-    public void sendMessageUpdate(Long orderId, Long courierId) {
-        rabbitMQProducerService.sendMessageUpdate(orderId, courierId, "courier_is_found");
+    public void sendMessage(Long orderId, Long courierId) {
+        rabbitMQProducerService.sendMessage(orderId, courierId, "to_notification");
     }
 
 }

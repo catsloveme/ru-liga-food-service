@@ -35,23 +35,31 @@ public class QueueListener {
     public void processQueueCreateOrder(String response) throws JsonProcessingException {
         ResponseAndKey responseAndKey = objectMapper.readValue(response, ResponseAndKey.class);
         KEY = responseAndKey.getKey();
-
+        CreateOrderResponse responseOrder;
+        Long orderId;
         log.info("Получено сообщение {} с ключом {}", responseAndKey.getResponse(), KEY);
         switch (KEY) {
             case ("kitchen"):
-                CreateOrderResponse responseOrder =
+                responseOrder =
                     objectMapper.readValue(responseAndKey.getResponse(), CreateOrderResponse.class);
                 restaurantService.sendMessageCreate(responseOrder);
                 break;
             case ("order"):
                 String message = objectMapper.readValue(responseAndKey.getResponse(), String.class);
-                Long orderId = responseAndKey.getId();
+                orderId = responseAndKey.getId();
                 orderService.sendMessageOrder(orderId, message);
                 break;
-            case ("delivery"):
-
+            case ("courier"):
+                String addressRestaurant = objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                orderId = responseAndKey.getId();
+                courierService.sendMessageSearch(orderId, addressRestaurant);
                 break;
-
+            case ("kitchen_about_courier"):
+                orderId = responseAndKey.getId();
+                Long courierId = objectMapper.readValue(responseAndKey.getResponse(), Long.class);
+                // Long courierId = Long.valueOf(responseAndKey.getResponse()); //может быть null
+                restaurantService.sendMessageAboutSearchingCourier(orderId, courierId);
+                break;
         }
 //
 //    /**

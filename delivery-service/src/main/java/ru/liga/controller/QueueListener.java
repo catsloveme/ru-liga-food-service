@@ -6,15 +6,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import ru.liga.api.CourierService;
 import ru.liga.dto.response.CourierResponse;
-import ru.liga.dto.response.CreateOrderResponse;
 import ru.liga.enums.StatusCourier;
-import ru.liga.exception.NotFoundFreeCourierException;
 import ru.liga.service.rabbitMQ.NotificationService;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -29,49 +24,45 @@ public class QueueListener {
     private final CourierService courierService;
     private final ObjectMapper objectMapper;
     private final NotificationService notificationService;
-    private final int maxAttempts = 6;
+
 
     /**
      * Метод, отвечающий за получение сообщения из очереди courierSearchQueueToCourier о поиске курьера и
      * запуск поиска ближайшего курьера.
      *
-     * @param response ответ заказа
+     * @param pairMessage пара состоящая из идентификатора заказа и адреса ресторана
      */
     @RabbitListener(queues = "courierSearchQueueToCourier")
-    public void getSearchingMessage(String response) throws JsonProcessingException {
-        log.info("The message about searching courier is received");
-        CreateOrderResponse createOrderResponse = objectMapper.readValue(response, CreateOrderResponse.class);
+    public void getSearchingMessage(String pairMessage) throws JsonProcessingException {
 
-        searchNearestCouriers(createOrderResponse);
-
+        String strWithoutBrackets = pairMessage.replace("{", "");
+        strWithoutBrackets = strWithoutBrackets.replace("}", "");
+        String[] arrayOrderIdAndCourierId = strWithoutBrackets.split(":");
+        Long orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], Long.class);
+        String addressRestaurant = objectMapper.readValue(arrayOrderIdAndCourierId[1], String.class);
+        log.info("Получено сообщение с адресом ресторана: {}, для заказа {}", addressRestaurant, orderId);
+        searchNearestCouriers(orderId, addressRestaurant);
     }
 
     /**
-     * Поиск свободных курьеров, если таких нет, то поиск возобновится через 10 минут.
+     * Поиск свободных курьеров, если таких нет, то заказ отменяется.
      * Если в течении часа свободные курьеры найдены, то среди них ищется ближайший к ресторану.
      *
-     * @param createOrderResponse ответ заказа
+     * @param orderId           идентификатор заказа
+     * @param addressRestaurant адрес ресторана
      */
-    @Retryable(value = NotFoundFreeCourierException.class,
-               maxAttempts = maxAttempts, backoff = @Backoff(delay = 600_000L))
-    public void searchNearestCouriers(CreateOrderResponse createOrderResponse) {
+
+    public void searchNearestCouriers(Long orderId, String addressRestaurant) {
 
         List<CourierResponse> activeCouriers = courierService.findByStatus(StatusCourier.DELIVERY_PENDING);
-        Long orderId = createOrderResponse.getId();
-        String restaurantAddress = createOrderResponse.getAddress();
 
         if (!activeCouriers.isEmpty()) {
-            searchNearestCouriersAndChangeOrderStatus(activeCouriers, restaurantAddress, orderId);
+            searchNearestCouriersAndChangeOrderStatus(activeCouriers, addressRestaurant, orderId);
         } else {
-            log.info("The courier search will be re-attempted in 10 minutes");
+            notificationService.sendMessage(orderId, null);
+            log.info("Нет доступных курьеров, заказ необходимо отменить.");
 
-            throw new NotFoundFreeCourierException("Нет свободных курьеров");
         }
-    }
-
-    @Recover
-    void recover(Long idOrder) {
-        log.info("Сообщение о том, что курьеры не найдены в течении часа отправлено в ресторан");
     }
 
     /**
@@ -87,9 +78,9 @@ public class QueueListener {
         Long idOrder
     ) {
         Long courierIdForDelivery = choseNearestCourierId(activeCouriers, restaurantAddress);
-        log.info("A courier id = {} has been selected for the order id = {}", courierIdForDelivery, idOrder);
+        log.info("Курьер id = {} был выбран для заказа id = {}", courierIdForDelivery, idOrder);
 
-        notificationService.sendMessageUpdate(idOrder, courierIdForDelivery);
+        notificationService.sendMessage(idOrder, courierIdForDelivery);
         //orderFeign.updateCourierId(courierIdForDelivery, idOrder);
         // orderFeign.updateOrderStatus(courierIdForDelivery, StatusOrder.DELIVERY_PICKING);
         courierService.changeOrderStatusById(courierIdForDelivery, StatusCourier.DELIVERY_PICKING);

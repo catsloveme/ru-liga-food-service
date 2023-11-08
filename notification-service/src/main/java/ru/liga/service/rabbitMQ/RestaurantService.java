@@ -21,4 +21,8 @@ public class RestaurantService {
         rabbitMQProducerService.sendMessageCreate(response, "new_order_to_restaurant");
     }
 
+    public void sendMessageAboutSearchingCourier(Long orderId, Long idCourier) {
+        rabbitMQProducerService.sendMessageAboutSearchingCourier(orderId, idCourier, "kitchen_about_courier");
+    }
+
 }

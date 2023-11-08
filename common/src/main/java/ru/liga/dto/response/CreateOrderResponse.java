@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateOrderResponse {
     private Long id;
-    private String address;
+   // private String address;
     private OffsetDateTime estimatedTimeOfArrival;
 }

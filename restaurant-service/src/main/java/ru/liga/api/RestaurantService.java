@@ -9,12 +9,7 @@ import ru.liga.enums.StatusRestaurant;
  * Интерфейс описания api сервиса Restaurant.
  */
 public interface RestaurantService {
-    /**
-     * Поиск всех ресторанов.
-     *
-     * @return список ответов ресторанов
-     */
-    List<RestaurantResponse> findAllRestaurants();
+
 
     /**
      * Поиск ресторана по его id.
@@ -39,4 +34,28 @@ public interface RestaurantService {
      * @param orderId идентификатор заказа
      */
     void updateOrderStatus(StatusOrder status, Long orderId);
+
+    /**
+     * Обновление id курьера у заказа, найденного по его id.
+     *
+     * @param courierId идентификатор курьера
+     * @param orderId   идентификатор заказа
+     */
+    void updateCourierId(Long courierId, Long orderId);
+
+    /**
+     * Поиск адреса заказчика по id заказа.
+     *
+     * @param orderId идентификатор заказа
+     * @return строковое представление адреса заказчика
+     */
+    String findAddressCustomerByOrderId(Long orderId);
+
+    /**
+     * Поиск адреса заказчика по id заказа.
+     *
+     * @param orderId идентификатор заказа
+     * @return строковое представление адреса заказчика
+     */
+    String findAddressRestaurantByOrderId(Long orderId);
 }

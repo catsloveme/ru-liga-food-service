@@ -14,5 +14,6 @@ public interface CreateOrderMapper
     extends AbstractMapper<Order, CreateOrderResponse> {
 
     @Mapping(source = "timestamp", target = "estimatedTimeOfArrival")
+   // @Mapping(source = "customer.address", target = "address")
     CreateOrderResponse toDto(Order order);
 }

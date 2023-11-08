@@ -11,7 +11,6 @@ import ru.liga.dto.response.OrderResponse;
 import ru.liga.entity.Customer;
 import ru.liga.entity.Order;
 import ru.liga.entity.Restaurant;
-import ru.liga.enums.StatusOrder;
 import ru.liga.exception.NotFoundException;
 import ru.liga.mapping.CreateOrderMapper;
 import ru.liga.mapping.OrderMapper;
@@ -107,16 +106,6 @@ public class JpaOrderService implements OrderService {
         jpaOrderRepository.updateCourierId(courierId, orderId);
     }
 
-    /**
-     * Обновление статуса закза по его id.
-     *
-     * @param status  статус заказа
-     * @param orderId идентификатор заказа
-     */
-    @Transactional
-    public void updateOrderStatus(StatusOrder status, Long orderId) {
-        jpaOrderRepository.updateOrderStatus(status, orderId);
-    }
 
 }
 

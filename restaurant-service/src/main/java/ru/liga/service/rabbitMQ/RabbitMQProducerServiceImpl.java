@@ -22,26 +22,35 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
     /**
      * Отправка сообщения через RabbitTemplate.
      *
-     * @param response ответ созданного заказа
-     * @param routingKey          ключ для определения очереди
+     * @param id              идентификатор заказа
+     * @param addressCustomer адрес заказчика
+     * @param routingKey      ключ для определения очереди
      */
-//    public void sendMessageSearch(CreateOrderResponse response, String routingKey) {
-//        ResponseAndKey responseAndKey = ResponseAndKey
-//            .builder()
-//            .response(response)
-//            .key("order")
-//            .build();
-//
-//        String jsonRequest;
-//        try {
-//            jsonRequest = mapper.writeValueAsString(responseAndKey);
-//        } catch (JsonProcessingException e) {
-//            log.info("JsonProcessingException");
-//            throw new RuntimeException(e);
-//        }
-//        rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
-//        log.info("Message about search a courier has been sanded to the Notification service");
-//    }
+    public void sendMessageSearch(Long id, String addressCustomer, String routingKey) {
+        String jsonResponse;
+        try {
+            jsonResponse = mapper.writeValueAsString(addressCustomer);//проверить может строка не требует модификации
+        } catch (JsonProcessingException e) {
+            log.info("JsonProcessingException");
+            throw new RuntimeException(e);
+        }
+        ResponseAndKey responseAndKey = ResponseAndKey
+            .builder()
+            .response(jsonResponse)
+            .id(id)
+            .key("courier")
+            .build();
+
+        String jsonRequest;
+        try {
+            jsonRequest = mapper.writeValueAsString(responseAndKey);
+        } catch (JsonProcessingException e) {
+            log.info("JsonProcessingException");
+            throw new RuntimeException(e);
+        }
+        rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
+        log.info("Сообщение о поиске курьера отправлено в сервис доставки через notification сервис");
+    }
 
     /**
      * Отправка уведомления заказчику.
@@ -72,6 +81,6 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
             throw new RuntimeException(e);
         }
         rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
-        log.info("Message about search a courier has been sanded to the Notification service");
+        log.info("Уведомление отправлено заказчику");
     }
 }

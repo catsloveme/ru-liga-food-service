@@ -10,6 +10,6 @@ public interface RabbitMQProducerService {
      *
      * @param courierId идентификатор курьера
      */
-    void sendMessageUpdate(Long orderId, Long courierId, String routingKey);
+    void sendMessage(Long orderId, Long courierId, String routingKey);
 
 }

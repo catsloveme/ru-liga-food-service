@@ -50,7 +50,7 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
             throw new RuntimeException(e);
         }
         rabbitTemplate.convertAndSend("directExchange", routingKey, jsonRequest);
-        log.info("Message about creating a new order has been sent to the Notification service");
+        log.info("Сообщение о создании нового заказа отправлено в ресторан через notification сервис");
     }
 
 }

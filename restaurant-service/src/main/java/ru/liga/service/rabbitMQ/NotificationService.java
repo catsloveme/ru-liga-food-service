@@ -20,13 +20,15 @@ public class NotificationService {
     public void sendMessageOrder(String massage, Long orderId) {
         rabbitMQProducerService.sendMessageOrder(massage, orderId, "to_notification");
     }
-//    /**
-//     * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
-//     *
-//     * @param createOrderResponse ответ созданного заказа.
-//     */
-//    public void sendCourierSearch(CreateOrderResponse createOrderResponse) {
-//        rabbitMQProducerService.sendMessageSearch(createOrderResponse, "to_notification");
-//    }
+
+    /**
+     * Метод  для отправки сообщения о создании нового заказа с конкретным routing key.
+     * @param id идентификатор заказа
+     * @param addressCustomer адрес заказчика
+     */
+
+    public void sendCourierSearch(Long id, String addressCustomer) {
+        rabbitMQProducerService.sendMessageSearch(id, addressCustomer, "to_notification");
+    }
 
 }
