@@ -24,6 +24,8 @@ public class QueueListener {
         = "Курьер для доставки заказа номер {} найден. Ожидайте доставку";
     private static final String MESSAGE_COURIER_NOT_FOUND
         = "Курьер для доставки заказа номер {} не найден. Заказ Отменен";
+    private static final String MESSAGE_ORDER_DELIVERED
+        = "Заказ номер {} успешно доставлен";
     private final NotificationService notificationService;
     private final RestaurantService restaurantService;
 
@@ -41,6 +43,10 @@ public class QueueListener {
         UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         String message = arrayOrderIdAndCourierId[1];
         log.info(message, orderId);
+        if (message.contains("доставлен")){
+            restaurantService.updateOrderStatus(StatusOrder.DELIVERY_COMPLETE, orderId);
+            notificationService.sendMessageOrder(MESSAGE_ORDER_DELIVERED, orderId);
+        }
 
     }
 
@@ -52,7 +58,7 @@ public class QueueListener {
         UUID orderId = objectMapper.readValue(arrayOrderIdAndCourierId[0], UUID.class);
         UUID courierId = objectMapper.readValue(arrayOrderIdAndCourierId[1], UUID.class);
 
-        if (courierId == orderId) {
+        if (courierId.equals(orderId)) {
             notificationService.sendMessageOrder(MESSAGE_COURIER_NOT_FOUND, orderId);
             restaurantService.updateOrderStatus(StatusOrder.KITCHEN_DENIED, orderId);
             log.info("Получено сообщение о том, что курьер не найден. Заказ отменен, заказчику отправлено уведомление.");

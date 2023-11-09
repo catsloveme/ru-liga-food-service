@@ -28,16 +28,10 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param routingKey      ключ для определения очереди
      */
     public void sendMessageSearch(UUID id, String addressCustomer, String routingKey) {
-        String jsonResponse;
-        try {
-            jsonResponse = mapper.writeValueAsString(addressCustomer);//проверить может строка не требует модификации
-        } catch (JsonProcessingException e) {
-            log.info("JsonProcessingException");
-            throw new RuntimeException(e);
-        }
+
         ResponseAndKey responseAndKey = ResponseAndKey
             .builder()
-            .response(jsonResponse)
+            .response(addressCustomer)
             .id(id)
             .key("courier")
             .build();
@@ -60,17 +54,11 @@ public class RabbitMQProducerServiceImpl implements RabbitMQProducerService {
      * @param routingKey ключ для определения очереди
      */
     public void sendMessageOrder(String message, UUID orderId, String routingKey) {
-        String jsonResponse;
-        try {
-            jsonResponse = mapper.writeValueAsString(message);
-        } catch (JsonProcessingException e) {
-            log.info("JsonProcessingException");
-            throw new RuntimeException(e);
-        }
+
         ResponseAndKey responseAndKey = ResponseAndKey
             .builder()
             .id(orderId)
-            .response(jsonResponse)
+            .response(message)
             .key("order")
             .build();
 

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import ru.liga.dto.CreateOrderResponse;
 import ru.liga.dto.ResponseAndKey;
 import ru.liga.service.rabbitMQ.CourierService;
 import ru.liga.service.rabbitMQ.OrderService;
@@ -46,18 +45,18 @@ public class QueueListener {
                 restaurantService.sendMessageCreate(orderId, message);
                 break;
             case ("order"):
-                message = objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                message =responseAndKey.getResponse(); //objectMapper.readValue(responseAndKey.getResponse(), String.class);
                 orderId = responseAndKey.getId();
                 orderService.sendMessageOrder(orderId, message);
                 break;
             case ("courier"):
-                String addressRestaurant = objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                String addressRestaurant = responseAndKey.getResponse();//objectMapper.readValue(responseAndKey.getResponse(), String.class);
                 orderId = responseAndKey.getId();
                 courierService.sendMessageSearch(orderId, addressRestaurant);
                 break;
             case ("kitchen_about_courier"):
                 orderId = responseAndKey.getId();
-                UUID courierId = objectMapper.readValue(responseAndKey.getResponse(), UUID.class);
+                UUID courierId = UUID.fromString(responseAndKey.getResponse());
                 restaurantService.sendMessageAboutSearchingCourier(orderId, courierId);
                 break;
 
