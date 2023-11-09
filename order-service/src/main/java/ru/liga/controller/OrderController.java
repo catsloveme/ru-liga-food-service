@@ -32,7 +32,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Tag(name = "API работы с заказом")
 @Slf4j
 @RestController
-@RequestMapping("/order-service")
+@RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderController {
 

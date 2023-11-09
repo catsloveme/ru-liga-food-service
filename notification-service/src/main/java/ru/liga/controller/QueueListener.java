@@ -32,8 +32,13 @@ public class QueueListener {
      * @param response ответ создание заказа
      */
     @RabbitListener(queues = "toNotification")
-    public void processQueueCreateOrder(String response) throws JsonProcessingException {
-        ResponseAndKey responseAndKey = objectMapper.readValue(response, ResponseAndKey.class);
+    public void processQueueCreateOrder(String response) {
+        ResponseAndKey responseAndKey = null;
+        try {
+            responseAndKey = objectMapper.readValue(response, ResponseAndKey.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         KEY = responseAndKey.getKey();
         UUID orderId;
         String message;
@@ -45,12 +50,12 @@ public class QueueListener {
                 restaurantService.sendMessageCreate(orderId, message);
                 break;
             case ("order"):
-                message =responseAndKey.getResponse(); //objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                message =responseAndKey.getResponse();
                 orderId = responseAndKey.getId();
                 orderService.sendMessageOrder(orderId, message);
                 break;
             case ("courier"):
-                String addressRestaurant = responseAndKey.getResponse();//objectMapper.readValue(responseAndKey.getResponse(), String.class);
+                String addressRestaurant = responseAndKey.getResponse();
                 orderId = responseAndKey.getId();
                 courierService.sendMessageSearch(orderId, addressRestaurant);
                 break;

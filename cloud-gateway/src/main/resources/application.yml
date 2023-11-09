@@ -14,15 +14,6 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/order-service/(?<path>.*),/$\{path}
 
-        - id: customer-service
-          uri: http://127.0.0.1:8084/
-          predicates:
-            - Path=/customer-service/**
-          filters:
-            - TokenRelay=
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/customer-service/(?<path>.*),/$\{path}
-
         - id: restaurant-service
           uri: http://127.0.0.1:8081/
           predicates:

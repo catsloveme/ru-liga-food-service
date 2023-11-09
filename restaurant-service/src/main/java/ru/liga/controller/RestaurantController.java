@@ -32,7 +32,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/restaurant-service")
+@RequestMapping("/restaurant")
 @Tag(name = "API работы с ресторанами и меню")
 public class RestaurantController {
 

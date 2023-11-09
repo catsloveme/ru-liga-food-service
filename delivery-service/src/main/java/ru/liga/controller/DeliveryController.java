@@ -27,7 +27,7 @@ import ru.liga.service.rabbitMQ.NotificationService;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/delivery-service")
+@RequestMapping("/delivery")
 @Tag(name = "API работы с курьерами")
 public class DeliveryController {
 
