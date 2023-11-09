@@ -41,5 +41,3 @@ spring:
         jwt:
           issuer-uri: http://localhost:9000
 
-mybatis:
-  mapper-locations: classpath*:ru/liga/batisMapper/*/*.xml
